@@ -488,7 +488,7 @@ textarea{resize:vertical;min-height:88px}
   <div class="brand"><span class="dot"></span><div>THE INCENTIVE ENGINE<small>Funnel Brain · Layer 6</small></div></div>
   <div class="tabs">
     <button class="tab active" data-goto="home">Start here</button>
-    <button class="tab" data-goto="a-list">Office — the rules</button>
+    <button class="tab" data-goto="a-list">Office — incentives</button>
     <button class="tab" data-goto="b-home">Partner app — earnings</button>
   </div>
   <div class="spacer"></div>
@@ -500,13 +500,13 @@ textarea{resize:vertical;min-height:88px}
     <div class="grp">Start here</div>
     <button class="navitem" data-goto="home"><span class="no">•</span> How it works</button>
 
-    <div class="grp">Office — set the rules</div>
-    <button class="navitem" data-goto="a-list"><span class="no">1</span> The rulebook</button>
-    <button class="navitem" data-goto="a-form"><span class="no">2</span> Create a rule</button>
+    <div class="grp">Office — set incentives</div>
+    <button class="navitem" data-goto="a-list"><span class="no">1</span> All incentives</button>
+    <button class="navitem" data-goto="a-form"><span class="no">2</span> Create an incentive</button>
     <button class="navitem" data-goto="a-review"><span class="no">3</span> Check the cost</button>
     <button class="navitem" data-goto="a-staged"><span class="no">4</span> Sent for approval</button>
-    <button class="navitem" data-goto="a-checker"><span class="no">5</span> Approve a rule</button>
-    <button class="navitem" data-goto="a-published"><span class="no">6</span> Rule goes live</button>
+    <button class="navitem" data-goto="a-checker"><span class="no">5</span> Approve it</button>
+    <button class="navitem" data-goto="a-published"><span class="no">6</span> It goes live</button>
     <button class="navitem" data-goto="a-disputes"><span class="no">7</span> Answer complaints</button>
 
     <div class="grp">Partner app — see earnings</div>
@@ -536,16 +536,16 @@ textarea{resize:vertical;min-height:88px}
         <div class="hero">
           <div class="tagline">The Incentive Engine · Funnel Brain Layer 6 · ENG-1680</div>
           <h1>Attribution earns the money</h1>
-          <p class="lead">The system already knows who earned every loan. This engine turns that into money — on a record that can never be quietly edited, with rules the business changes itself, and a number every field agent watches grow in real time. No more month-end hand calculation.</p>
+          <p class="lead">The system already knows who earned every loan. This engine turns that into money — on a record that can never be quietly edited, with incentives the business changes itself, and a number every field agent watches grow in real time. No more month-end hand calculation.</p>
           <div class="kick">Every incentive is one sentence: for this kind of actor on this kind of loan, pay this rate on this basis, adjusted by these gates, released on this schedule.</div>
         </div>
 
         <div class="two-col">
           <div class="entry" data-goto="a-list">
             <div class="badge">Office · one drafts, another approves</div>
-            <h3>The rulebook business owns</h3>
-            <p>Five simple blanks: who gets paid, on what amount, how much, any extra conditions, and when. One person drafts, the system shows what it will cost, another person approves. Old rules are never edited — a new version replaces them.</p>
-            <div class="steps"><span>1 · Rulebook</span><span>2 · Five slots</span><span>3 · Simulate</span><span>4 · Maker-checker</span><span>5 · Versioned publish</span></div>
+            <h3>Incentives the business owns</h3>
+            <p>Five simple blanks: who gets paid, on what amount, how much, any extra conditions, and when. One person drafts, the system shows what it will cost, another person approves. Old incentives are never edited — a new version replaces them.</p>
+            <div class="steps"><span>1 · All incentives</span><span>2 · Five slots</span><span>3 · Simulate</span><span>4 · Maker-checker</span><span>5 · Versioned publish</span></div>
             <div class="go">Open the office side →</div>
           </div>
           <div class="entry" data-goto="b-home">
@@ -572,7 +572,7 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 1 · ALL RULES ===== -->
     <section class="screen" id="a-list">
-      <div class="screen-head"><span class="id">Office · 1</span><div><h2>All the rules</h2><div class="sub">Every incentive is one simple sentence. Different kinds of pay can add up on one loan; within the same kind, the highest-priority rule wins — a flash bonus adds on top. A change never edits an old rule — it creates a new version.</div></div></div>
+      <div class="screen-head"><span class="id">Office · 1</span><div><h2>All incentives</h2><div class="sub">Every incentive is one simple sentence. Different kinds of pay can add up on one loan; within the same kind, the highest-priority incentive wins — a flash bonus adds on top. A change never edits an old incentive — it creates a new version.</div></div></div>
       <div class="console">
         <div class="panel">
           <div class="toolbar">
@@ -605,10 +605,10 @@ textarea{resize:vertical;min-height:88px}
                 <option value="ended">Replaced</option>
               </select>
             </div>
-            <button class="btn primary" data-goto="a-form" data-fresh="1">+ Create a rule</button>
+            <button class="btn primary" data-goto="a-form" data-fresh="1">+ Create an incentive</button>
           </div>
           <table class="rule-table">
-            <thead><tr><th>Rule</th><th>Category</th><th>Payee</th><th>Status</th><th>Ver</th><th>Effective</th><th>Pays</th><th></th></tr></thead>
+            <thead><tr><th>Incentive</th><th>Category</th><th>Payee</th><th>Status</th><th>Ver</th><th>Effective</th><th>Pays</th><th></th></tr></thead>
             <tbody id="rules-body"></tbody>
           </table>
         </div>
@@ -617,8 +617,8 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 2 · CREATE A RULE ===== -->
     <section class="screen" id="a-form">
-      <div class="breadcrumb"><b>Create a rule</b><span class="sep">›</span> Who<span class="sep">›</span> On what<span class="sep">›</span> How much<span class="sep">›</span> Conditions<span class="sep">›</span> When paid</div>
-      <div class="screen-head"><span class="id">Office · 2</span><div><h2>Create a rule — fill five blanks</h2><div class="sub">Five blanks, one rule. Open a step to change it — the sentence on the right updates live. <span class="auto-tag" style="vertical-align:middle">pre-filled</span> values come from the Incentive Structure and can be changed.</div></div></div>
+      <div class="breadcrumb"><b>Create an incentive</b><span class="sep">›</span> Who<span class="sep">›</span> On what<span class="sep">›</span> How much<span class="sep">›</span> Conditions<span class="sep">›</span> When paid</div>
+      <div class="screen-head"><span class="id">Office · 2</span><div><h2>Create an incentive — fill five blanks</h2><div class="sub">Five blanks, one incentive. Open a step to change it — the sentence on the right updates live. <span class="auto-tag" style="vertical-align:middle">pre-filled</span> values come from the Incentive Structure and can be changed.</div></div></div>
 
       <div class="create-grid">
       <div class="wizard">
@@ -637,10 +637,10 @@ textarea{resize:vertical;min-height:88px}
         <div class="fsection done" id="secA">
           <div class="fsec-head" onclick="accOpen('secA')"><span class="fsec-tag">1</span><div style="flex:1;display:flex;align-items:flex-start"><div style="flex:1"><h4>Who gets paid, and for what <span style="color:var(--muted-2);font-weight:400;font-size:12px">· Condition</span></h4><div class="hint">The people, the loan type, and what they must do.</div></div><span class="fsec-sum" id="sum-A"></span><span class="fsec-chev">▾</span></div></div>
           <div class="fsec-body">
-            <div class="field"><label>Rule name</label>
-              <input type="text" id="f-name" placeholder="e.g. SP self-source · Fresh · 0.35% ND" maxlength="60">
+            <div class="field"><label>Incentive name</label>
+              <input type="text" id="f-name" placeholder="e.g. SP self-source · Fresh · 0.35%" maxlength="60">
             </div>
-            <div class="field"><label>Who gets paid <span class="desc">— one role per rule</span></label>
+            <div class="field"><label>Who gets paid <span class="desc">— one role per incentive</span></label>
               <div class="chipselect" id="f-actor">
                 <button type="button" class="pchip on" data-val="SP" onclick="toggleActor(this)">Sales Partner (SP)</button>
                 <button type="button" class="pchip" data-val="AP" onclick="toggleActor(this)">Associate Partner (AP)</button>
@@ -678,7 +678,7 @@ textarea{resize:vertical;min-height:88px}
                 <option value="net-conversion">Their city or channel performs → scope-bonus</option>
               </select>
             </div>
-            <div class="field"><label>Rule type</label>
+            <div class="field"><label>Incentive type</label>
               <div class="seg" id="f-ruletype">
                 <button class="on" data-rt="standard" onclick="setRuleType('standard')">Normal</button>
                 <button data-rt="flash" onclick="setRuleType('flash')">Flash · short-time bonus</button>
@@ -686,7 +686,7 @@ textarea{resize:vertical;min-height:88px}
               <div id="flash-inline" style="display:none;margin-top:12px">
                 <div class="field" style="margin:0"><label>Expiry <span class="auto-tag">flash</span></label><input type="date" id="flash-date" value="2026-07-31"></div>
               </div>
-              <div class="note"><span class="i">✦</span> Flash = short-time extra <b>on top of</b> normal pay. Switches itself off at expiry.</div>
+              <div class="note"><span class="i">✦</span> Flash = short-time extra <b>on top of</b> the normal incentive. Switches itself off at expiry.</div>
             </div>
             <div class="field"><label>Starts from <span class="desc">— mid-month changes wait for next month</span></label>
               <input type="date" id="f-start" value="2026-08-01">
@@ -707,7 +707,7 @@ textarea{resize:vertical;min-height:88px}
                 <option>Net conversions — period aggregate</option>
                 <option disabled>Company profit (finance — after v1)</option>
               </select>
-              <div class="minihint">Reads from the maintained list of allowed facts — if a basis isn't on the list, the rule can't be written. Period aggregates are computed inside this engine only.</div>
+              <div class="minihint">Reads from the maintained list of allowed facts — if a basis isn't on the list, the incentive can't be written. Period aggregates are computed inside this engine only.</div>
               <div class="note" id="basis-note" style="display:none"><span class="i">⚠</span> Pay based on company profit (City Lead's PAT / EBITDA parts) comes a little later — it is not in the first version.</div>
             </div>
           </div>
@@ -742,10 +742,10 @@ textarea{resize:vertical;min-height:88px}
 
         <!-- Step 4 -->
         <div class="fsection collapsed" id="secD">
-          <div class="fsec-head" onclick="accOpen('secD')"><span class="fsec-tag">4</span><div style="flex:1;display:flex;align-items:flex-start"><div style="flex:1"><h4>Extra conditions <span style="color:var(--muted-2);font-weight:400;font-size:12px">· Modifiers · optional</span></h4><div class="hint">Gates switch the rule on/off; scalers pay more or less.</div></div><span class="fsec-sum" id="sum-D"></span><span class="fsec-chev">▾</span></div></div>
+          <div class="fsec-head" onclick="accOpen('secD')"><span class="fsec-tag">4</span><div style="flex:1;display:flex;align-items:flex-start"><div style="flex:1"><h4>Extra conditions <span style="color:var(--muted-2);font-weight:400;font-size:12px">· Modifiers · optional</span></h4><div class="hint">Gates switch the incentive on/off; scalers pay more or less.</div></div><span class="fsec-sum" id="sum-D"></span><span class="fsec-chev">▾</span></div></div>
           <div class="fsec-body">
             <div id="mods"></div>
-            <div class="note empty" id="mods-empty">No extra conditions — everyone who matches gets the full rate.</div>
+            <div class="note empty" id="mods-empty">No extra conditions — everyone who matches gets the full incentive.</div>
             <button class="add-row" onclick="addMod('gate')" style="margin-top:10px">+ Add a gate — a condition they must meet</button>
             <button class="add-row" onclick="addMod('scaler')" style="margin-top:8px">+ Add a scaler — pay more or less in some cases</button>
           </div>
@@ -784,7 +784,7 @@ textarea{resize:vertical;min-height:88px}
           <div class="rp-fact"><span>Loan type</span><b id="pv-loan">—</b></div>
           <div class="rp-fact"><span>If they do</span><b id="pv-did">—</b></div>
           <div class="rp-fact"><span>Category</span><b id="pv-cat">—</b></div>
-          <div class="rp-fact"><span>Rule type</span><b id="pv-kind">—</b></div>
+          <div class="rp-fact"><span>Incentive type</span><b id="pv-kind">—</b></div>
           <div class="rp-fact"><span>Basis</span><b id="pv-basis">—</b></div>
           <div class="rp-fact"><span>Rate / slab</span><b id="pv-pay">—</b></div>
           <div class="rp-fact"><span>Modifiers</span><b id="pv-extra">—</b></div>
@@ -801,11 +801,11 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 3 · CHECK THE COST ===== -->
     <section class="screen" id="a-review">
-      <div class="breadcrumb"><span data-goto="a-form" style="cursor:pointer">Create a rule</span><span class="sep">›</span><b>Check the cost</b></div>
-      <div class="screen-head"><span class="id">Office · 3</span><div><h2>Check the cost — before it goes anywhere</h2><div class="sub">The system replays this rule over the last 3 months of real loans, and projects next month. It only reads — nothing is paid and nothing goes live from this screen. The approver sees this exact check.</div></div></div>
+      <div class="breadcrumb"><span data-goto="a-form" style="cursor:pointer">Create an incentive</span><span class="sep">›</span><b>Check the cost</b></div>
+      <div class="screen-head"><span class="id">Office · 3</span><div><h2>Check the cost — before it goes anywhere</h2><div class="sub">The system replays this incentive over the last 3 months of real loans, and projects next month. It only reads — nothing is paid and nothing goes live from this screen. The approver sees this exact check.</div></div></div>
       <div class="console">
         <div class="panel">
-          <div class="p-sub" style="margin-bottom:12px">The rule, in one sentence:</div>
+          <div class="p-sub" style="margin-bottom:12px">The incentive, in one sentence:</div>
           <div class="summary-sentence">For <em>Sales Partners</em>, when they <em>find the customer themselves for a Fresh loan</em>, pay <em>0.35% of the loan amount</em>, released <em>half next month + half the month after</em>.</div>
           <div id="rv-facts"></div>
           <div id="rv-history" style="margin-top:14px"></div>
@@ -862,7 +862,7 @@ textarea{resize:vertical;min-height:88px}
             <span class="meta-chip"><b>maker</b> you</span>
             <span class="meta-chip"><b>checker</b> approver seat · assigned via access control</span>
             <span class="meta-chip"><b>effective</b> <span id="staged-starts">01 Aug 2026</span></span>
-            <span class="meta-chip"><b>rule</b> <span id="staged-ruleno">RUL-2026-0714</span></span>
+            <span class="meta-chip"><b>incentive</b> <span id="staged-ruleno">RUL-2026-0714</span></span>
           </div>
           <div class="actions">
             <button class="btn ghost-light" data-goto="a-form">Edit the draft</button>
@@ -875,7 +875,7 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 5 · APPROVE A RULE ===== -->
     <section class="screen" id="a-checker">
-      <div class="screen-head"><span class="id">Office · 5</span><div><h2>Approve or reject</h2><div class="sub">The approver sees the rule in plain words, with its cost check beside it. Approving makes it live as a new version — the old rule is never touched. Rejecting needs a reason, on the record.</div></div></div>
+      <div class="screen-head"><span class="id">Office · 5</span><div><h2>Approve or reject</h2><div class="sub">The approver sees the incentive in plain words, with its cost check beside it. Approving makes it live as a new version — the old rule is never touched. Rejecting needs a reason, on the record.</div></div></div>
       <div class="console">
         <div class="panel">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span class="pill staged">waiting</span><span class="readonly-flag">👁 View only — what the drafter sent</span></div>
@@ -922,17 +922,17 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 6 · LIVE ===== -->
     <section class="screen" id="a-published">
-      <div class="screen-head"><span class="id">Office · 6</span><div><h2>The rule is live</h2><div class="sub">Live from its start date, as a new version. Every loan keeps the rate that was live on its own date — a change never rewrites what anyone already earned.</div></div></div>
+      <div class="screen-head"><span class="id">Office · 6</span><div><h2>The incentive is live</h2><div class="sub">Live from its start date, as a new version. Every loan keeps the rate that was live on its own date — a change never rewrites what anyone already earned.</div></div></div>
       <div class="console">
         <div class="confirm">
           <div class="seal ok">✓</div>
           <h3>Live — as a new version</h3>
-          <p>Working from <span id="live-startdate">01 Aug 2026</span>. A loan given under the old version keeps the old rate forever — even if the maths is done later.</p>
+          <p>Working from <span id="live-startdate">01 Aug 2026</span>. A loan paid under the old version keeps the old rate forever — even if the maths is done later.</p>
           <div class="meta-row">
             <span class="meta-chip"><b>version</b> <span id="live-version">v8</span></span>
             <span class="meta-chip"><b>status</b> live</span>
             <span class="meta-chip"><b>effective</b> <span id="live-starts">01 Aug 2026</span></span>
-            <span class="meta-chip"><b>rule</b> <span id="live-ruleno">RUL-2026-0714</span></span>
+            <span class="meta-chip"><b>incentive</b> <span id="live-ruleno">RUL-2026-0714</span></span>
           </div>
           <div class="note-block" style="max-width:520px;margin:0 auto 24px;text-align:left"><b>Replaced, not deleted.</b> The old version stays on the record, marked replaced. For monthly-target rules, the change waits for next month — a running month is never disturbed.</div>
           <div class="actions"><button class="btn primary" data-goto="a-list">Back to all rules</button></div>
@@ -990,7 +990,7 @@ textarea{resize:vertical;min-height:88px}
           <div class="px-body">
             <div class="px-card" data-goto="b-rates" style="cursor:pointer;display:flex;align-items:center;gap:12px;padding:13px 16px">
               <span style="width:36px;height:36px;border-radius:50%;background:#E8F0FF;color:#1D4ED8;display:grid;place-items:center;font-size:15px;flex:none">★</span>
-              <div style="flex:1"><div style="font-weight:800;font-size:13.5px">My rate card</div><div style="font-size:11.5px;font-weight:500;color:#5B6472;margin-top:1px">What you earn today — updates the moment a rule changes</div></div>
+              <div style="flex:1"><div style="font-weight:800;font-size:13.5px">My rate card</div><div style="font-size:11.5px;font-weight:500;color:#5B6472;margin-top:1px">What you earn today — updates the moment an incentive changes</div></div>
               <span style="color:#94A3B8;font-size:18px">›</span>
             </div>
 
@@ -1006,7 +1006,7 @@ textarea{resize:vertical;min-height:88px}
               <div class="px-row" data-goto="b-firm" style="cursor:pointer"><div class="main"><div class="t">Fresh gold loan</div><div class="m">OML000482 · you found the customer</div><span class="px-chip amber">half paid · half 05 Aug</span></div><div class="amt">₹1,750</div></div>
               <div class="px-row" data-goto="b-firm" style="cursor:pointer"><div class="main"><div class="t">Fresh gold loan</div><div class="m">OML000471 · 0.35% + July bonus</div><span class="px-chip blue">comes next payout</span></div><div class="amt">₹2,240</div></div>
               <div class="px-row" data-goto="b-firm" style="cursor:pointer"><div class="main"><div class="t">Takeover gold loan</div><div class="m">OML000455 · half rate (low value)</div><span class="px-chip blue">counted this month</span></div><div class="amt">₹1,410</div></div>
-              <div class="px-row" onclick="toast('This rule has a gate: at least 5 fresh loans in the month. The earning exists from day one and shows as pending — when loan 5 lands, all of them firm up together. Never blank until the gate.')" style="cursor:pointer"><div class="main"><div class="t">Fresh gold loan</div><div class="m">OML000488 · gate: 5 fresh loans in the month</div><span class="px-chip amber">₹175 pending · 3 more to unlock</span></div><div class="amt" style="color:#94A3B8">₹175</div></div>
+              <div class="px-row" onclick="toast('This incentive has a gate: at least 5 fresh loans in the month. The earning exists from day one and shows as pending — when loan 5 lands, all of them firm up together. Never blank until the gate.')" style="cursor:pointer"><div class="main"><div class="t">Fresh gold loan</div><div class="m">OML000488 · gate: 5 fresh loans in the month</div><span class="px-chip amber">₹175 pending · 3 more to unlock</span></div><div class="amt" style="color:#94A3B8">₹175</div></div>
               <div class="px-row" onclick="toast('Ravi did two jobs on this loan — found the customer AND convinced them. Both pay, separately.')" style="cursor:pointer"><div class="main"><div class="t">Fresh gold loan · 2 payments</div><div class="m">OML000463 · finding ₹1,750 + convincing ₹600</div><span class="px-chip green">both jobs pay</span></div><div class="amt">₹2,350</div></div>
               <div class="px-row" onclick="toast('The customer closed this loan within 60 days, so the pay was taken back. Both lines stay visible — nothing is hidden.')" style="cursor:pointer"><div class="main"><div class="t">Takeover gold loan</div><div class="m">OML000459 · closed within 60 days</div><span class="px-chip red">money taken back</span></div><div class="amt red">−₹1,120</div></div>
               <div class="px-more">+ 37 more loans this month</div>
@@ -1035,21 +1035,21 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== APP 1b · MY RATE CARD ===== -->
     <section class="screen" id="b-rates">
-      <div class="screen-head"><span class="id">App · ★</span><div><h2>My rate card — always current</h2><div class="sub">Rules change — the partner never reads the rulebook. The app shows <b>their own rate card</b>, built live from the rules for their role. A change shows up here before it starts, and it never touches money already earned.</div></div></div>
+      <div class="screen-head"><span class="id">App · ★</span><div><h2>My rate card — always current</h2><div class="sub">Incentives change — the partner never reads the office list. The app shows <b>their own rate card</b>, built live from the incentives for their role. A change shows up here before it starts, and it never touches money already earned.</div></div></div>
       <div class="phone-stage">
         <div class="phone"><div class="notch"></div><div class="screenview">
           <div class="px-head">
             <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
             <div class="px-topline">
               <button class="px-back" data-goto="b-home">‹</button>
-              <div style="flex:1"><div class="px-id">My rate card</div><div class="px-sub">Sales Partner · live rules</div></div>
+              <div style="flex:1"><div class="px-id">My rate card</div><div class="px-sub">Sales Partner · live incentives</div></div>
             </div>
           </div>
           <div class="px-banner amber" id="rc-flashbanner" style="display:none"></div>
           <div class="px-body" id="rc-body"></div>
         </div></div>
         <div class="note-block" style="max-width:320px;margin-top:0">
-          <b>How a dynamic rule reaches a partner.</b> This card is a live read of the rulebook, filtered to <b>this partner's role</b>. Publish a change in the config side and it appears here instantly — as an <b>upcoming</b> entry until its start date. And because every loan pays the rate on <b>its own date</b>, a change never rewrites what was already earned. Try it: approve a new SP rule in the config flow, then come back here.
+          <b>How a changing incentive reaches a partner.</b> This card is a live read of the office list, filtered to <b>this partner's role</b>. Publish a change on the office side and it appears here instantly — as an <b>upcoming</b> entry until its start date. And because every loan pays the rate on <b>its own date</b>, a change never rewrites what was already earned. Try it: approve a new SP incentive, then come back here.
         </div>
       </div>
     </section>
@@ -1072,7 +1072,7 @@ textarea{resize:vertical;min-height:88px}
             <div class="px-label">You earned on this loan</div>
             <hr class="px-div">
             <div class="px-big"><span class="ru">₹</span>1,750</div>
-            <div class="px-note12" style="margin-top:6px">0.35% of the ₹5,00,000 loan · under rule v7</div>
+            <div class="px-note12" style="margin-top:6px">0.35% of the ₹5,00,000 loan · under incentive v7</div>
           </div>
           <div class="px-card">
             <div class="px-label">When it reaches you</div>
@@ -1083,7 +1083,7 @@ textarea{resize:vertical;min-height:88px}
           <div class="px-card">
             <div class="px-label">How it was worked out</div>
             <hr class="px-div">
-            <div class="px-kv"><span class="k">Rule</span><span class="v">SP self-source · Fresh · v7</span></div>
+            <div class="px-kv"><span class="k">Incentive</span><span class="v">SP self-source · Fresh · v7</span></div>
             <div class="px-kv"><span class="k">Why you earned it</span><span class="v">You found the customer</span></div>
             <div class="px-kv"><span class="k">Rate band</span><span class="v">Full rate (high-value loan)</span></div>
             <div class="px-kv"><span class="k">Paid as</span><span class="v">Half next month + half after</span></div>
@@ -1154,8 +1154,8 @@ textarea{resize:vertical;min-height:88px}
           <div class="px-card">
             <div class="px-label">What made up this total</div>
             <hr class="px-div">
-            <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Finding customers · 44 fresh loans</div><div class="m">0.35% of loan · rule v7</div></div><div class="amt">₹41,300</div></div>
-            <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Convincing customers · 12 loans</div><div class="m">0.20% of loan · rule v4 · pays along with finding</div></div><div class="amt">₹14,200</div></div>
+            <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Finding customers · 44 fresh loans</div><div class="m">0.35% of loan · incentive v7</div></div><div class="amt">₹41,300</div></div>
+            <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Convincing customers · 12 loans</div><div class="m">0.20% of loan · incentive v4 · pays along with finding</div></div><div class="amt">₹14,200</div></div>
             <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Added later — complaint accepted</div><div class="m">added to next month · 06 Jul</div><span class="px-chip amber">correction · shown</span></div><div class="amt" style="color:#d98a00">+₹3,400</div></div>
             <div class="px-row"><div class="main"><div class="t" style="color:#64748B">Month closed</div><div class="m">30 Jun · dated &amp; signed · the total above = sum of every line before this one</div><span class="px-chip grey">close line · ₹0</span></div><div class="amt" style="color:#94A3B8">₹0</div></div>
           </div>
@@ -1179,11 +1179,11 @@ textarea{resize:vertical;min-height:88px}
           <div class="px-card">
             <div class="px-label">July · line by line</div>
             <hr class="px-div">
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000482</div><div class="m">rule v7 · +0.35% of loan · found the customer</div><span class="px-chip green">locked</span></div><div class="amt">₹1,750</div></div>
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000471</div><div class="m">rule v7 + July bonus · +0.45% of loan</div><span class="px-chip amber">+ bonus</span></div><div class="amt">₹2,240</div></div>
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000448</div><div class="m">rule v4 · +0.20% of loan · convinced the customer</div><span class="px-chip green">locked</span></div><div class="amt">₹980</div></div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000482</div><div class="m">incentive v7 · +0.35% of loan · found the customer</div><span class="px-chip green">locked</span></div><div class="amt">₹1,750</div></div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000471</div><div class="m">incentive v7 + July bonus · +0.45% of loan</div><span class="px-chip amber">+ bonus</span></div><div class="amt">₹2,240</div></div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000448</div><div class="m">incentive v4 · +0.20% of loan · convinced the customer</div><span class="px-chip green">locked</span></div><div class="amt">₹980</div></div>
             <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000459</div><div class="m">−0.35% · loan closed within 60 days</div><span class="px-chip red">taken back · shown</span></div><div class="amt red">−₹1,120</div></div>
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000455</div><div class="m">rule v7 · +0.175% · half rate, low-value loan</div><span class="px-chip green">locked</span></div><div class="amt">₹1,410</div></div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000455</div><div class="m">incentive v7 · +0.175% · half rate, low-value loan</div><span class="px-chip green">locked</span></div><div class="amt">₹1,410</div></div>
             <div class="px-more">+ 37 more lines · your total is the sum of your lines</div>
           </div>
           <div class="px-note12" style="padding:0 4px">Nothing here can be edited. A correction is always a <b>new line you can see</b> — never a quiet change.</div>
@@ -1410,7 +1410,7 @@ function toggleActor(btn){
   applyAutofill();
 }
 function updateActorHint(){
-  document.getElementById('actor-hint').textContent = 'One rule pays one role — if two people earn on a loan, that\'s two rules firing.';
+  document.getElementById('actor-hint').textContent = 'One incentive pays one role — if two people earn on a loan, that\'s two incentives firing.';
 }
 function rateRow(label,key,val){
   return '<div class="role-rate-row"><span class="rname">'+label+'</span>'+
@@ -1601,7 +1601,7 @@ function updatePreview(){
 /* ---- validation: block or warn before "Check the cost" ---- */
 function validate(){
   const errs=[], warns=[];
-  if(!document.getElementById('f-name').value.trim()) errs.push('Give the rule a name');
+  if(!document.getElementById('f-name').value.trim()) errs.push('Give the incentive a name');
   if(!document.getElementById('f-start').value) errs.push('A start date is required — "immediately" means today\'s date, stated');
   const slabOn=document.querySelector('#rate-mode button.on').dataset.m==='slab';
   if(slabOn){
@@ -1712,7 +1712,7 @@ function openRule(id,btn){
   const r=RULES.find(x=>x.id===id); if(!r) return;
   loadRule(r);
   if(r.status==='draft'||r.status==='staged'){ show('a-form'); return; }
-  if(btn){ show('a-form'); toast('Cloned into a draft — a published rule is never edited; approving creates a new version with its own start date'); }
+  if(btn){ show('a-form'); toast('Cloned into a draft — a published incentive is never edited; approving creates a new version with its own start date'); }
   else show('a-review');
 }
 function nextVersion(r){
@@ -1799,7 +1799,7 @@ function addMod(kind,silent,auto){
     row.innerHTML='<span class="mtype">Scale</span> <select style="flex:1;min-width:0;padding:6px 10px"><option>Pay by loan value band — full / 70% / half (LTV)</option><option>Adjust by loan tenure</option></select><button class="x" onclick="rmMod(this)" title="Remove this scaler">✕</button>';
   }
   wrap.appendChild(row);
-  if(!silent) toast(kind==='gate'?'Gate added — it switches the rule on or off, never the amount':'Scaler added — it multiplies the computed payout');
+  if(!silent) toast(kind==='gate'?'Gate added — it switches the incentive on or off, never the amount':'Scaler added — it multiplies the computed payout');
   updatePreview();
 }
 function rmMod(btn){ btn.closest('.modrow').remove(); if(!document.querySelector('#mods .modrow')) document.getElementById('mods-empty').style.display='flex'; updatePreview(); }
@@ -1873,7 +1873,7 @@ function agentDraft(){
 let DISPUTES=[
   {id:'DSP-2026-0338',loan:'OML000448',by:'Ravi K · Sales Partner',filed:'03 Jul 2026',reason:'I found this customer myself — this should be 0.35%, not 0.20%',status:'open',adj:'+₹770'},
   {id:'DSP-2026-0310',loan:'OML000391',by:'Ravi K · Sales Partner',filed:'18 Jun 2026',reason:'One loan missing from my June total',status:'upheld',adj:'+₹3,400'},
-  {id:'DSP-2026-0287',loan:'OML000305',by:'Meena S · Caller',filed:'02 Jun 2026',reason:'Rate looks low on this loan',status:'rejected',why:'The accrual matched rule v7 as of the loan date.'}
+  {id:'DSP-2026-0287',loan:'OML000305',by:'Meena S · Caller',filed:'02 Jun 2026',reason:'Rate looks low on this loan',status:'rejected',why:'The accrual matched incentive v7 as of the loan date.'}
 ];
 function renderDisputes(){
   const el=document.getElementById('disp-list'); if(!el) return;
@@ -1920,7 +1920,7 @@ function renderRateCard(){
     }
   });
   let html='<div class="px-card"><div class="px-label">What you earn today</div><hr class="px-div">';
-  if(!live.length&&!bridge.length) html+='<div class="px-note12" style="padding:6px 0">No live rules for your role right now.</div>';
+  if(!live.length&&!bridge.length) html+='<div class="px-note12" style="padding:6px 0">No live incentives for your role right now.</div>';
   live.forEach(r=>{ html+=rcRow(r,'live · '+(r.ver||''),'green'); });
   bridge.forEach(b=>{ html+=rcRow(b.rule,'until '+fmtDate(b.until),'grey'); });
   html+='</div>';
@@ -1934,7 +1934,7 @@ function renderRateCard(){
     upcoming.forEach(r=>{ html+=rcRow(r,'from '+fmtDate(r.start),'blue'); });
     html+='<div class="px-note12" style="margin-top:8px">Until then, your current rate applies.</div></div>';
   }
-  html+='<div class="px-note12" style="padding:0 4px">A rate change <b>never touches what you already earned</b> — every loan pays the rate that was live on its own date.</div>';
+  html+='<div class="px-note12" style="padding:0 4px">An incentive change <b>never touches what you already earned</b> — every loan pays the rate that was live on its own date.</div>';
   body.innerHTML=html;
   const fb=document.getElementById('rc-flashbanner');
   if(flash.length){ fb.style.display='flex'; fb.textContent='★ '+(flash[0].name||'Boost')+' — extra pay till '+fmtDate(flash[0].end); }
