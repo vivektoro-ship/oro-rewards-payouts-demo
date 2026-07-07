@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Rewards & Payouts · Simple Flow Demo</title>
+<title>The Incentive Engine · Funnel Brain Layer 6 · Demo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&family=Fragment+Mono&display=swap" rel="stylesheet">
@@ -357,11 +357,11 @@ textarea{resize:vertical;min-height:88px}
 <body>
 
 <div class="topbar">
-  <div class="brand"><span class="dot"></span><div>REWARDS &amp; PAYOUTS<small>Simple flow demo</small></div></div>
+  <div class="brand"><span class="dot"></span><div>THE INCENTIVE ENGINE<small>Funnel Brain · Layer 6</small></div></div>
   <div class="tabs">
     <button class="tab active" data-goto="home">Start here</button>
-    <button class="tab" data-goto="a-list">Office — set rules</button>
-    <button class="tab" data-goto="b-home">App — my earnings</button>
+    <button class="tab" data-goto="a-list">Config — the rulebook</button>
+    <button class="tab" data-goto="b-home">Actor — my earnings</button>
   </div>
   <div class="spacer"></div>
   <div class="ver">CLICKABLE DEMO</div>
@@ -372,29 +372,29 @@ textarea{resize:vertical;min-height:88px}
     <div class="grp">Start here</div>
     <button class="navitem" data-goto="home"><span class="no">•</span> How it works</button>
 
-    <div class="grp">For the office — set the rules</div>
-    <button class="navitem" data-goto="a-list"><span class="no">1</span> All rules</button>
-    <button class="navitem" data-goto="a-form"><span class="no">2</span> Create a rule</button>
-    <button class="navitem" data-goto="a-review"><span class="no">3</span> Check the cost</button>
-    <button class="navitem" data-goto="a-staged"><span class="no">4</span> Send for approval</button>
-    <button class="navitem" data-goto="a-checker"><span class="no">5</span> Approve a rule</button>
-    <button class="navitem" data-goto="a-published"><span class="no">6</span> Rule is live</button>
+    <div class="grp">Config surface — the rulebook</div>
+    <button class="navitem" data-goto="a-list"><span class="no">1</span> The rulebook</button>
+    <button class="navitem" data-goto="a-form"><span class="no">2</span> Build a rule · 5 slots</button>
+    <button class="navitem" data-goto="a-review"><span class="no">3</span> Simulate the cost</button>
+    <button class="navitem" data-goto="a-staged"><span class="no">4</span> Staged version</button>
+    <button class="navitem" data-goto="a-checker"><span class="no">5</span> Checker review</button>
+    <button class="navitem" data-goto="a-published"><span class="no">6</span> Versioned publish</button>
 
-    <div class="grp">For field agents — see earnings</div>
+    <div class="grp">Actor view — real-time accrual</div>
     <button class="navitem" data-goto="b-home"><span class="no">1</span> My earnings</button>
-    <button class="navitem" data-goto="b-firm"><span class="no">2</span> A confirmed loan</button>
-    <button class="navitem" data-goto="b-prov"><span class="no">3</span> This month so far</button>
-    <button class="navitem" data-goto="b-final"><span class="no">4</span> A past month</button>
-    <button class="navitem" data-goto="b-explain"><span class="no">5</span> How it was worked out</button>
-    <button class="navitem" data-goto="b-dispute"><span class="no">6</span> Report a problem</button>
-    <button class="navitem" data-goto="b-submitted"><span class="no">7</span> Problem reported</button>
-    <button class="navitem" data-goto="b-history"><span class="no">8</span> My reports</button>
+    <button class="navitem" data-goto="b-firm"><span class="no">2</span> A firm accrual</button>
+    <button class="navitem" data-goto="b-prov"><span class="no">3</span> Provisional · this period</button>
+    <button class="navitem" data-goto="b-final"><span class="no">4</span> Final · a closed period</button>
+    <button class="navitem" data-goto="b-explain"><span class="no">5</span> Explain my payout</button>
+    <button class="navitem" data-goto="b-dispute"><span class="no">6</span> Raise a dispute</button>
+    <button class="navitem" data-goto="b-submitted"><span class="no">7</span> Dispute on record</button>
+    <button class="navitem" data-goto="b-history"><span class="no">8</span> My disputes</button>
 
     <div class="legend">
-      <div class="grp" style="margin:0 0 8px">What the 3 labels mean</div>
-      <div class="lrow"><span class="chip firm"></span> <span><b style="color:var(--shell-ink)">Confirmed</b> — set when the loan is given. Won't change.</span></div>
-      <div class="lrow"><span class="chip prov"></span> <span><b style="color:var(--shell-ink)">This month</b> — still adding up. Grows as you work.</span></div>
-      <div class="lrow"><span class="chip final"></span> <span><b style="color:var(--shell-ink)">Final</b> — the month is closed. The total is set.</span></div>
+      <div class="grp" style="margin:0 0 8px">Three accrual states</div>
+      <div class="lrow"><span class="chip firm"></span> <span><b style="color:var(--shell-ink)">Firm</b> — per-loan, locked at disbursal.</span></div>
+      <div class="lrow"><span class="chip prov"></span> <span><b style="color:var(--shell-ink)">Provisional</b> — period-grain, live, with slab context.</span></div>
+      <div class="lrow"><span class="chip final"></span> <span><b style="color:var(--shell-ink)">Final</b> — frozen at period close. Revisable only by append.</span></div>
     </div>
   </nav>
 
@@ -404,71 +404,80 @@ textarea{resize:vertical;min-height:88px}
     <section class="screen active" id="home">
       <div class="hero-wrap">
         <div class="hero">
-          <div class="tagline">Two simple screens · one honest record</div>
-          <h1>See what you earn — and why</h1>
-          <p class="lead">One easy screen lets the office decide how people get paid. One live screen lets field agents see what they've earned so far, and exactly how each amount was worked out — no waiting, no guessing.</p>
-          <div class="kick">Set who gets paid, for what, how much, and when — with no coding and no help from engineering.</div>
+          <div class="tagline">The Incentive Engine · Funnel Brain Layer 6 · ENG-1680</div>
+          <h1>Attribution earns the money</h1>
+          <p class="lead">The funnel already records who earned every loan. This engine reads that record and turns it into money: an append-only accrual ledger, a rulebook the business owns, and a number every actor can watch move in real time — never recomputed by hand.</p>
+          <div class="kick">Every incentive is one sentence: for this kind of actor on this kind of loan, pay this rate on this basis, adjusted by these gates, released on this schedule.</div>
         </div>
 
         <div class="two-col">
           <div class="entry" data-goto="a-list">
-            <div class="badge">For the office</div>
-            <h3>Set up how people get paid</h3>
-            <p>Fill in one simple form. It fills in whatever it can guess — you just check it or change it. Then someone approves it before it starts working.</p>
-            <div class="steps"><span>1 · All rules</span><span>2 · Create</span><span>3 · Check cost</span><span>4 · Approve</span><span>5 · Go live</span></div>
-            <div class="go">Open the office flow →</div>
+            <div class="badge">Config surface · maker-checker</div>
+            <h3>The rulebook business owns</h3>
+            <p>A guided five-slot builder — Condition, Basis, Rate, Modifiers, Schedule. A maker drafts, a simulation shows the cost, a checker approves, and it publishes as a new version. Never an edit.</p>
+            <div class="steps"><span>1 · Rulebook</span><span>2 · Five slots</span><span>3 · Simulate</span><span>4 · Maker-checker</span><span>5 · Versioned publish</span></div>
+            <div class="go">Open the config surface →</div>
           </div>
           <div class="entry" data-goto="b-home">
-            <div class="badge">For field agents</div>
-            <h3>See your earnings, clearly</h3>
-            <p>See what you've earned so far this month, what's already confirmed, and — line by line — exactly how each amount was worked out.</p>
-            <div class="steps"><span>1 · My earnings</span><span>2–4 · Details</span><span>5 · How it adds up</span><span>6–8 · Report a problem</span></div>
-            <div class="go">Open the agent flow →</div>
+            <div class="badge">Actor view · real time</div>
+            <h3>A number that moves as you work</h3>
+            <p>The instant a loan disburses, the accrual lands. Firm per-loan numbers, a live provisional period estimate with slab context, and every rupee tracing back to a ledger line.</p>
+            <div class="steps"><span>1 · My earnings</span><span>2–4 · Firm · Provisional · Final</span><span>5 · Explain my payout</span><span>6–8 · Dispute as append</span></div>
+            <div class="go">Open the actor view →</div>
           </div>
         </div>
 
-        <div class="section-title">The three simple labels you'll see</div>
+        <div class="section-title">The three accrual states · D11</div>
         <div class="states-strip">
-          <div class="state-card"><h4><span class="chip firm"></span> Confirmed</h4><p>Set the moment a loan is given. Nothing can change it after that.</p></div>
-          <div class="state-card"><h4><span class="chip prov"></span> This month</h4><p>Your running total for this month. It goes up as you do more work — and we always show how close you are to the next level.</p></div>
-          <div class="state-card"><h4><span class="chip final"></span> Final</h4><p>Locked when the month ends. It only changes if a correction is added — and we always show corrections.</p></div>
+          <div class="state-card"><h4><span class="chip firm"></span> Firm</h4><p>Per-loan, locked at disbursal. The actor sees it the instant the loan books — nothing about the period can change it.</p></div>
+          <div class="state-card"><h4><span class="chip prov"></span> Provisional</h4><p>Period-grain, recomputed as the period fills. Always shown with slab context — you are here, the next slab needs N more.</p></div>
+          <div class="state-card"><h4><span class="chip final"></span> Final</h4><p>Frozen at period close. Revisable only by an explicit append — a late conversion, an upheld dispute — never an edit.</p></div>
         </div>
 
         <div class="note-block">
-          <b>About this demo.</b> This is the clickable version of the design. Colours and fonts follow the sample style you shared. Every button below opens the screen it names — go ahead and click through the whole thing.
+          <b>About this demo.</b> A clickable walkthrough of the Incentive Engine (Funnel Brain · Layer 6, all seventeen decisions sealed). Rates, slabs and figures follow the Oro Incentive Structure; the rupee amounts are illustrative, the mechanism is not.
         </div>
       </div>
     </section>
 
     <!-- ===== OFFICE 1 · ALL RULES ===== -->
     <section class="screen" id="a-list">
-      <div class="screen-head"><span class="id">Office · 1</span><div><h2>All rules</h2><div class="sub">Every payout rule — the ones working now and the ones still being written. A new rule only starts working after someone approves it.</div></div></div>
+      <div class="screen-head"><span class="id">Config · 1</span><div><h2>The rulebook</h2><div class="sub">Every incentive is one sentence over facts we capture. Categories stack (sourcing + convincing on one loan is normal); within a category exactly one rule wins by precedence — flash is the declared additive exception. Publishing is versioned, never an edit.</div></div></div>
       <div class="console">
         <div class="panel">
           <div class="toolbar">
             <div class="filters">
               <select class="fsel" id="flt-who" onchange="renderRulesTable()">
-                <option value="all">Who · all</option>
-                <option value="SP">Sales Partner</option>
-                <option value="AP">Associate Partner</option>
-                <option value="Caller">Caller</option>
-                <option value="City Lead">City Lead</option>
-                <option value="Digital Manager">Digital Manager</option>
-                <option value="Collection Partner">Collection Partner</option>
-                <option value="Internal DB">Internal team</option>
+                <option value="all">Payee · all</option>
+                <option value="SP">SP · Sales Partner</option>
+                <option value="AP">AP · Associate Partner</option>
+                <option value="Caller">Caller · Ringmaster</option>
+                <option value="Collection Partner">CP · Collection Partner</option>
+                <option value="City Lead">City Lead · scope</option>
+                <option value="Digital Manager">Digital Manager · scope</option>
+                <option value="Internal DB">Internal DB</option>
+                <option value="Business Partner">Business Partner</option>
+              </select>
+              <select class="fsel" id="flt-cat" onchange="renderRulesTable()">
+                <option value="all">Category · all</option>
+                <option value="sourcing">Sourcing</option>
+                <option value="convincing">Convincing</option>
+                <option value="funnel/A2NU">Funnel / A2NU</option>
+                <option value="collection">Collection</option>
+                <option value="scope-bonus">Scope bonus</option>
               </select>
               <select class="fsel" id="flt-status" onchange="renderRulesTable()">
                 <option value="all">Status · all</option>
-                <option value="working">Working</option>
-                <option value="staged">Waiting for approval</option>
+                <option value="working">Live</option>
+                <option value="staged">Staged · with checker</option>
                 <option value="draft">Draft</option>
-                <option value="ended">Ended</option>
+                <option value="ended">Superseded</option>
               </select>
             </div>
             <button class="btn primary" data-goto="a-form" data-fresh="1">+ Create a rule</button>
           </div>
           <table class="rule-table">
-            <thead><tr><th>Rule name</th><th>Type</th><th>Who gets paid</th><th>Status</th><th>Starts from</th><th>Pays</th><th></th></tr></thead>
+            <thead><tr><th>Rule</th><th>Category</th><th>Payee</th><th>Status</th><th>Ver</th><th>Effective</th><th>Pays</th><th></th></tr></thead>
             <tbody id="rules-body"></tbody>
           </table>
         </div>
@@ -477,86 +486,89 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 2 · CREATE A RULE ===== -->
     <section class="screen" id="a-form">
-      <div class="breadcrumb"><b>Create a rule</b><span class="sep">›</span> Who &amp; what<span class="sep">›</span> Based on<span class="sep">›</span> How much<span class="sep">›</span> Extra rules<span class="sep">›</span> When paid</div>
-      <div class="screen-head"><span class="id">Office · 2</span><div><h2>Create a rule</h2><div class="sub">Fill the steps on the left — the preview on the right updates as you go. We pre-fill whatever we can guess; anything with a <span class="auto-tag" style="vertical-align:middle">we filled this</span> tag can be changed.</div></div></div>
+      <div class="breadcrumb"><b>Build a rule</b><span class="sep">›</span> Condition<span class="sep">›</span> Basis<span class="sep">›</span> Rate / slab<span class="sep">›</span> Modifiers<span class="sep">›</span> Schedule</div>
+      <div class="screen-head"><span class="id">Config · 2</span><div><h2>Build a rule — five slots</h2><div class="sub">A guided slot-builder, not a blank editor. Each slot picks only from facts the estate actually captures — the surface itself is the guardrail. Anything with a <span class="auto-tag" style="vertical-align:middle">pre-filled</span> tag came from the Incentive Structure defaults and can be changed.</div></div></div>
 
       <div class="create-grid">
       <div class="wizard">
         <!-- Step 1 -->
         <div class="fsection done" id="secA">
-          <div class="fsec-head"><span class="fsec-tag">1</span><div><h4>Who gets paid &amp; what they did</h4><div class="hint">The people this is for, and what they need to do. You fill this in.</div></div></div>
+          <div class="fsec-head"><span class="fsec-tag">1</span><div><h4>Condition — who and when the rule fires</h4><div class="hint">Actor type, loan type, event — and the rule's type. e.g. SP + self-source + Fresh.</div></div></div>
           <div class="fsec-body">
             <div class="field"><label>Rule name</label>
-              <input type="text" id="f-name" placeholder="e.g. Sales Partner — fresh loan sourcing" maxlength="60">
+              <input type="text" id="f-name" placeholder="e.g. SP self-source · Fresh · 0.35% ND" maxlength="60">
             </div>
-            <div class="field"><label>Who gets paid <span class="desc">— pick one or more roles</span></label>
+            <div class="field"><label>Payee type <span class="desc">— direct (per-loan, from the chain) or scope (per-period, via RBAC)</span></label>
               <div class="chipselect" id="f-actor">
-                <button type="button" class="pchip on" data-val="SP" onclick="toggleActor(this)">Sales Partner</button>
-                <button type="button" class="pchip" data-val="AP" onclick="toggleActor(this)">Associate Partner</button>
-                <button type="button" class="pchip" data-val="Caller" onclick="toggleActor(this)">Caller</button>
-                <button type="button" class="pchip" data-val="City Lead" onclick="toggleActor(this)">City Lead</button>
-                <button type="button" class="pchip" data-val="Digital Manager" onclick="toggleActor(this)">Digital Manager</button>
-                <button type="button" class="pchip" data-val="Collection Partner" onclick="toggleActor(this)">Collection Partner</button>
-                <button type="button" class="pchip" data-val="Internal DB" onclick="toggleActor(this)">Internal team</button>
+                <button type="button" class="pchip on" data-val="SP" onclick="toggleActor(this)">SP · direct</button>
+                <button type="button" class="pchip" data-val="AP" onclick="toggleActor(this)">AP · direct</button>
+                <button type="button" class="pchip" data-val="Caller" onclick="toggleActor(this)">Caller · direct</button>
+                <button type="button" class="pchip" data-val="Collection Partner" onclick="toggleActor(this)">CP · direct</button>
+                <button type="button" class="pchip" data-val="City Lead" onclick="toggleActor(this)">City Lead · scope: city</button>
+                <button type="button" class="pchip" data-val="Digital Manager" onclick="toggleActor(this)">Digital Mgr · scope: channel</button>
+                <button type="button" class="pchip" data-val="Internal DB" onclick="toggleActor(this)">Internal DB</button>
+                <button type="button" class="pchip" data-val="Business Partner" onclick="toggleActor(this)">Business Partner</button>
               </div>
-              <div class="minihint" id="actor-hint">1 role selected</div>
+              <div class="minihint" id="actor-hint">1 payee type selected</div>
             </div>
-            <div class="field"><label>Type of loan</label>
+            <div class="field"><label>Loan type <span class="desc">— the five lifecycle buckets from LRM</span></label>
               <select id="f-loan" onchange="applyAutofill()">
                 <option value="fresh">Fresh</option>
                 <option value="takeover">Takeover</option>
-                <option value="others">Others</option>
+                <option value="continuation">Continuation (renewal · top-up · part-release · merge)</option>
+                <option value="attached">Attached</option>
+                <option value="additional">Additional</option>
               </select>
             </div>
-            <div class="field"><label>What they did <span class="desc">— the options change with the loan type</span></label>
+            <div class="field"><label>Event <span class="desc">— the attribution fact the rule reads, sets the category</span></label>
               <select id="f-event" onchange="applyAutofill()">
-                <option value="self-source">Found the customer themselves</option>
-                <option value="convincing">Convinced the customer</option>
-                <option value="new-customer">Brought a brand-new customer</option>
-                <option value="funnel-a2nu">Brought new customers (counted by level)</option>
-                <option value="closure-bucket">Reached a loan-closing target</option>
+                <option value="self-source">Self-sourced the loan → sourcing</option>
+                <option value="convincing">Convinced the customer → convincing</option>
+                <option value="funnel-a2nu">New customers this period (A2NU) → funnel/A2NU</option>
+                <option value="closure-bucket">Drove repayment (closure bucket) → collection</option>
+                <option value="net-conversion">Net conversions on scope → scope-bonus</option>
               </select>
             </div>
-            <div class="field"><label>Kind of rule</label>
+            <div class="field"><label>Rule type</label>
               <div class="seg" id="f-ruletype">
                 <button class="on" data-rt="standard" onclick="setRuleType('standard')">Normal</button>
-                <button data-rt="flash" onclick="setRuleType('flash')">Limited-time</button>
+                <button data-rt="flash" onclick="setRuleType('flash')">Flash</button>
               </div>
               <div id="flash-inline" style="display:none;margin-top:12px">
-                <div class="field" style="margin:0"><label>Ends on <span class="auto-tag">limited-time</span></label><input type="date" id="flash-date" value="2026-07-31"></div>
+                <div class="field" style="margin:0"><label>Expiry <span class="auto-tag">flash</span></label><input type="date" id="flash-date" value="2026-07-31"></div>
               </div>
-              <div class="note"><span class="i">✦</span> A limited-time rule adds extra pay on top of the normal pay, and stops on its own once the end date passes.</div>
+              <div class="note"><span class="i">✦</span> Flash is a first-class rule type: additive over the base, this-period by default, auto-expiring. No engineering ticket per flash — same surface as any rule.</div>
             </div>
-            <div class="field"><label>Starts from</label>
-              <input type="date" id="f-start" value="2026-07-14">
+            <div class="field"><label>Effective from <span class="desc">— versioned publish; a mid-period change to a period-grain rate takes effect next period by default</span></label>
+              <input type="date" id="f-start" value="2026-08-01">
             </div>
           </div>
         </div>
 
         <!-- Step 2 -->
         <div class="fsection" id="secB">
-          <div class="fsec-head"><span class="fsec-tag">2</span><div><h4>What the pay is based on</h4><div class="hint">We usually fill this in — using only what we can actually measure for this person.</div></div></div>
+          <div class="fsec-head"><span class="fsec-tag">2</span><div><h4>Basis — percent of what</h4><div class="hint">The amount the rate applies to. Only facts we capture: ND from the loan record, A2NU% from the engine's own rollup.</div></div></div>
           <div class="fsec-body">
-            <div class="field autofilled" id="fw-basis"><label>Pay is based on <span class="auto-tag" id="basis-auto">we filled this</span></label>
-              <select id="f-basis"><option>The loan amount</option><option>Number of new customers</option><option>A finance target</option></select>
-              <div class="note" id="basis-note" style="display:none"><span class="i">⚠</span> This uses a finance target — please check with the finance team before it goes live.</div>
+            <div class="field autofilled" id="fw-basis"><label>Basis <span class="auto-tag" id="basis-auto">pre-filled</span></label>
+              <select id="f-basis"><option>Net disbursal (ND)</option><option>A2NU % for the period</option><option>Finance metric (PAT / EBITDA)</option></select>
+              <div class="note" id="basis-note" style="display:none"><span class="i">⚠</span> Finance-metric basis (City Lead PAT bands, EBITDA kickers) is a documented fast-follow, not v1 — the slot shape holds, the feed ships just after.</div>
             </div>
           </div>
         </div>
 
         <!-- Step 3 -->
         <div class="fsection" id="secC">
-          <div class="fsec-head"><span class="fsec-tag">3</span><div><h4>How much to pay</h4><div class="hint">A flat percentage, a different rate for each role, or rates by level.</div></div></div>
+          <div class="fsec-head"><span class="fsec-tag">3</span><div><h4>Rate or slab — the number</h4><div class="hint">A flat rate on the basis, or a slab table the period metric selects a row from.</div></div></div>
           <div class="fsec-body">
             <div class="seg" id="rate-mode">
               <button class="on" data-m="flat" onclick="setRateMode('flat')">Flat rate</button>
-              <button data-m="slab" onclick="setRateMode('slab')">Rates by level</button>
+              <button data-m="slab" onclick="setRateMode('slab')">Slab table</button>
             </div>
             <div id="rate-flat" style="margin-top:14px">
-              <label class="sameall" id="same-rate-wrap" style="display:none"><input type="checkbox" id="same-rate" checked onchange="renderRoleRates()"> Use the same rate for every role</label>
+              <label class="sameall" id="same-rate-wrap" style="display:none"><input type="checkbox" id="same-rate" checked onchange="renderRoleRates()"> Same rate for every payee type</label>
               <div id="role-rates"></div>
               <input type="hidden" id="f-rate" value="0.35">
-              <div class="rate-preview" id="rate-prev">For example — on a ₹50,000 loan, this pays <b>₹175</b></div>
+              <div class="rate-preview" id="rate-prev">For example — on ₹50,000 ND, this accrues <b>₹175</b></div>
             </div>
             <div id="rate-slab" style="display:none;margin-top:14px">
               <div style="overflow-x:auto">
@@ -565,31 +577,42 @@ textarea{resize:vertical;min-height:88px}
                   <tbody id="slab-body"></tbody>
                 </table>
               </div>
-              <button class="add-row" onclick="addSlab()" style="margin-top:10px">+ Add a level</button>
-              <div class="note"><span class="i">✦</span> Set a rate for every role at each level. Leave the last <b>Up to</b> blank for “and above”.</div>
+              <button class="add-row" onclick="addSlab()" style="margin-top:10px">+ Add a slab row</button>
+              <div class="note"><span class="i">✦</span> The period metric selects the row — it does not gate and does not scale. Leave the last <b>Up to</b> blank for “and above”. (A2NU: select-slab → gate → scale.)</div>
             </div>
           </div>
         </div>
 
         <!-- Step 4 -->
         <div class="fsection" id="secD">
-          <div class="fsec-head"><span class="fsec-tag">4</span><div><h4>Extra rules <span style="color:var(--muted);font-weight:400;font-size:13px">(optional)</span></h4><div class="hint">Add a condition they must meet, or pay a bit more or less in some cases.</div></div></div>
+          <div class="fsec-head"><span class="fsec-tag">4</span><div><h4>Modifiers — the gates and multipliers <span style="color:var(--muted);font-weight:400;font-size:13px">(optional)</span></h4><div class="hint">Gate kind switches the rule on/off without changing the amount. Scale kind multiplies the computed payout. Compound gates compose on this one slot.</div></div></div>
           <div class="fsec-body">
             <div id="mods"></div>
-            <div class="note empty" id="mods-empty">No extra rules — this pays the full amount to everyone who qualifies, with no extra checks.</div>
-            <button class="add-row" onclick="addMod('gate')" style="margin-top:10px">+ Add a condition they must meet <span style="color:var(--muted)">— e.g. a minimum number of loans, or a fraud check</span></button>
-            <button class="add-row" onclick="addMod('scaler')" style="margin-top:8px">+ Pay more or less in some cases <span style="color:var(--muted)">— e.g. pay less for higher-risk loans</span></button>
+            <div class="note empty" id="mods-empty">No modifiers — the rule pays its full rate to every accrual that matches the Condition.</div>
+            <button class="add-row" onclick="addMod('gate')" style="margin-top:10px">+ Add a gate <span style="color:var(--muted)">— min count, portfolio ratio, anti-fraud</span></button>
+            <button class="add-row" onclick="addMod('scaler')" style="margin-top:8px">+ Add a scaler <span style="color:var(--muted)">— LTV multiplier, tenure variant</span></button>
           </div>
         </div>
 
         <!-- Step 5 -->
         <div class="fsection" id="secE">
-          <div class="fsec-head"><span class="fsec-tag">5</span><div><h4>When they get paid</h4><div class="hint">We usually fill this in from the last rule for the same group.</div></div></div>
+          <div class="fsec-head"><span class="fsec-tag">5</span><div><h4>Schedule — how it releases</h4><div class="hint">The engine schedules tranches and marks each payable; a downstream payout action moves the money. The split and the 60-day clawback window are levers, not code.</div></div></div>
           <div class="fsec-body">
-            <div class="field autofilled" id="fw-sched"><label>Payout timing <span class="auto-tag" id="sched-auto">we filled this</span></label>
+            <div class="field autofilled" id="fw-sched"><label>Release plan <span class="auto-tag" id="sched-auto">pre-filled</span></label>
               <select id="f-sched">
-                <option>Half now, half next month</option><option>Full amount next month</option>
-                <option>This month or next month</option><option>Every 3 months</option>
+                <option>50% next month + 50% month after</option>
+                <option>100% next month</option>
+                <option>Same month</option>
+                <option>At closure bucket</option>
+                <option>Quarterly</option>
+              </select>
+            </div>
+            <div class="field"><label>Clawback window <span class="desc">— a release inside the window claws base and flash both</span></label>
+              <select id="f-claw">
+                <option>60 days from disbursal · full</option>
+                <option>60 days · flat-partial</option>
+                <option>60 days · tapered by day</option>
+                <option>No clawback</option>
               </select>
             </div>
           </div>
@@ -597,21 +620,22 @@ textarea{resize:vertical;min-height:88px}
       </div><!-- /.wizard -->
 
       <aside class="rule-preview">
-        <div class="rp-head"><span class="rp-dot"></span> Live preview</div>
+        <div class="rp-head"><span class="rp-dot"></span> The one sentence · live</div>
         <div class="rp-sentence" id="preview-sentence"></div>
         <div class="rp-facts">
-          <div class="rp-fact"><span>Who gets paid</span><b id="pv-who">—</b></div>
-          <div class="rp-fact"><span>Type of loan</span><b id="pv-loan">—</b></div>
-          <div class="rp-fact"><span>What they did</span><b id="pv-did">—</b></div>
-          <div class="rp-fact"><span>Kind of rule</span><b id="pv-kind">—</b></div>
-          <div class="rp-fact"><span>Based on</span><b id="pv-basis">—</b></div>
-          <div class="rp-fact"><span>How much</span><b id="pv-pay">—</b></div>
-          <div class="rp-fact"><span>Extra rules</span><b id="pv-extra">—</b></div>
-          <div class="rp-fact"><span>When paid</span><b id="pv-when">—</b></div>
+          <div class="rp-fact"><span>Payee type</span><b id="pv-who">—</b></div>
+          <div class="rp-fact"><span>Loan type</span><b id="pv-loan">—</b></div>
+          <div class="rp-fact"><span>Event</span><b id="pv-did">—</b></div>
+          <div class="rp-fact"><span>Category</span><b id="pv-cat">—</b></div>
+          <div class="rp-fact"><span>Rule type</span><b id="pv-kind">—</b></div>
+          <div class="rp-fact"><span>Basis</span><b id="pv-basis">—</b></div>
+          <div class="rp-fact"><span>Rate / slab</span><b id="pv-pay">—</b></div>
+          <div class="rp-fact"><span>Modifiers</span><b id="pv-extra">—</b></div>
+          <div class="rp-fact"><span>Schedule</span><b id="pv-when">—</b></div>
         </div>
-        <div class="rp-status" id="resolve-status"><span>✓</span> Ready to check the cost</div>
+        <div class="rp-status" id="resolve-status"><span>✓</span> Valid slot-fill — ready to simulate</div>
         <div class="rp-actions">
-          <button class="btn primary full" id="to-review" data-goto="a-review">Check the cost →</button>
+          <button class="btn primary full" id="to-review" data-goto="a-review">Simulate the cost →</button>
           <button class="btn ghost full" data-goto="a-list">Cancel</button>
         </div>
       </aside>
@@ -620,69 +644,71 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 3 · CHECK THE COST ===== -->
     <section class="screen" id="a-review">
-      <div class="breadcrumb"><span data-goto="a-form" style="cursor:pointer">Create a rule</span><span class="sep">›</span><b>Check the cost</b></div>
-      <div class="screen-head"><span class="id">Office · 3</span><div><h2>Check the cost</h2><div class="sub">See how much this rule will cost before you send it for approval.</div></div></div>
+      <div class="breadcrumb"><span data-goto="a-form" style="cursor:pointer">Build a rule</span><span class="sep">›</span><b>Simulate the cost</b></div>
+      <div class="screen-head"><span class="id">Config · 3</span><div><h2>Simulate the cost — the checker's evidence</h2><div class="sub">The simulation agent replays the candidate over the last 3 months of real loans (backtest) and projects it forward against expected volume. Read-only: it never writes an accrual, never publishes. It reuses the live engine's exact aggregation paths, so it cannot drift from production.</div></div></div>
       <div class="console">
         <div class="panel">
-          <div class="p-sub" style="margin-bottom:12px">Here's your rule in one plain sentence:</div>
-          <div class="summary-sentence">For <em>Sales Partners</em>, when they <em>find a customer for a fresh gold loan</em>, pay <em>0.35% of the loan amount</em> — and give it as <em>half this month and half next month</em>.</div>
+          <div class="p-sub" style="margin-bottom:12px">The candidate rule, in one sentence:</div>
+          <div class="summary-sentence">For <em>SPs</em>, when they <em>self-source a Fresh loan</em>, pay <em>0.35% of net disbursal</em> — <em>×0.5 for Low-LTV</em> — released <em>50% next month, 50% the month after</em>.</div>
         </div>
         <div class="panel">
-          <h3>What will it cost?</h3>
-          <div class="p-sub">A quick check against your current pay rules and your expected work.</div>
+          <h3>Backtest — candidate vs current rulebook</h3>
+          <div class="p-sub">Last 3 months of real history, by category (₹ lakh). History replays identically because the chain is append-only.</div>
           <div class="sim-grid">
             <div class="sim-card">
-              <h5>What it would have cost</h5>
-              <div class="cap">If you'd used this rule for the last 3 months, by type (₹ lakh)</div>
+              <h5>Cost by category</h5>
+              <div class="cap">current rulebook vs candidate (₹ lakh)</div>
               <div class="bars">
-                <div class="barpair"><div class="cols"><div class="bar cur" style="height:52%"></div><div class="bar new" style="height:70%"></div></div><div class="lbl">Finding<br>customers</div></div>
-                <div class="barpair"><div class="cols"><div class="bar cur" style="height:40%"></div><div class="bar new" style="height:44%"></div></div><div class="lbl">Convincing</div></div>
-                <div class="barpair"><div class="cols"><div class="bar cur" style="height:64%"></div><div class="bar new" style="height:58%"></div></div><div class="lbl">New<br>customers</div></div>
-                <div class="barpair"><div class="cols"><div class="bar cur" style="height:30%"></div><div class="bar new" style="height:34%"></div></div><div class="lbl">Collections</div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:86%" id="bt-c1"></div><div class="bar new" style="height:96%" id="bt-n1"></div></div><div class="lbl">sourcing<br>12.0 → <b id="bt-v1">13.5</b></div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:43%" id="bt-c2"></div><div class="bar new" style="height:43%" id="bt-n2"></div></div><div class="lbl">convincing<br>6.0 → <b id="bt-v2">6.0</b></div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:57%" id="bt-c3"></div><div class="bar new" style="height:75%" id="bt-n3"></div></div><div class="lbl">funnel A2NU<br>8.0 → <b id="bt-v3">10.5</b></div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:29%" id="bt-c4"></div><div class="bar new" style="height:25%" id="bt-n4"></div></div><div class="lbl">collection<br>4.0 → <b id="bt-v4">3.5</b></div></div>
               </div>
-              <div class="legend-mini"><span><i style="background:#b6b6cf"></i> your rules now</span><span><i style="background:var(--indigo)"></i> this new rule</span></div>
-              <div class="delta-line"><span>Extra cost compared to now</span><span class="val" id="cost-delta">+ ₹2.4 lakh each period</span></div>
+              <div class="legend-mini"><span><i style="background:#b6b6cf"></i> current</span><span><i style="background:var(--indigo)"></i> candidate</span></div>
+              <div class="delta-line"><span>Total delta vs current</span><span class="val" id="cost-delta">+ ₹3.5 lakh / period</span></div>
             </div>
             <div class="sim-card">
-              <h5>What it might cost next month</h5>
-              <div class="cap">A best guess, based on the work you expect</div>
+              <h5>Forward simulation</h5>
+              <div class="cap">the same rule against expected volume, next period</div>
               <div class="bars">
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:38%"></div></div><div class="lbl">Week 1</div></div>
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:56%"></div></div><div class="lbl">Week 2</div></div>
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:72%"></div></div><div class="lbl">Week 3</div></div>
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:90%"></div></div><div class="lbl">Week 4</div></div>
               </div>
-              <div class="legend-mini"><span><i style="background:var(--indigo)"></i> expected payout</span></div>
-              <div class="delta-line"><span>Expected total next month</span><span class="val" style="color:var(--indigo-2)" id="cost-next">₹18.7 lakh</span></div>
+              <div class="legend-mini"><span><i style="background:var(--indigo)"></i> projected accrual</span></div>
+              <div class="delta-line"><span>Projected total next period</span><span class="val" style="color:var(--indigo-2)" id="cost-next">₹33.5 lakh</span></div>
             </div>
           </div>
+          <div class="note" style="margin-top:14px"><span class="i">≡</span> Per-actor and per-category impact attach to the staged version — no rule reaches a checker without a costed simulation beside it.</div>
         </div>
         <div class="sticky-foot">
-          <button class="btn ghost" data-goto="a-form">← Go back and edit</button>
+          <button class="btn ghost" data-goto="a-form">← Back to the slots</button>
           <div class="spacer"></div>
-          <button class="btn primary" data-goto="a-staged">Send for approval</button>
+          <button class="btn primary" data-goto="a-staged">Stage for the checker</button>
         </div>
       </div>
     </section>
 
     <!-- ===== OFFICE 4 · SENT FOR APPROVAL ===== -->
     <section class="screen" id="a-staged">
-      <div class="screen-head"><span class="id">Office · 4</span><div><h2>Sent for approval</h2><div class="sub">Your rule is saved and waiting. It won't start working until someone approves it.</div></div></div>
+      <div class="screen-head"><span class="id">Config · 4</span><div><h2>Staged version — with the checker</h2><div class="sub">Maker-checker, the same pattern Layer 4 uses for the Re-Attribution Engine: a maker proposes, a checker approves, and only then does it publish — as a version, never an edit.</div></div></div>
       <div class="console">
         <div class="confirm">
           <div class="seal stage">◔</div>
-          <h3>Saved — waiting for approval</h3>
-          <p>It won't start working until an approver says yes. You can still edit it until then.</p>
+          <h3>Staged — not yet live</h3>
+          <p>The draft is a staged rule version with the costed simulation attached. The maker can still amend it; nothing accrues until the checker approves.</p>
           <div class="meta-row">
-            <span class="meta-chip"><b>status</b> waiting</span>
-            <span class="meta-chip"><b>approver</b> Pragadeesh</span>
-            <span class="meta-chip"><b>starts</b> <span id="staged-starts">14 Jul 2026</span></span>
-            <span class="meta-chip"><b>rule no.</b> <span id="staged-ruleno">RUL-2026-0714</span></span>
+            <span class="meta-chip"><b>status</b> staged</span>
+            <span class="meta-chip"><b>maker</b> you</span>
+            <span class="meta-chip"><b>checker</b> Yash</span>
+            <span class="meta-chip"><b>effective</b> <span id="staged-starts">01 Aug 2026</span></span>
+            <span class="meta-chip"><b>rule</b> <span id="staged-ruleno">RUL-2026-0714</span></span>
           </div>
           <div class="actions">
-            <button class="btn ghost-light" data-goto="a-form">Edit it</button>
-            <button class="btn primary" data-goto="a-list">See all rules</button>
-            <button class="btn ghost-light" data-goto="a-checker">See the approver's view →</button>
+            <button class="btn ghost-light" data-goto="a-form">Amend the draft</button>
+            <button class="btn primary" data-goto="a-list">Back to the rulebook</button>
+            <button class="btn ghost-light" data-goto="a-checker">See the checker's view →</button>
           </div>
         </div>
       </div>
@@ -690,64 +716,66 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== OFFICE 5 · APPROVE A RULE ===== -->
     <section class="screen" id="a-checker">
-      <div class="screen-head"><span class="id">Office · 5</span><div><h2>Approve a rule</h2><div class="sub">Say yes or no to this rule before it starts working.</div></div></div>
+      <div class="screen-head"><span class="id">Config · 5</span><div><h2>Checker review</h2><div class="sub">The checker sees the staged version, its slot-fill, and the simulation beside it. Approving publishes a new rule version — never an in-place edit.</div></div></div>
       <div class="console">
         <div class="panel">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span class="pill staged">waiting</span><span class="readonly-flag">👁 View only — this is what the creator sent</span></div>
-          <div class="summary-sentence">For <em>Sales Partners</em>, when they <em>find a customer for a fresh gold loan</em>, pay <em>0.35% of the loan amount</em> — and give it as <em>half this month and half next month</em>.</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span class="pill staged">staged</span><span class="readonly-flag">👁 Read-only — the maker's staged version</span></div>
+          <div class="summary-sentence">For <em>SPs</em>, when they <em>self-source a Fresh loan</em>, pay <em>0.35% of net disbursal</em> — <em>×0.5 for Low-LTV</em> — released <em>50% next month, 50% the month after</em>.</div>
         </div>
         <div class="panel">
-          <h3>The creator's cost check <span class="readonly-flag" style="margin-left:8px">👁 view only</span></h3>
+          <h3>The simulation, attached <span class="readonly-flag" style="margin-left:8px">👁 checker's evidence</span></h3>
           <div class="sim-grid">
             <div class="sim-card">
-              <h5>What it would have cost</h5><div class="cap">Compared to your current rules, last 3 months</div>
+              <h5>Backtest by category</h5><div class="cap">current vs candidate, last 3 months (₹ lakh)</div>
               <div class="bars">
-                <div class="barpair"><div class="cols"><div class="bar cur" style="height:52%"></div><div class="bar new" style="height:70%"></div></div><div class="lbl">Finding<br>customers</div></div>
-                <div class="barpair"><div class="cols"><div class="bar cur" style="height:40%"></div><div class="bar new" style="height:44%"></div></div><div class="lbl">Convincing</div></div>
-                <div class="barpair"><div class="cols"><div class="bar cur" style="height:64%"></div><div class="bar new" style="height:58%"></div></div><div class="lbl">New<br>customers</div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:86%"></div><div class="bar new" style="height:96%"></div></div><div class="lbl">sourcing</div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:43%"></div><div class="bar new" style="height:43%"></div></div><div class="lbl">convincing</div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:57%"></div><div class="bar new" style="height:75%"></div></div><div class="lbl">funnel A2NU</div></div>
+                <div class="barpair"><div class="cols"><div class="bar cur" style="height:29%"></div><div class="bar new" style="height:25%"></div></div><div class="lbl">collection</div></div>
               </div>
-              <div class="delta-line"><span>Extra cost vs now</span><span class="val" id="cost-delta2">+ ₹2.4 lakh each period</span></div>
+              <div class="delta-line"><span>Total delta vs current</span><span class="val" id="cost-delta2">+ ₹3.5 lakh / period</span></div>
             </div>
             <div class="sim-card">
-              <h5>What it might cost next month</h5><div class="cap">Based on the work expected</div>
+              <h5>Forward simulation</h5><div class="cap">against expected volume</div>
               <div class="bars">
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:38%"></div></div><div class="lbl">Wk 1</div></div>
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:56%"></div></div><div class="lbl">Wk 2</div></div>
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:72%"></div></div><div class="lbl">Wk 3</div></div>
                 <div class="barpair"><div class="cols"><div class="bar new" style="height:90%"></div></div><div class="lbl">Wk 4</div></div>
               </div>
-              <div class="delta-line"><span>Expected total</span><span class="val" style="color:var(--indigo-2)">₹18.7 lakh</span></div>
+              <div class="delta-line"><span>Projected total</span><span class="val" style="color:var(--indigo-2)">₹33.5 lakh</span></div>
             </div>
           </div>
         </div>
         <div id="reject-box" class="panel" style="display:none">
-          <h3>Why are you saying no? <span style="color:var(--red)">*</span></h3>
-          <div class="p-sub">This is required — the creator will see your reason and can fix it.</div>
-          <textarea id="reject-reason" placeholder="For example: the cost next month is too high — please lower the rate to 0.30% and send it again." style="margin-top:12px"></textarea>
+          <h3>Reject — with a reason <span style="color:var(--red)">*</span></h3>
+          <div class="p-sub">Required. The rejection is itself on the record; the maker sees the reason and can amend the staged version.</div>
+          <textarea id="reject-reason" placeholder="e.g. the sourcing delta is too high — bring the rate to 0.30% and restage." style="margin-top:12px"></textarea>
         </div>
         <div class="sticky-foot">
-          <button class="btn danger" id="reject-btn" onclick="toggleReject()">Say no</button>
+          <button class="btn danger" id="reject-btn" onclick="toggleReject()">Reject</button>
           <div class="spacer"></div>
-          <button class="btn primary" onclick="publishRule()">Say yes — make it live</button>
+          <button class="btn primary" onclick="publishRule()">Approve — publish as a new version</button>
         </div>
       </div>
     </section>
 
     <!-- ===== OFFICE 6 · LIVE ===== -->
     <section class="screen" id="a-published">
-      <div class="screen-head"><span class="id">Office · 6</span><div><h2>The rule is live</h2><div class="sub">It's now working, and it's saved in the records.</div></div></div>
+      <div class="screen-head"><span class="id">Config · 6</span><div><h2>Versioned publish</h2><div class="sub">A rate change is a versioned publish with an effective-from date, never an in-place edit. Old accruals keep the version they were computed under, forever — as-of-event binding.</div></div></div>
       <div class="console">
         <div class="confirm">
           <div class="seal ok">✓</div>
-          <h3>This rule is now live</h3>
-          <p>Working from <span id="live-startdate">14 Jul 2026</span>. From now on, everyone this rule matches will be paid this way.</p>
+          <h3>Published — a new version is live</h3>
+          <p>Effective from <span id="live-startdate">01 Aug 2026</span>. Accruals bind to this version as of their governing event — a loan disbursed under the old version keeps the old version, even if it's computed later.</p>
           <div class="meta-row">
-            <span class="meta-chip"><b>version</b> <span id="live-version">1</span></span>
-            <span class="meta-chip"><b>status</b> working</span>
-            <span class="meta-chip"><b>starts</b> <span id="live-starts">14 Jul 2026</span></span>
-            <span class="meta-chip"><b>rule no.</b> <span id="live-ruleno">RUL-2026-0714</span></span>
+            <span class="meta-chip"><b>version</b> <span id="live-version">v8</span></span>
+            <span class="meta-chip"><b>status</b> live</span>
+            <span class="meta-chip"><b>effective</b> <span id="live-starts">01 Aug 2026</span></span>
+            <span class="meta-chip"><b>rule</b> <span id="live-ruleno">RUL-2026-0714</span></span>
           </div>
-          <div class="actions"><button class="btn primary" data-goto="a-list">Back to all rules</button></div>
+          <div class="note-block" style="max-width:520px;margin:0 auto 24px;text-align:left"><b>Superseded, not deleted.</b> The previous version in this category is marked superseded and stays on the record. For a period-grain rate, this change takes effect next period by default — the in-flight period is never disturbed.</div>
+          <div class="actions"><button class="btn primary" data-goto="a-list">Back to the rulebook</button></div>
         </div>
       </div>
     </section>
@@ -756,91 +784,95 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== APP 1 · MY EARNINGS ===== -->
     <section class="screen" id="b-home">
-      <div class="screen-head"><span class="id">App · 1</span><div><h2>My earnings</h2><div class="sub">Three numbers, up front: what you've <b>earned</b> this month, what you'll <b>get</b> in the next payout, and what's already been <b>paid</b> to you. Tap any loan to see its own breakdown, or the <b>?</b> to see how a number was worked out.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 1</span><div><h2>My earnings — a number that moves</h2><div class="sub">SP · Ravi K · Chennai. The instant a loan disburses, the accrual lands. Three tiles: <b>earned</b> (firm + provisional), <b>payable next</b> (scheduled tranches), and <b>paid to date</b> (downstream). Tap <b>?</b> anywhere for the provenance read.</div></div></div>
       <div class="phone-stage">
         <div class="phone"><div class="notch"></div><div class="screenview">
           <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-          <div class="appbar"><h3>My earnings</h3><div class="period" style="margin-left:auto" onclick="toast('Pick a month — this month or an earlier one')">This month ▾</div><button class="qmark" style="margin-left:8px" title="How was this worked out?" data-goto="b-explain">?</button></div>
+          <div class="appbar"><h3>My earnings</h3><div class="period" style="margin-left:auto" onclick="toast('Pick a period — this month or a closed one')">July ▾</div><button class="qmark" style="margin-left:8px" title="Explain my payout" data-goto="b-explain">?</button></div>
           <div class="appbody">
             <div class="kpi-row">
-              <div class="kpi earned" data-goto="b-prov"><div class="kl">Earned this month</div><div class="kv">₹42,300</div><div class="kd">still adding up ›</div></div>
-              <div class="kpi pending" data-goto="b-firm"><div class="kl">You'll get next</div><div class="kv">₹31,900</div><div class="kd">payout 05 Aug ›</div></div>
-              <div class="kpi paid"><div class="kl">Paid to date</div><div class="kv">₹1,10,100</div><div class="kd">received</div></div>
+              <div class="kpi earned" data-goto="b-prov"><div class="kl">Earned · this period</div><div class="kv">₹42,300</div><div class="kd">firm + provisional ›</div></div>
+              <div class="kpi pending" data-goto="b-firm"><div class="kl">Payable next</div><div class="kv">₹31,900</div><div class="kd">tranches due 05 Aug ›</div></div>
+              <div class="kpi paid"><div class="kl">Paid to date</div><div class="kv">₹1,10,100</div><div class="kd">downstream payout</div></div>
             </div>
 
             <div class="acard" data-goto="b-prov" style="padding:14px 16px">
+              <div class="top" style="margin-bottom:8px"><span class="state-label prov">A2NU · provisional this period</span></div>
               <div class="slab" style="margin:0">
                 <div class="track"><div class="fill" style="width:68%"></div></div>
-                <div class="cap"><span><b>41 loans done</b></span><span>19 more to reach the 0.50% rate</span></div>
+                <div class="cap"><span><b>41 booked</b></span><span>next slab · 60</span></div>
               </div>
             </div>
 
-            <div class="section-label">This month's loans</div>
-            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan</div><div class="li-meta mono">OML000482 · 28 Jun 2026</div><span class="li-status pending">half paid · half due 05 Aug</span></div><div class="li-amt">₹1,750</div></div>
-            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Takeover gold loan</div><div class="li-meta mono">OML000471 · 24 Jun 2026</div><span class="li-status pending">due next payout</span></div><div class="li-amt">₹2,240</div></div>
-            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan</div><div class="li-meta mono">OML000455 · 22 Jun 2026</div><span class="li-status accr">counted this month</span></div><div class="li-amt">₹1,410</div></div>
-            <div class="line-item" onclick="toast('You were Sales Partner AND Appraisal Partner on OML000463 — ₹1,750 as Sales + ₹600 as Appraisal, counted separately under each rule.')"><div class="li-main"><div class="li-title">Fresh gold loan · <span style="color:var(--indigo-2)">2 roles</span></div><div class="li-meta mono">OML000463 · 20 Jun 2026</div><span class="li-status accr">Sales ₹1,750 + Appraisal ₹600</span></div><div class="li-amt">₹2,350</div></div>
-            <div class="line-item adj" onclick="toast('OML000459 was closed within 7 days, so the incentive was reversed. We always show a reversal — it is never hidden.')"><div class="li-main"><div class="li-title">Takeover gold loan · reversed</div><div class="li-meta mono">OML000459 · closed early 26 Jun</div><span class="li-status" style="color:var(--red);background:#94214310">clawed back</span></div><div class="li-amt" style="color:var(--red)">−₹1,120</div></div>
+            <div class="section-label">This period's accruals — each one a ledger line</div>
+            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan <span class="state-label firm" style="font-size:9px;margin-left:4px">firm</span></div><div class="li-meta mono">OML000482 · v7 · 0.35% ND · self-source new</div><span class="li-status pending">50% paid · 50% payable 05 Aug</span></div><div class="li-amt">₹1,750</div></div>
+            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan <span class="pill flash" style="font-size:9px;margin-left:4px">+ flash</span></div><div class="li-meta mono">OML000471 · v7 + flash v1 · 0.35% + 0.10% ND</div><span class="li-status pending">base + flash · payable next</span></div><div class="li-amt">₹2,240</div></div>
+            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Takeover gold loan <span class="state-label firm" style="font-size:9px;margin-left:4px">firm</span></div><div class="li-meta mono">OML000455 · v7 · 0.35% ND · ×0.5 Low-LTV</div><span class="li-status accr">accrued this period</span></div><div class="li-amt">₹1,410</div></div>
+            <div class="line-item" onclick="toast('Sourcing and convincing are independent categories that stack — Ravi earned both on OML000463, the same way an SP and an AP both earn on one loan. Confirmed by Yash & Rakesh (D8).')"><div class="li-main"><div class="li-title">Fresh gold loan · <span style="color:var(--indigo-2)">2 categories</span></div><div class="li-meta mono">OML000463 · sourcing ₹1,750 + convincing ₹600</div><span class="li-status accr">categories stack · D8</span></div><div class="li-amt">₹2,350</div></div>
+            <div class="line-item adj" onclick="toast('Released within the 60-day window → a reversing append dated to the release. The original line stays visible; the balance nets. Base and flash claw back together.')"><div class="li-main"><div class="li-title">Takeover gold loan · reversal</div><div class="li-meta mono">OML000459 · v7 · release ≤ 60d · reversing append</div><span class="li-status" style="color:var(--red);background:#94214310">clawback · nets against balance</span></div><div class="li-amt" style="color:var(--red)">−₹1,120</div></div>
 
-            <div class="section-label">Paid out — past months</div>
-            <div class="line-item" data-goto="b-final"><div class="li-main"><div class="li-title">June 2026 payout</div><div class="li-meta">62 loans · paid 05 Jul 2026</div><span class="li-status paid">paid</span></div><div class="li-amt">₹58,900</div></div>
-            <div class="line-item" data-goto="b-final"><div class="li-main"><div class="li-title">May 2026 payout</div><div class="li-meta">54 loans · paid 05 Jun 2026</div><span class="li-status paid">paid</span></div><div class="li-amt">₹51,200</div></div>
+            <div class="section-label">Closed periods — final</div>
+            <div class="line-item" data-goto="b-final"><div class="li-main"><div class="li-title">June 2026 <span class="state-label final" style="font-size:9px;margin-left:4px">final</span></div><div class="li-meta">62 loans · close line 30 Jun · paid 05 Jul</div><span class="li-status paid">settled</span></div><div class="li-amt">₹58,900</div></div>
+            <div class="line-item" data-goto="b-final"><div class="li-main"><div class="li-title">May 2026 <span class="state-label final" style="font-size:9px;margin-left:4px">final</span></div><div class="li-meta">54 loans · close line 31 May · paid 05 Jun</div><span class="li-status paid">settled</span></div><div class="li-amt">₹51,200</div></div>
           </div>
         </div></div>
 
         <div class="note-block" style="max-width:320px;margin-top:0">
-          <b>Built around three questions.</b> An agent only really asks: <b>how much have I earned, how much will I get, and how much has reached me?</b> Those are the three tiles up top — everything below just shows the loans behind them. "How it was worked out" is a quiet <b>?</b>, not a loud button.
+          <b>Why this works.</b> Before: this number was computed by hand, <b>about 20 days</b> after the period closed. Now the accrual lands the instant the loan books, and a provisional number always carries its <b>slab context</b> — position in a range, not a broken promise. Every rupee traces to a ledger line: actor · loan · rule version · state · amount · reason.
         </div>
       </div>
     </section>
 
     <!-- ===== APP 2 · CONFIRMED LOAN ===== -->
     <section class="screen" id="b-firm">
-      <div class="screen-head"><span class="id">App · 2</span><div><h2>A confirmed loan</h2><div class="sub">This was set the moment the loan was given — nothing about this month can change it.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 2</span><div><h2>A firm accrual</h2><div class="sub">Per-loan grain — firm the instant the loan disburses. Everything it needs is on the loan. The tranches release on the schedule; the engine marks them payable, a downstream action pays.</div></div></div>
       <div class="phone"><div class="notch"></div><div class="screenview">
         <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>Fresh gold loan</h3><button class="qmark" style="margin-left:auto" title="How was this worked out?" data-goto="b-explain">?</button></div>
+        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>Fresh gold loan</h3><button class="qmark" style="margin-left:auto" title="Explain my payout" data-goto="b-explain">?</button></div>
         <div class="appbody">
           <div class="detail-hero">
-            <div class="li-title" style="font-size:16px;font-weight:700">Fresh gold loan</div>
-            <div class="li-meta mono" style="margin-top:3px">OML000482 · given 28 Jun 2026</div>
-            <div class="big-num" style="margin-top:12px"><span class="cur">₹</span>1,750</div>
-            <div class="sub-num">Total you earned on this loan</div>
+            <span class="state-label firm">Firm · locked at disbursal</span>
+            <div class="li-meta mono" style="margin-top:8px">OML000482 · disbursed 28 Jun 2026</div>
+            <div class="big-num" style="margin-top:10px"><span class="cur">₹</span>1,750</div>
+            <div class="sub-num">0.35% of ₹5,00,000 net disbursal · computed under rule v7</div>
           </div>
           <div class="detail-hero" style="padding-top:6px">
-            <div class="kv"><span class="k">Paid to you</span><span class="v" style="color:var(--ok)">₹875 · on 05 Jul 2026</span></div>
-            <div class="kv"><span class="k">Still to come</span><span class="v" style="color:var(--amber)">₹875 · on 05 Aug 2026</span></div>
-            <div class="kv"><span class="k">Loan type</span><span class="v">Fresh gold loan</span></div>
-            <div class="kv"><span class="k">How you earned it</span><span class="v">Found the customer · 0.35%</span></div>
-            <div class="kv"><span class="k">Payout plan</span><span class="v">Half now, half next month</span></div>
+            <div class="kv"><span class="k">Tranche 1 · paid</span><span class="v" style="color:var(--ok)">₹875 · 05 Jul 2026</span></div>
+            <div class="kv"><span class="k">Tranche 2 · payable</span><span class="v" style="color:var(--amber)">₹875 · 05 Aug 2026</span></div>
+            <div class="kv"><span class="k">Rule</span><span class="v">SP self-source · Fresh · v7</span></div>
+            <div class="kv"><span class="k">Reason</span><span class="v">self-source new</span></div>
+            <div class="kv"><span class="k">Modifier</span><span class="v">High-LTV-Regular · ×1.0</span></div>
+            <div class="kv"><span class="k">Schedule</span><span class="v">50% next month + 50% month after</span></div>
+            <div class="kv"><span class="k">Clawback window</span><span class="v">60 days from disbursal</span></div>
           </div>
-          <div class="info-note"><span class="i">≡</span> This was set the moment the loan was given — the amount can't change. Tap <b>?</b> above to see the exact working.</div>
+          <div class="info-note"><span class="i">≡</span> As-of-event binding: this loan keeps rule v7 forever, even if the rate changes to v8 before the number is computed. Tap <b>?</b> for the full provenance read.</div>
         </div>
       </div></div>
     </section>
 
     <!-- ===== APP 3 · THIS MONTH ===== -->
     <section class="screen" id="b-prov">
-      <div class="screen-head"><span class="id">App · 3</span><div><h2>This month so far</h2><div class="sub">Still adding up — this number can go up as you book more loans.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 3</span><div><h2>Provisional — this period</h2><div class="sub">Period-grain, recomputed as the period fills. The slab context makes a moving estimate read as position-in-range: you are here, the next slab needs N more.</div></div></div>
       <div class="phone-stage">
         <div class="phone"><div class="notch"></div><div class="screenview">
           <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-          <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>Earned this month</h3><button class="qmark" style="margin-left:auto" title="How was this worked out?" data-goto="b-explain">?</button></div>
+          <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>Provisional · July</h3><button class="qmark" style="margin-left:auto" title="Explain my payout" data-goto="b-explain">?</button></div>
           <div class="appbody">
             <div class="detail-hero">
-              <span class="state-label prov">This month · still adding up</span>
+              <span class="state-label prov">Provisional · recomputes as the period fills</span>
               <div class="big-num" style="margin-top:10px"><span class="cur">₹</span>42,300</div>
+              <div class="sub-num">A2NU this period — the engine's own rollup, live</div>
               <div class="slab" style="margin-top:14px">
                 <div class="track"><div class="fill" style="width:68%"></div></div>
-                <div class="cap"><span><b>41 loans done</b></span><span>19 more to reach the 0.50% rate</span></div>
+                <div class="cap"><span><b>41 booked</b></span><span>next slab · 60</span></div>
               </div>
             </div>
-            <div class="info-note"><span class="i">✦</span> This grows as you book more loans. We always show how close you are to the next rate, so a rising number reads as progress — not a glitch.</div>
-            <div class="section-label">Loans counted so far</div>
-            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan</div><div class="li-meta mono">OML000482 · 28 Jun</div></div><div class="li-amt">₹1,750</div></div>
-            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Takeover gold loan</div><div class="li-meta mono">OML000471 · 24 Jun</div></div><div class="li-amt">₹2,240</div></div>
-            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan</div><div class="li-meta mono">OML000455 · 22 Jun</div></div><div class="li-amt">₹1,410</div></div>
-            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Takeover gold loan</div><div class="li-meta mono">OML000448 · 21 Jun</div></div><div class="li-amt">₹980</div></div>
+            <div class="info-note"><span class="i">✦</span> Before, this number arrived <b>about 20 days</b> after period close, computed by hand in MIS. Now it recomputes live — and it firms at the period-close line.</div>
+            <div class="section-label">Accruals feeding this period</div>
+            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan</div><div class="li-meta mono">OML000482 · v7 · self-source new</div></div><div class="li-amt">₹1,750</div></div>
+            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Fresh gold loan</div><div class="li-meta mono">OML000471 · v7 + flash · self-source new</div></div><div class="li-amt">₹2,240</div></div>
+            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Takeover gold loan</div><div class="li-meta mono">OML000455 · v7 · ×0.5 Low-LTV</div></div><div class="li-amt">₹1,410</div></div>
+            <div class="line-item" data-goto="b-firm"><div class="li-main"><div class="li-title">Takeover gold loan</div><div class="li-meta mono">OML000448 · v7 · convincing</div></div><div class="li-amt">₹980</div></div>
           </div>
         </div></div>
       </div>
@@ -848,68 +880,68 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== APP 4 · PAST MONTH ===== -->
     <section class="screen" id="b-final">
-      <div class="screen-head"><span class="id">App · 4</span><div><h2>A past month</h2><div class="sub">This month is closed. It only changes if a correction is added — and we always show corrections.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 4</span><div><h2>Final — a closed period</h2><div class="sub">Period close is itself a ledger line: dated, authored, carrying no money. The settled basis is a pure read — the sum of lines up to the close marker. Late events append forward; a settled period is never reopened.</div></div></div>
       <div class="phone"><div class="notch"></div><div class="screenview">
         <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>June 2026 · paid</h3><button class="qmark" style="margin-left:auto" title="How was this worked out?" data-goto="b-explain">?</button></div>
+        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>June 2026 · final</h3><button class="qmark" style="margin-left:auto" title="Explain my payout" data-goto="b-explain">?</button></div>
         <div class="appbody">
           <div class="detail-hero">
-            <span class="state-label final">Paid · closed</span>
+            <span class="state-label final">Final · frozen at period close</span>
             <div class="big-num" style="margin-top:10px"><span class="cur">₹</span>58,900</div>
-            <div class="sub-num">Paid to you 05 Jul 2026 · 62 loans</div>
+            <div class="sub-num">Close line 30 Jun · paid downstream 05 Jul · 62 loans</div>
           </div>
-          <div class="section-label">What made up this total</div>
-          <div class="line-item" data-goto="b-explain"><div class="li-main"><div class="li-title">Fresh gold loans · 44</div><div class="li-meta">0.35% of loan · rule version 2</div></div><div class="li-amt">₹41,300</div></div>
-          <div class="line-item" data-goto="b-explain"><div class="li-main"><div class="li-title">Takeover gold loans · 12</div><div class="li-meta">0.20% of loan · rule version 2</div></div><div class="li-amt">₹14,200</div></div>
-          <div class="line-item adj" data-goto="b-explain"><div class="li-main"><div class="li-title">Added later — one more loan counted <span class="li-badge adj">correction</span></div><div class="li-meta">a problem report was accepted · 06 Jul</div></div><div class="li-amt">+₹3,400</div></div>
+          <div class="section-label">The lines behind the number</div>
+          <div class="line-item" data-goto="b-explain"><div class="li-main"><div class="li-title">Sourcing · 44 Fresh loans</div><div class="li-meta mono">0.35% ND · v7 · self-source new</div></div><div class="li-amt">₹41,300</div></div>
+          <div class="line-item" data-goto="b-explain"><div class="li-main"><div class="li-title">Convincing · 12 loans</div><div class="li-meta mono">0.20% ND · v4 · categories stack</div></div><div class="li-amt">₹14,200</div></div>
+          <div class="line-item adj" data-goto="b-explain"><div class="li-main"><div class="li-title">Prior-period correction <span class="li-badge adj">appended forward</span></div><div class="li-meta mono">upheld dispute · adjusting accrual · 06 Jul</div></div><div class="li-amt">+₹3,400</div></div>
         </div>
         <div class="appfoot">
-          <button class="ghost-app" data-goto="b-dispute">Something looks wrong</button>
+          <button class="ghost-app" data-goto="b-dispute">Raise a dispute</button>
         </div>
       </div></div>
     </section>
 
     <!-- ===== APP 5 · HOW IT WAS WORKED OUT ===== -->
     <section class="screen" id="b-explain">
-      <div class="screen-head"><span class="id">App · 5</span><div><h2>How it was worked out</h2><div class="sub">Every line comes straight from the records — nothing is re-calculated here, so it opens instantly.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 5</span><div><h2>Explain my payout — a provenance read</h2><div class="sub">The ledger is the audit log; there is no separate store to keep in sync. The actor sees their own slice of the exact same ledger business sees: actor · loan · rule version · state · amount · reason.</div></div></div>
       <div class="phone"><div class="notch"></div><div class="screenview">
         <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>How it was worked out</h3><span class="right" data-goto="b-home">Done</span></div>
+        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>Explain my payout</h3><span class="right" data-goto="b-home">Done</span></div>
         <div class="appbody">
-          <div class="info-note"><span class="i">≡</span> Straight from the records — which loan, which rule was used, how much, and why.</div>
-          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">Fresh gold loan · OML000482</div><div class="li-meta">rule v2 · 0.35% of loan · found the customer</div></div><div class="li-amt">₹1,750</div></div>
-          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">Takeover gold loan · OML000471</div><div class="li-meta">rule v2 · 0.35% of loan · found the customer</div></div><div class="li-amt">₹2,240</div></div>
-          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">Takeover gold loan · OML000448</div><div class="li-meta">rule v2 · 0.20% of loan · takeover</div></div><div class="li-amt">₹980</div></div>
-          <div class="line-item adj" data-goto="b-dispute"><div class="li-main"><div class="li-title">A correction — this loan was counted twice <span class="li-badge adj">correction</span></div><div class="li-meta">shown here on purpose · never hidden</div></div><div class="li-amt">−₹410</div></div>
-          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">Fresh gold loan · OML000455</div><div class="li-meta">rule v2 · 0.35% of loan · found the customer</div></div><div class="li-amt">₹1,410</div></div>
+          <div class="info-note"><span class="i">≡</span> Every rupee traces to a line. Nothing is recomputed here — it's a pure read of the append-only ledger.</div>
+          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">OML000482 · firm</div><div class="li-meta mono">SP · Ravi K · v7 · +0.35% ND · self-source new</div></div><div class="li-amt">₹1,750</div></div>
+          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">OML000471 · firm + flash</div><div class="li-meta mono">SP · Ravi K · v7 + flash v1 · +0.45% ND · July push</div></div><div class="li-amt">₹2,240</div></div>
+          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">OML000448 · firm</div><div class="li-meta mono">SP · Ravi K · v4 · +0.20% ND · convincing</div></div><div class="li-amt">₹980</div></div>
+          <div class="line-item adj" data-goto="b-dispute"><div class="li-main"><div class="li-title">OML000459 · reversal <span class="li-badge adj">reversing append</span></div><div class="li-meta mono">SP · Ravi K · v7 · −0.35% ND · release ≤ 60d</div></div><div class="li-amt">−₹1,120</div></div>
+          <div class="line-item" data-goto="b-dispute"><div class="li-main"><div class="li-title">OML000455 · firm</div><div class="li-meta mono">SP · Ravi K · v7 · +0.175% ND · ×0.5 Low-LTV</div></div><div class="li-amt">₹1,410</div></div>
         </div>
-        <div class="appfoot"><button class="ghost-app" data-goto="b-dispute">Report a problem with a line</button></div>
+        <div class="appfoot"><button class="ghost-app" data-goto="b-dispute">Dispute a line</button></div>
       </div></div>
     </section>
 
     <!-- ===== APP 6 · REPORT A PROBLEM ===== -->
     <section class="screen" id="b-dispute">
-      <div class="screen-head"><span class="id">App · 6</span><div><h2>Report a problem</h2><div class="sub">Tell us what looks wrong. This won't change your number right away — someone checks it first. We never quietly change your numbers.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 6</span><div><h2>Raise a dispute — an append</h2><div class="sub">A dispute is an open line on the record: nothing hidden, nothing yet changed. An admin resolves it under maker-checker; the outcome is itself an append.</div></div></div>
       <div class="phone"><div class="notch"></div><div class="screenview">
         <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-        <div class="appbar"><button class="back" data-goto="b-explain">‹</button><h3>Report a problem</h3></div>
+        <div class="appbar"><button class="back" data-goto="b-explain">‹</button><h3>Raise a dispute</h3></div>
         <div class="appbody">
           <div class="field-app">
-            <label>Which line</label>
-            <div class="line-item" style="cursor:default;margin:0"><div class="li-main"><div class="li-title">Takeover gold loan · OML000448</div><div class="li-meta">rule v2 · 0.20% of loan · takeover</div></div><div class="li-amt">₹980</div></div>
-            <div class="fhint">Already filled in from the line you tapped.</div>
+            <label>The line in question</label>
+            <div class="line-item" style="cursor:default;margin:0"><div class="li-main"><div class="li-title">OML000448 · firm</div><div class="li-meta mono">v4 · +0.20% ND · convincing</div></div><div class="li-amt">₹980</div></div>
+            <div class="fhint">Carried from the ledger line you tapped.</div>
           </div>
           <div class="field-app">
             <label>What looks wrong?</label>
-            <textarea id="dispute-reason" placeholder="Tell us in a few words why this doesn't look right" oninput="checkDispute()"></textarea>
+            <textarea id="dispute-reason" placeholder="e.g. this loan was self-sourced, not convincing — the rate should be 0.35%" oninput="checkDispute()"></textarea>
           </div>
           <div class="field-app">
-            <label>Proof <span style="color:var(--muted);font-weight:400">· optional</span></label>
-            <div class="attach" onclick="toast('Add a photo or file (optional)')">＋ Add a photo or file</div>
+            <label>Evidence <span style="color:var(--muted);font-weight:400">· optional</span></label>
+            <div class="attach" onclick="toast('Attach evidence (optional). A city lead can also bulk-file via CSV — each row lands as its own dispute append.')">＋ Attach evidence</div>
           </div>
         </div>
         <div class="appfoot">
-          <button class="prim-app" id="submit-dispute" data-goto="b-submitted" disabled>Send report</button>
+          <button class="prim-app" id="submit-dispute" data-goto="b-submitted" disabled>File the dispute</button>
           <button class="ghost-app" data-goto="b-explain">Cancel</button>
         </div>
       </div></div>
@@ -917,22 +949,22 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== APP 7 · PROBLEM REPORTED ===== -->
     <section class="screen" id="b-submitted">
-      <div class="screen-head"><span class="id">App · 7</span><div><h2>Problem reported</h2><div class="sub">It's on record. Nothing changes until someone reviews it.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 7</span><div><h2>Dispute on record</h2><div class="sub">The dispute is an open append. If upheld, an adjusting accrual corrects forward — tagged as a prior-period correction — never reopening the closed period.</div></div></div>
       <div class="phone"><div class="notch"></div><div class="screenview">
         <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-        <div class="appbar"><h3>Problem reported</h3></div>
+        <div class="appbar"><h3>Dispute on record</h3></div>
         <div class="appbody" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
           <div class="seal ok" style="background:#16880418;color:var(--ok);width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:32px;margin-bottom:18px">✓</div>
-          <h3 style="color:var(--ink);font-size:20px">Your report is on record</h3>
-          <p style="color:var(--muted);font-size:13.5px;margin:8px 24px 22px">Nothing changes until someone reviews it. If they agree, the fix is added to next month — a closed month is never re-opened.</p>
+          <h3 style="color:var(--ink);font-size:20px">Filed — an open line on the ledger</h3>
+          <p style="color:var(--muted);font-size:13.5px;margin:8px 24px 22px">The disputed amount is never hidden and never silently changed. An admin resolves under maker-checker; upheld disputes correct forward into the next read.</p>
           <div style="width:100%;padding:0 4px">
-            <div class="kv"><span class="k">Report number</span><span class="v mono">DSP-2026-0338</span></div>
-            <div class="kv"><span class="k">About loan</span><span class="v mono">OML000448</span></div>
-            <div class="kv"><span class="k">Sent on</span><span class="v">03 Jul 2026</span></div>
+            <div class="kv"><span class="k">Dispute</span><span class="v mono">DSP-2026-0338</span></div>
+            <div class="kv"><span class="k">Ledger line</span><span class="v mono">OML000448 · v4</span></div>
+            <div class="kv"><span class="k">Filed</span><span class="v">03 Jul 2026</span></div>
           </div>
         </div>
         <div class="appfoot">
-          <button class="prim-app" data-goto="b-history">See the status of my report</button>
+          <button class="prim-app" data-goto="b-history">Track my disputes</button>
           <button class="ghost-app" data-goto="b-home">Back to my earnings</button>
         </div>
       </div></div>
@@ -940,14 +972,14 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== APP 8 · MY REPORTS ===== -->
     <section class="screen" id="b-history">
-      <div class="screen-head"><span class="id">App · 8</span><div><h2>My reports</h2><div class="sub">Tap a report to see the reason it was turned down, or the correction that was added if it was accepted. Accepted fixes are added to next month — a closed month is never re-opened.</div></div></div>
+      <div class="screen-head"><span class="id">Actor · 8</span><div><h2>My disputes</h2><div class="sub">Every outcome is itself an append. Upheld → an adjusting accrual, corrected forward. Rejected → a rejected-with-reason line; the original stands and the reasoning is on the record.</div></div></div>
       <div class="phone"><div class="notch"></div><div class="screenview">
         <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
-        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>My reports</h3></div>
+        <div class="appbar"><button class="back" data-goto="b-home">‹</button><h3>My disputes</h3></div>
         <div class="appbody">
-          <div class="dispute-status" onclick="toast('Still being reviewed by the office')"><div class="li-main"><div class="li-title mono">DSP-2026-0338</div><div class="li-meta">About loan OML000448 · 03 Jul 2026</div></div><span class="pill staged">being reviewed</span></div>
-          <div class="dispute-status" onclick="toast('Accepted — a fix of +₹3,400 was added to next month')"><div class="li-main"><div class="li-title mono">DSP-2026-0310</div><div class="li-meta">About loan OML000391 · 18 Jun 2026</div></div><span class="pill live">accepted</span></div>
-          <div class="dispute-status" onclick="toast('Turned down — the pay matched the rule when the loan was given')"><div class="li-main"><div class="li-title mono">DSP-2026-0287</div><div class="li-meta">About loan OML000305 · 02 Jun 2026</div></div><span class="pill draft" style="color:var(--red);background:#94214310">turned down</span></div>
+          <div class="dispute-status" onclick="toast('Open — with the admin under maker-checker')"><div class="li-main"><div class="li-title mono">DSP-2026-0338</div><div class="li-meta">OML000448 · filed 03 Jul 2026</div></div><span class="pill staged">open</span></div>
+          <div class="dispute-status" onclick="toast('Upheld — an adjusting accrual of +₹3,400 corrected forward as a prior-period correction')"><div class="li-main"><div class="li-title mono">DSP-2026-0310</div><div class="li-meta">OML000391 · filed 18 Jun 2026</div></div><span class="pill live">upheld</span></div>
+          <div class="dispute-status" onclick="toast('Rejected with reason — the accrual matched rule v7 as of the disbursal date. The reasoning is on the record.')"><div class="li-main"><div class="li-title mono">DSP-2026-0287</div><div class="li-meta">OML000305 · filed 02 Jun 2026</div></div><span class="pill draft" style="color:var(--red);background:#94214310">rejected · with reason</span></div>
         </div>
       </div></div>
     </section>
@@ -1047,10 +1079,10 @@ function rmSlab(btn){
   captureSlabs(); slabState.splice(idx,1); renderSlabs();
 }
 
-/* ---- roles + per-role rates ---- */
-const ROLE_NAMES={SP:'Sales Partner',AP:'Associate Partner','Caller':'Caller','City Lead':'City Lead','Digital Manager':'Digital Manager','Collection Partner':'Collection Partner','Internal DB':'Internal team'};
-const ROLE_PLURAL={SP:'Sales Partners',AP:'Associate Partners','Caller':'Callers','City Lead':'City Leads','Digital Manager':'Digital Managers','Collection Partner':'Collection Partners','Internal DB':'the internal team'};
-const ROLE_RATE={SP:0.35,AP:0.20,'Caller':0.25,'City Lead':0.40,'Digital Manager':0.15,'Collection Partner':0.50,'Internal DB':0.10};
+/* ---- payee types + per-payee rates (from the Oro Incentive Structure) ---- */
+const ROLE_NAMES={SP:'SP',AP:'AP','Caller':'Caller','City Lead':'City Lead','Digital Manager':'Digital Manager','Collection Partner':'Collection Partner','Internal DB':'Internal DB','Business Partner':'Business Partner'};
+const ROLE_PLURAL={SP:'SPs',AP:'APs','Caller':'Callers','City Lead':'City Leads','Digital Manager':'Digital Managers','Collection Partner':'Collection Partners','Internal DB':'the Internal DB team','Business Partner':'Business Partners'};
+const ROLE_RATE={SP:0.35,AP:0.20,'Caller':0.25,'City Lead':0.10,'Digital Manager':0.15,'Collection Partner':0.50,'Internal DB':0.10,'Business Partner':0.50};
 let rateStore={};
 
 function selectedActors(){ return [...document.querySelectorAll('#f-actor .pchip.on')].map(b=>b.dataset.val); }
@@ -1095,16 +1127,16 @@ function ratePreview(){
   if(!inputs.length){ prev.innerHTML=''; return; }
   document.getElementById('f-rate').value=inputs[0].value;
   const basis=document.getElementById('f-basis').value;
-  if(basis!=='The loan amount'){
-    const what = basis==='Number of new customers' ? 'the number of new customers' : 'the finance target';
-    prev.innerHTML='This rate applies to <b>'+what+'</b>, not the loan amount'+(basis==='A finance target'?' — confirm the figure with the finance team.':'.');
+  if(!basis.startsWith('Net disbursal')){
+    const what = basis.startsWith('A2NU') ? 'the A2NU% period rollup (the engine\'s own aggregate)' : 'a finance metric — fast-follow, not v1';
+    prev.innerHTML='This rate reads <b>'+what+'</b>, not net disbursal.';
     return;
   }
   if(inputs.length===1){
     const r=parseFloat(inputs[0].value||0), amt=Math.round(50000*r/100);
-    prev.innerHTML='For example — on a ₹50,000 loan, this pays <b>₹'+amt.toLocaleString('en-IN')+'</b>';
+    prev.innerHTML='On ₹50,000 ND this accrues <b>₹'+amt.toLocaleString('en-IN')+'</b> — firm the instant the loan disburses.';
   } else {
-    let html='<div style="margin-bottom:4px">On a ₹50,000 loan, each role earns:</div>';
+    let html='<div style="margin-bottom:4px">On ₹50,000 ND, each payee type accrues:</div>';
     inputs.forEach(i=>{
       const r=parseFloat(i.value||0), amt=Math.round(50000*r/100);
       html+='<div style="display:flex;justify-content:space-between;margin-top:5px"><span>'+(ROLE_NAMES[i.dataset.role]||i.dataset.role)+' · '+r+'%</span><b>₹'+amt.toLocaleString('en-IN')+'</b></div>';
@@ -1123,11 +1155,20 @@ function applyAutofill(){
   const sched=document.getElementById('f-sched');
   let basisAuto=false, schedAuto=false, showFinanceNote=false, slab=false;
 
-  if(event==='funnel-a2nu'){ basis.value='Number of new customers'; basisAuto=true; slab=true; ensureGate(); }
-  else if(actors.includes('City Lead')){ basis.value='A finance target'; basisAuto=true; showFinanceNote=true; sched.value='Every 3 months'; schedAuto=true; }
-  else if(actors.length && actors.every(a=>['SP','AP','Internal DB'].includes(a))){ basis.value='The loan amount'; basisAuto=true; if(actors.includes('Internal DB')) slab=true; }
+  /* Defaults from the Oro Incentive Structure:
+     SP/AP self-source → 0.35%/0.20% ND, 50/50 schedule; A2NU → A2NU% slab + min-10 gate, same month;
+     CP → closure bucket; City Lead → quarterly (finance basis = fast-follow); Internal DB → GL-slab, 100% next month. */
+  if(event==='funnel-a2nu'){ basis.value='A2NU % for the period'; basisAuto=true; slab=true; sched.value='Same month'; schedAuto=true; ensureGate(); }
+  else if(event==='closure-bucket'){ basis.value='Net disbursal (ND)'; basisAuto=true; slab=true; sched.value='At closure bucket'; schedAuto=true; }
+  else if(event==='net-conversion'){ basis.value='Net disbursal (ND)'; basisAuto=true; slab=true; sched.value=actors.includes('City Lead')?'Quarterly':'100% next month'; schedAuto=true; if(actors.includes('City Lead')) showFinanceNote=true; }
+  else if(actors.includes('City Lead')){ basis.value='Finance metric (PAT / EBITDA)'; basisAuto=true; showFinanceNote=true; sched.value='Quarterly'; schedAuto=true; }
+  else if(actors.length && actors.every(a=>['SP','AP','Internal DB','Business Partner'].includes(a))){
+    basis.value='Net disbursal (ND)'; basisAuto=true;
+    sched.value=actors.includes('Internal DB')||actors.includes('Business Partner')?'100% next month':'50% next month + 50% month after'; schedAuto=true;
+    if(actors.includes('Internal DB')) slab=true;
+  }
 
-  if(event!=='funnel-a2nu'){                       // drop any auto-added condition when it no longer applies
+  if(event!=='funnel-a2nu'){                       // drop any auto-added gate when it no longer applies
     document.querySelectorAll('#mods .auto-mod').forEach(r=>r.remove());
     if(!document.querySelector('#mods .modrow')) document.getElementById('mods-empty').style.display='flex';
   }
@@ -1145,8 +1186,8 @@ function applyAutofill(){
 }
 
 /* ---- plain-english summary for the review + approver screens ---- */
-const EVENT_TEXT={'self-source':'find a customer','convincing':'convince a customer','new-customer':'bring a brand-new customer','funnel-a2nu':'bring new customers (counted by level)','closure-bucket':'reach a loan-closing target'};
-const LOAN_TEXT={'fresh':'a fresh gold loan','takeover':'a takeover gold loan','others':'other loans'};
+const EVENT_TEXT={'self-source':'self-source','convincing':'convince the customer on','funnel-a2nu':'bring new customers (A2NU) via','closure-bucket':'drive repayment on','net-conversion':'net-convert on scope for'};
+const LOAN_TEXT={'fresh':'a Fresh loan','takeover':'a Takeover loan','continuation':'a Continuation (renewal · top-up · part-release · merge)','attached':'an Attached loan','additional':'an Additional loan'};
 function roleList(plural){
   const names=selectedActors().map(a=> plural?ROLE_PLURAL[a]:ROLE_NAMES[a]);
   if(names.length<=1) return names[0]||'—';
@@ -1156,20 +1197,23 @@ function roleList(plural){
 function payText(){
   const inputs=[...document.querySelectorAll('#role-rates .role-rate')];
   const slabOn=document.querySelector('#rate-mode button.on').dataset.m==='slab';
+  const basis=document.getElementById('f-basis').value;
+  const on = basis.startsWith('A2NU') ? 'by A2NU% slab' : basis.startsWith('Finance') ? 'on the finance metric' : 'of net disbursal';
   if(slabOn){
-    if(selectedActors().length>1) return 'a rate that grows by level, set for each role';
+    if(selectedActors().length>1) return 'a slab rate '+on+', set per payee type';
     const pays=[...document.querySelectorAll('#slab-body .s-pay')].map(i=>parseFloat(i.value||0)).filter(n=>!isNaN(n));
-    if(pays.length) return 'a rate that grows by level ('+Math.min(...pays)+'% up to '+Math.max(...pays)+'%)';
-    return 'a rate that grows by level';
+    if(pays.length) return 'a slab rate '+on+' ('+Math.min(...pays)+'% up to '+Math.max(...pays)+'%)';
+    return 'a slab rate '+on;
   }
-  if(inputs.length<=1) return (inputs[0]?inputs[0].value:'0')+'% of the loan amount';
-  return 'a different rate per role — '+inputs.map(i=>ROLE_NAMES[i.dataset.role]+' '+i.value+'%').join(', ');
+  if(inputs.length<=1) return (inputs[0]?inputs[0].value:'0')+'% '+on;
+  return 'a rate per payee type — '+inputs.map(i=>ROLE_NAMES[i.dataset.role]+' '+i.value+'%').join(', ')+' '+on;
 }
 function buildSummary(){
   const event=document.getElementById('f-event').value;
   const loan=document.getElementById('f-loan').value;
   const sched=document.getElementById('f-sched').value.toLowerCase();
-  const html='For <em>'+roleList(true)+'</em>, when they <em>'+(EVENT_TEXT[event]||'do the work')+' for '+(LOAN_TEXT[loan]||'a loan')+'</em>, pay <em>'+payText()+'</em>, and give it as <em>'+sched+'</em>.';
+  const mods=document.querySelectorAll('#mods .modrow').length;
+  let html='For <em>'+roleList(true)+'</em>, when they <em>'+(EVENT_TEXT[event]||'work')+' '+(LOAN_TEXT[loan]||'a loan')+'</em>, pay <em>'+payText()+'</em>'+(mods?', adjusted by <em>'+mods+' modifier'+(mods>1?'s':'')+'</em>':'')+', released <em>'+sched+'</em>.';
   document.querySelectorAll('#a-review .summary-sentence,#a-checker .summary-sentence').forEach(el=>el.innerHTML=html);
 }
 
@@ -1178,10 +1222,10 @@ function setFact(id,v){ const el=document.getElementById(id); if(el) el.textCont
 function payShort(){
   const slabOn=document.querySelector('#rate-mode button.on').dataset.m==='slab';
   const roles=selectedActors();
-  if(slabOn) return roles.length>1?'By level, per role':'By level';
+  if(slabOn) return roles.length>1?'Slab table, per payee':'Slab table';
   const inputs=[...document.querySelectorAll('#role-rates .role-rate')];
-  if(inputs.length<=1) return (inputs[0]?inputs[0].value:'0')+'% of loan';
-  return 'Per role: '+inputs.map(i=>i.value+'%').join(' / ');
+  if(inputs.length<=1) return (inputs[0]?inputs[0].value:'0')+'% ND';
+  return 'Per payee: '+inputs.map(i=>i.value+'%').join(' / ')+' ND';
 }
 function updatePreview(){
   const roles=selectedActors();
@@ -1192,18 +1236,21 @@ function updatePreview(){
   const mods=document.querySelectorAll('#mods .modrow').length;
   const sent=document.getElementById('preview-sentence');
   if(sent){
-    let s='For <em>'+roleList(true)+'</em>, when they <em>'+(EVENT_TEXT[event]||'do the work')+' for '+(LOAN_TEXT[loan]||'a loan')+'</em>, pay <em>'+payText()+'</em>';
-    if(flash){ const d=document.getElementById('flash-date'); s+=' <em>(limited-time'+(d&&d.value?', ends '+d.value:'')+')</em>'; }
-    s+=', as <em>'+sched.toLowerCase()+'</em>.';
+    let s='For <em>'+roleList(true)+'</em>, when they <em>'+(EVENT_TEXT[event]||'work')+' '+(LOAN_TEXT[loan]||'a loan')+'</em>, pay <em>'+payText()+'</em>';
+    if(mods) s+=', adjusted by <em>'+mods+' modifier'+(mods>1?'s':'')+'</em>';
+    s+=', released <em>'+sched.toLowerCase()+'</em>';
+    if(flash){ const d=document.getElementById('flash-date'); s+=' <em>(flash — additive over the base'+(d&&d.value?', expires '+d.value:'')+')</em>'; }
+    s+='.';
     sent.innerHTML=s;
   }
   setFact('pv-who', roles.map(r=>ROLE_NAMES[r]).join(', ')||'—');
-  const lo=document.querySelector('#f-loan option:checked'); setFact('pv-loan', lo?lo.textContent:'—');
-  const ev=document.querySelector('#f-event option:checked'); setFact('pv-did', ev?ev.textContent:'—');
-  setFact('pv-kind', flash?'Limited-time':'Normal');
+  const lo=document.querySelector('#f-loan option:checked'); setFact('pv-loan', lo?lo.textContent.split(' (')[0]:'—');
+  const ev=document.querySelector('#f-event option:checked'); setFact('pv-did', ev?ev.textContent.split(' → ')[0]:'—');
+  setFact('pv-cat', EVENT_CAT[event]||'—');
+  setFact('pv-kind', flash?'Flash · additive · auto-expiring':'Normal');
   setFact('pv-basis', document.getElementById('f-basis').value);
   setFact('pv-pay', payShort());
-  setFact('pv-extra', mods? (mods+(mods>1?' rules':' rule')+' added') : 'None');
+  setFact('pv-extra', mods? (mods+' modifier'+(mods>1?'s':'')) : 'None');
   setFact('pv-when', sched);
   runValidation();
 }
@@ -1267,7 +1314,6 @@ function fillConfirmation(){
   const rn=ruleNoFor(), sd=fmtDate(document.getElementById('f-start').value);
   ['staged-ruleno','live-ruleno'].forEach(id=>setFact(id,rn));
   ['staged-starts','live-starts','live-startdate'].forEach(id=>setFact(id,sd));
-  setFact('live-version','1');
 }
 
 /* ---- Edit: load an existing rule into the form ---- */
@@ -1282,43 +1328,55 @@ function loadRule(o){
   if(o.flash && o.end) document.getElementById('flash-date').value=o.end;
   applyAutofill();
   if(o.mode) setRateMode(o.mode);
+  if(o.sched) document.getElementById('f-sched').value=o.sched;
   if(o.mode!=='slab' && o.rate!=null){ const inp=document.querySelector('#role-rates .role-rate'); if(inp){ inp.value=o.rate; ratePreview(); } }
   updatePreview();
 }
 
-/* ---- Office rules: data-driven list, filters, publish, supersede, live cost ---- */
-const EVENT_CAT={'self-source':'Finding customers','convincing':'Convincing','new-customer':'New customers','funnel-a2nu':'New customers','closure-bucket':'Collections'};
-const STATUS_PILL={working:['live','working'],staged:['staged','waiting for approval'],draft:['draft','draft'],ended:['expired','ended']};
+/* ---- The rulebook: data-driven, category precedence, versioned publish, backtest ---- */
+const EVENT_CAT={'self-source':'sourcing','convincing':'convincing','funnel-a2nu':'funnel/A2NU','closure-bucket':'collection','net-conversion':'scope-bonus'};
+const STATUS_PILL={working:['live','live'],staged:['staged','staged · with checker'],draft:['draft','draft'],ended:['expired','superseded']};
 let RULES=[
-  {id:'RUL-2026-0601',name:'Sales Partner — fresh loans',cat:'Finding customers',roles:['SP'],loan:'fresh',event:'self-source',status:'working',start:'2026-06-01',pay:'0.35% of loan',mode:'flat',rate:0.35},
-  {id:'RUL-2026-0512',name:'Associate Partner — takeovers',cat:'Convincing',roles:['AP'],loan:'takeover',event:'convincing',status:'working',start:'2026-05-12',pay:'0.20% of loan',mode:'flat',rate:0.20},
-  {id:'RUL-2026-0401',name:'City Lead — extra bonus',cat:'Bonus',roles:['City Lead'],loan:'fresh',event:'self-source',status:'working',start:'2026-04-01',pay:'every 3 months',mode:'flat',rate:0.10},
-  {id:'RUL-2026-0701',name:'New customers — by levels',cat:'New customers',roles:['Caller'],loan:'fresh',event:'funnel-a2nu',status:'staged',start:'2026-07-01',pay:'by level',mode:'slab'},
-  {id:'RUL-2026-0714',name:'Special push to close loans',cat:'Collections',roles:['Collection Partner'],loan:'others',event:'closure-bucket',status:'draft',start:'',pay:'0.50% of loan',mode:'flat',rate:0.50,flash:true,end:'2026-08-31'},
-  {id:'RUL-2026-0331',name:'Digital Manager — fresh loans',cat:'Finding customers',roles:['Digital Manager'],loan:'fresh',event:'self-source',status:'ended',start:'2026-03-31',pay:'0.15% of loan',mode:'flat',rate:0.15}
+  {id:'RUL-SP-SRC',name:'SP self-source · Fresh',cat:'sourcing',ver:'v7',roles:['SP'],loan:'fresh',event:'self-source',status:'working',start:'2026-06-01',pay:'0.35% ND · ×0.5 Low-LTV',mode:'flat',rate:0.35,sched:'50% next month + 50% month after'},
+  {id:'RUL-AP-CNV',name:'AP convincing · all types',cat:'convincing',ver:'v4',roles:['AP'],loan:'fresh',event:'convincing',status:'working',start:'2026-05-12',pay:'0.20% ND',mode:'flat',rate:0.20,sched:'50% next month + 50% month after'},
+  {id:'RUL-A2NU',name:'A2NU funnel slab · Caller',cat:'funnel/A2NU',ver:'v3',roles:['Caller'],loan:'fresh',event:'funnel-a2nu',status:'working',start:'2026-06-01',pay:'A2NU% slab · min-10 gate',mode:'slab',sched:'Same month'},
+  {id:'RUL-CP-CLS',name:'CP closure buckets',cat:'collection',ver:'v5',roles:['Collection Partner'],loan:'fresh',event:'closure-bucket',status:'working',start:'2026-04-01',pay:'by closure bucket',mode:'slab',sched:'At closure bucket'},
+  {id:'RUL-DM-NC',name:'Digital Manager · net-conversion slab',cat:'scope-bonus',ver:'v2',roles:['Digital Manager'],loan:'fresh',event:'net-conversion',status:'working',start:'2026-05-01',pay:'NC slab · channel scope',mode:'slab',sched:'100% next month'},
+  {id:'RUL-CL-QTR',name:'City Lead quarterly · city scope',cat:'scope-bonus',ver:'v2',roles:['City Lead'],loan:'fresh',event:'net-conversion',status:'working',start:'2026-04-01',pay:'quarterly · finance parts fast-follow',mode:'flat',rate:0.10,sched:'Quarterly'},
+  {id:'RUL-IDB',name:'Internal DB · GL-slab',cat:'sourcing',ver:'v6',roles:['Internal DB'],loan:'fresh',event:'self-source',status:'working',start:'2026-06-01',pay:'GL-slab table',mode:'slab',sched:'100% next month'},
+  {id:'RUL-BP',name:'Business Partner · month-1 + trail',cat:'sourcing',ver:'v1',roles:['Business Partner'],loan:'fresh',event:'self-source',status:'staged',start:'2026-08-01',pay:'0.50% m1 · 0.10% m2–6',mode:'flat',rate:0.50,sched:'100% next month'},
+  {id:'RUL-FLASH',name:'July fresh-loan push · flash',cat:'sourcing',ver:'v1',roles:['SP','AP'],loan:'fresh',event:'self-source',status:'working',start:'2026-07-01',pay:'+0.10% ND · additive',mode:'flat',rate:0.10,flash:true,end:'2026-07-31',sched:'Same month'},
+  {id:'RUL-SP-OLD',name:'SP self-source · Fresh',cat:'sourcing',ver:'v6',roles:['SP'],loan:'fresh',event:'self-source',status:'ended',start:'2026-04-01',pay:'0.30% ND',mode:'flat',rate:0.30,sched:'50% next month + 50% month after'}
 ];
 function rolesText(roles){ return roles.map(r=>ROLE_NAMES[r]||r).join(', '); }
 function renderRulesTable(){
   const who=(document.getElementById('flt-who')||{}).value||'all';
+  const cat=(document.getElementById('flt-cat')||{}).value||'all';
   const st=(document.getElementById('flt-status')||{}).value||'all';
   const body=document.getElementById('rules-body'); if(!body) return;
-  const rows=RULES.filter(r=>(who==='all'||r.roles.includes(who))&&(st==='all'||r.status===st));
+  const rows=RULES.filter(r=>(who==='all'||r.roles.includes(who))&&(cat==='all'||r.cat===cat)&&(st==='all'||r.status===st));
   body.innerHTML = rows.length ? rows.map(r=>{
     const sp=STATUS_PILL[r.status]||['draft',r.status];
-    const flash=r.flash?' <span class="pill flash" style="margin-left:6px">limited-time</span>':'';
+    const flash=r.flash?' <span class="pill flash" style="margin-left:6px">flash · additive</span>':'';
     const label=(r.status==='draft'||r.status==='staged')?'Edit':'View';
     return '<tr class="rule-row" data-open="'+r.id+'"><td class="rule-name">'+r.name+'</td>'+
       '<td class="rule-cat">'+r.cat+flash+'</td><td>'+rolesText(r.roles)+'</td>'+
       '<td><span class="pill '+sp[0]+'">'+sp[1]+'</span></td>'+
+      '<td class="mono">'+(r.ver||'v1')+'</td>'+
       '<td class="mono">'+(r.start?fmtDate(r.start):'—')+'</td>'+
       '<td class="rate-sum">'+r.pay+'</td>'+
       '<td><button class="row-edit" data-open="'+r.id+'" data-stop>'+label+'</button></td></tr>';
-  }).join('') : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:28px">No rules match these filters.</td></tr>';
+  }).join('') : '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:28px">No rules match these filters.</td></tr>';
 }
 function openRule(id){
   const r=RULES.find(x=>x.id===id); if(!r) return;
   loadRule(r);
   if(r.status==='draft'||r.status==='staged') show('a-form'); else show('a-review');
+}
+function nextVersion(r){
+  const prev=RULES.filter(x=>x.cat===r.cat&&x.event===r.event&&x.roles.some(role=>r.roles.includes(role))&&x.ver);
+  const top=Math.max(0,...prev.map(x=>parseInt((x.ver||'v0').slice(1))||0));
+  return 'v'+(top+1);
 }
 function currentRuleObj(){
   const event=document.getElementById('f-event').value;
@@ -1333,35 +1391,54 @@ function currentRuleObj(){
     loan:document.getElementById('f-loan').value, event, status:'working',
     start:document.getElementById('f-start').value,
     pay:payShort(), mode, rate:isNaN(firstRate)?null:firstRate,
-    flash, end:flash?document.getElementById('flash-date').value:''
+    flash, end:flash?document.getElementById('flash-date').value:'',
+    sched:document.getElementById('f-sched').value
   };
 }
+/* Within a category exactly one rule wins by precedence — a new publish supersedes the old.
+   Flash is the declared additive exception: it stacks, so it never supersedes a base rule. */
 function supersede(r){
-  RULES.forEach(x=>{ if(x.status==='working'&&x.loan===r.loan&&x.event===r.event&&x.roles.some(role=>r.roles.includes(role))) x.status='ended'; });
+  if(r.flash) return;
+  RULES.forEach(x=>{ if(!x.flash&&x.status==='working'&&x.cat===r.cat&&x.roles.some(role=>r.roles.includes(role))) x.status='ended'; });
 }
 function publishRule(){
   const r=currentRuleObj();
+  r.ver=nextVersion(r);
   supersede(r);
   RULES=RULES.filter(x=>x.id!==r.id);
   RULES.unshift(r);
   renderRulesTable();
   show('a-published');
+  setFact('live-version',r.ver);   // after show() so fillConfirmation can't overwrite it
 }
-function roleCurrentRate(role){ const r=RULES.find(x=>x.status==='working'&&x.roles.includes(role)&&typeof x.rate==='number'); return r?r.rate:0; }
+function roleCurrentRate(role){ const r=RULES.find(x=>!x.flash&&x.status==='working'&&x.roles.includes(role)&&typeof x.rate==='number'); return r?r.rate:0; }
+/* Backtest: canonical current-rulebook baseline by category (₹ lakh, from the spec's D14 illustration).
+   The candidate scales its own category by the rate ratio; other categories hold. */
+const BT_BASE={'sourcing':12.0,'convincing':6.0,'funnel/A2NU':8.0,'collection':4.0};
 function computeCost(){
   const roles=selectedActors();
+  const event=document.getElementById('f-event').value;
+  const cat=EVENT_CAT[event]||'sourcing';
   const mode=document.querySelector('#rate-mode button.on').dataset.m;
   let ratePct;
   if(mode==='slab'){ const p=[...document.querySelectorAll('#slab-body .s-pay')].map(i=>parseFloat(i.value)||0); ratePct=p.length?(Math.min(...p)+Math.max(...p))/2:0.3; }
   else { const rs=[...document.querySelectorAll('#role-rates .role-rate')].map(i=>parseFloat(i.value)||0); ratePct=rs.length?rs.reduce((a,b)=>a+b,0)/rs.length:0.3; }
-  const AVG=52000, VOL={SP:120,AP:80,Caller:200,'City Lead':40,'Digital Manager':60,'Collection Partner':90,'Internal DB':40};
-  let next=0, now=0;
-  roles.forEach(r=>{ const v=VOL[r]||60; next+=ratePct/100*AVG*v; now+=roleCurrentRate(r)/100*AVG*v; });
-  const lakh=x=>'₹'+(x/100000).toFixed(1)+' lakh';
-  const d=next-now, sign=d>=0?'+ ':'− ';
-  setFact('cost-next', lakh(next));
-  setFact('cost-delta', sign+lakh(Math.abs(d))+' each period');
-  setFact('cost-delta2', sign+lakh(Math.abs(d)));
+  const curRate=Math.max(0.05,roles.length?roles.reduce((a,r)=>a+roleCurrentRate(r),0)/roles.length:0.3);
+  const cats=['sourcing','convincing','funnel/A2NU','collection'];
+  const cand={}; let curTotal=0, candTotal=0;
+  cats.forEach(c=>{ const base=BT_BASE[c]; cand[c]= c===cat ? +(base*ratePct/curRate).toFixed(1) : base; curTotal+=base; candTotal+=cand[c]; });
+  // paint bars + values (max height 96% at 14 lakh)
+  cats.forEach((c,i)=>{
+    const n=i+1, h=x=>Math.min(96,Math.round(x/14*96))+'%';
+    const cb=document.getElementById('bt-c'+n), nb=document.getElementById('bt-n'+n), v=document.getElementById('bt-v'+n);
+    if(cb) cb.style.height=h(BT_BASE[c]);
+    if(nb) nb.style.height=h(cand[c]);
+    if(v) v.textContent=cand[c].toFixed(1);
+  });
+  const d=candTotal-curTotal, sign=d>=0?'+ ':'− ';
+  setFact('cost-next','₹'+candTotal.toFixed(1)+' lakh');
+  setFact('cost-delta', sign+'₹'+Math.abs(d).toFixed(1)+' lakh / period');
+  setFact('cost-delta2', sign+'₹'+Math.abs(d).toFixed(1)+' lakh / period');
 }
 
 function ensureGate(){ if(!document.querySelector('#mods .modrow')) addMod('gate',true,true); }
@@ -1370,9 +1447,9 @@ function addMod(kind,silent,auto){
   document.getElementById('mods-empty').style.display='none';
   const row=document.createElement('div');row.className='modrow'+(auto?' auto-mod':'');
   if(kind==='gate'){
-    row.innerHTML='<span class="mtype">Must meet</span> <select style="width:auto;padding:6px 10px"><option>At least this many loans</option><option>A certain mix of loans</option><option>Passes a fraud check</option></select><input type="number" placeholder="number" style="width:90px;padding:6px 10px"><button class="x" onclick="rmMod(this)">✕</button>';
+    row.innerHTML='<span class="mtype">Gate</span> <select style="width:auto;padding:6px 10px"><option>Min 10 new customers in the period</option><option>Min 5 loans in the month</option><option>&gt;90% of the month\'s customers are new</option><option>Anti-fraud · not booked in a family member\'s name (L4 relative-link)</option></select><input type="number" placeholder="n" style="width:70px;padding:6px 10px"><button class="x" onclick="rmMod(this)">✕</button>';
   }else{
-    row.innerHTML='<span class="mtype">Adjust pay</span> <select style="width:auto;padding:6px 10px"><option>Pay less for higher-risk loans</option><option>Adjust by how long the loan is</option></select><button class="x" onclick="rmMod(this)">✕</button>';
+    row.innerHTML='<span class="mtype">Scale</span> <select style="width:auto;padding:6px 10px"><option>LTV multiplier · ×1.0 High / ×0.7 Mid / ×0.5 Low</option><option>Tenure variant</option></select><button class="x" onclick="rmMod(this)">✕</button>';
   }
   wrap.appendChild(row);
   if(!silent) toast(kind==='gate'?'Condition added':'Pay adjuster added');
@@ -1382,7 +1459,7 @@ function rmMod(btn){ btn.closest('.modrow').remove(); if(!document.querySelector
 
 function resetForm(){
   document.getElementById('f-name').value='';
-  document.getElementById('f-start').value='2026-07-14';
+  document.getElementById('f-start').value='2026-08-01';
   document.querySelectorAll('#f-actor .pchip').forEach(b=>b.classList.toggle('on', b.dataset.val==='SP'));
   document.getElementById('f-loan').value='fresh';
   document.getElementById('f-event').value='self-source';
