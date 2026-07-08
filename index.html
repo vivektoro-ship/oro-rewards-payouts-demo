@@ -829,7 +829,7 @@ textarea{resize:vertical;min-height:88px}
               <span class="eg" id="rate-eg" style="font-size:12.5px;color:var(--muted)"></span>
             </div>
             <div style="overflow-x:auto"><table class="slab-table" id="slab-table"><thead id="slab-head"></thead><tbody id="slab-body"></tbody></table></div>
-            <button class="add-row" onclick="addSlab()" style="margin-top:10px;width:auto">+ Add</button>
+            <button class="add-row" onclick="addSlab()" style="margin-top:10px;width:auto">+ Add Slab</button>
           </div>
           <div class="field"><label>Paid out as <span class="tip" data-tip="In how many parts the money reaches them.">?</span></label>
             <select id="f-sched">
@@ -840,14 +840,18 @@ textarea{resize:vertical;min-height:88px}
               <option>Every 3 months</option>
             </select>
           </div>
-          <div class="field"><label>If the loan closes early <span class="tip" data-tip="Customer returns the gold within the window → the pay (bonus included) reverses. Parts not yet paid are simply never paid.">?</span></label>
-            <select id="f-claw">
-              <option>Within 60 days → take back the full pay</option>
-              <option>Within 60 days → take back part of it</option>
-              <option>The later it closes, the less we take back</option>
-              <option>Never take back</option>
-            </select>
-          </div>
+          <div class="field fld-block"><div style="width:100%">
+            <span class="inlbl">If the loan closes early <span class="tip" data-tip="If the customer returns the gold within this many days, the pay (bonus included) is taken back. Parts not yet paid are simply never paid.">?</span></span>
+            <div style="display:flex;align-items:center;gap:9px;margin-top:6px;flex-wrap:wrap;font-size:15px;font-weight:600">
+              <span id="claw-pre" style="display:flex;align-items:center;gap:9px">Within <input type="number" id="claw-days" value="60" min="1" class="mod-n" style="width:64px"> days →</span>
+              <select id="f-claw" onchange="clawChanged()" style="width:auto;border:none;background:transparent;padding:4px 0;font-size:15px;font-weight:700;color:var(--indigo-2)">
+                <option>take back the full pay</option>
+                <option>take back part of it</option>
+                <option>take back less, the later it closes</option>
+                <option>never take back</option>
+              </select>
+            </div>
+          </div></div>
         </div>
 
         <div class="fcard"><div class="fsect">Extra conditions <span style="text-transform:none;font-weight:500">· optional</span></div>
@@ -1453,6 +1457,11 @@ function renderSlabs(){
   }).join('');
 }
 function refreshSlabs(){ captureSlabs(); renderSlabs(); }   // keep edits when roles change
+function clawChanged(){
+  const v=document.getElementById('f-claw').value;
+  document.getElementById('claw-pre').style.display = v.startsWith('never') ? 'none' : 'flex';
+  updatePreview();
+}
 function setUnitMode(u){
   document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on',b.dataset.u===u));
   const bs=document.getElementById('f-basis');
