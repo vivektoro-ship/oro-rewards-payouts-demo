@@ -242,6 +242,14 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--indigo);
 .fcard .tip{width:13px;height:13px;font-size:8.5px}
 .fcard .field:has(> input[type=date]){height:72px}
 .fcard .field:has(> select),.fcard .field:has(> input[type=text]){min-height:72px}
+/* config agent — big editable sentence */
+.agent-card{background:linear-gradient(135deg,#EEF3FF,#FFFFFF);border-color:var(--indigo-line)}
+.agent-sentence{width:100%;box-sizing:border-box;border:1.5px dashed var(--indigo-line);background:#fff;border-radius:12px;padding:16px 18px;font-family:var(--font-display),Georgia,serif;font-size:20px;line-height:1.55;font-weight:500;color:var(--ink);resize:vertical;min-height:96px}
+.agent-sentence:focus{outline:none;border-style:solid;border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-soft)}
+.agent-hint{font-size:12px;color:var(--muted);line-height:1.5}
+.role-mode{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.02em;border-radius:99px;padding:4px 11px}
+.role-mode.direct{background:#E7F6EE;color:#15803D}
+.role-mode.scope{background:#EAECFF;color:#4338CA}
 .slab-table td .amt-wrap{display:block}
 .slab-table td .amt-wrap input{width:100%}
 .msdd{position:relative}
@@ -818,6 +826,12 @@ textarea{resize:vertical;min-height:88px}
       <div class="create-grid">
       <div class="fstack">
 
+        <div class="fcard agent-card"><div class="fsect">✨ Describe it in words</div>
+          <textarea id="agent-input" class="agent-sentence" placeholder="Pay Sales Partners 0.4% on fresh gold loans in Chennai, half next month.">Pay Sales Partners 0.4% on fresh gold loans in Chennai, half next month.</textarea>
+          <div class="agent-hint">Write it like a sentence — the form below fills in for you. Fix anything after, then send it for approval like any other incentive.</div>
+          <button class="btn primary" onclick="agentDraft()" style="align-self:flex-start">Draft the incentive →</button>
+        </div>
+
         <div class="fcard"><div class="fsect">Incentive details</div>
           <div class="field"><label>Incentive name</label>
             <input type="text" id="f-name" placeholder="e.g. SP self-source · Fresh · 0.35%" maxlength="60">
@@ -835,6 +849,7 @@ textarea{resize:vertical;min-height:88px}
               <option value="TPF">TPF</option>
             </select>
           </div>
+          <div id="role-mode" class="role-mode direct"></div>
           <div style="display:flex;gap:14px">
             <div class="field" style="flex:1"><label>Starts from</label>
               <input type="date" id="f-start" value="2026-08-01">
@@ -1755,7 +1770,68 @@ function payShort(){
   if(isMoney()) return '₹'+v+' per '+(b.includes('customer')?'customer':'loan');
   return v+'% of loan';
 }
+/* ---- P2: Direct (per-loan) vs Scope (per-period) crediting ---- */
+const SCOPE_ROLES=['City Lead','Digital Manager'];
+function isScopeRole(role){ return SCOPE_ROLES.includes(role); }
+function renderRoleMode(){
+  const el=document.getElementById('role-mode'); if(!el) return;
+  const r=(document.getElementById('f-role')||{}).value||'SP';
+  if(isScopeRole(r)){ el.className='role-mode scope'; el.textContent='Scope · per period — paid on totals across their org unit, settled at close'; }
+  else { el.className='role-mode direct'; el.textContent='Direct · per loan — paid the moment a matching loan books'; }
+}
+
+/* ---- P1: config agent — draft an incentive from a plain sentence ---- */
+function parseIntent(t){
+  const s=t.toLowerCase(), has=re=>re.test(s);
+  let role='SP';
+  if(has(/appraisal partner|\bap\b/)) role='AP';
+  else if(has(/caller|ringmaster/)) role='Caller';
+  else if(has(/collection/)) role='Collection Partner';
+  else if(has(/city lead/)) role='City Lead';
+  else if(has(/digital manager/)) role='Digital Manager';
+  else if(has(/internal/)) role='Internal DB';
+  else if(has(/business partner|jeweller|referral/)) role='Business Partner';
+  else if(has(/\btpf\b/)) role='TPF';
+  let event='self-source';
+  if(has(/a2nu|new customer/)) event='funnel-a2nu';
+  else if(has(/convinc/)) event='convincing';
+  else if(has(/collect|repaid|\brepay|closure|gets? the loan|closed early/)) event='closure-bucket';
+  else if(has(/conversion|city number|channel number/)) event='net-conversion';
+  let loan='fresh';
+  if(has(/takeover/)) loan='takeover';
+  else if(has(/continuation|renewal|top-?up/)) loan='continuation';
+  else if(has(/attached/)) loan='attached';
+  let product='any';
+  if(has(/personal loan|\bpl\b/)) product='PL';
+  else if(has(/gold loan|\bgl\b/)) product='GL';
+  const CITIES=['Chennai','Madurai','Coimbatore','Trichy','Salem','Hyderabad','Bengaluru'];
+  const cities=CITIES.filter(c=>s.includes(c.toLowerCase()));
+  let sched='Half next month + half the month after';
+  if(has(/same month/)) sched='Same month';
+  else if(has(/when .*clos|on closure|at closure/)) sched='When the loan closes';
+  else if(has(/quarter|3 months|three months/)) sched='Every 3 months';
+  else if(has(/full.*next month/)||(has(/next month/)&&!has(/half/))) sched='Full amount next month';
+  let rate=null, unit='pct';
+  const mPct=s.match(/(\d+(?:\.\d+)?)\s?%/), mAmt=s.match(/₹\s?([\d,]+)/);
+  if(mPct){ rate=parseFloat(mPct[1]); unit='pct'; }
+  else if(mAmt){ rate=parseInt(mAmt[1].replace(/,/g,''),10); unit='amt'; }
+  const loanCap=loan.charAt(0).toUpperCase()+loan.slice(1);
+  const name=role+' · '+loanCap+(rate!=null?' · '+(unit==='pct'?rate+'%':'₹'+rate):'');
+  return {name,roles:[role],event,loan,product,cities,sched,rate,unit};
+}
+function agentDraft(){
+  const t=(document.getElementById('agent-input').value||'').trim();
+  if(t.length<8){ toast('Write it like a sentence — who earns it, what rate, which loans'); return; }
+  const p=parseIntent(t);
+  loadRule(p);                                   // reuse the full fill + preview path
+  if(p.unit==='amt') setUnitMode('amt');
+  if(p.rate!=null){ const inp=document.querySelector('#slab-body .s-pay'); if(inp){ inp.value=p.rate; } }
+  renderRoleMode(); updatePreview();
+  const target=document.querySelector('#a-form .fstack .fcard:nth-child(2)'); if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+  toast('Drafted from your words — check the fields below, then Check the cost');
+}
 function updatePreview(){
+  renderRoleMode();
   const roles=selectedActors();
   const event=document.getElementById('f-event').value;
   const loan=document.getElementById('f-loan').value;
@@ -2016,6 +2092,7 @@ function renderDetail(r){
   // facts
   const rows=[
     ['Who', rolesText(r.roles)],
+    ['Credited', isScopeRole(r.roles&&r.roles[0])?'Scope · per period':'Direct · per loan'],
     ['Does what', (EVENT_LABELS[r.event]||r.event||'—')+' · '+(r.loan?r.loan[0].toUpperCase()+r.loan.slice(1):'')+' loan'],
     ['Pays', r.pay],
     ['Given as', r.sched||'—'],
@@ -2157,41 +2234,6 @@ function toggleReject(){
 function checkDispute(){
   const v=document.getElementById('dispute-reason').value.trim();
   document.getElementById('submit-dispute').disabled = v.length<3;
-}
-
-/* ---- config agent (D13): plain language in, a slot-fill out. Maker only. ---- */
-function agentDraft(){
-  const t=(document.getElementById('agent-text').value||'').toLowerCase();
-  if(t.trim().length<8){ toast('Describe the incentive in a sentence first'); return; }
-  const roleMap=[['business partner','Business Partner'],['appraisal','AP'],['sales partner','SP'],['sp ','SP'],[' ap','AP'],['caller','Caller'],['collection','Collection Partner'],['city lead','City Lead'],['digital','Digital Manager'],['internal','Internal DB'],['tpf','TPF']];
-  let roles=[]; roleMap.forEach(([k,v])=>{ if(t.includes(k)&&!roles.includes(v)) roles.push(v); });
-  roles=roles.length?[roles[0]]:['SP'];   // one rule = one role
-  document.querySelectorAll('#f-actor .pchip').forEach(b=>b.classList.toggle('on',roles.includes(b.dataset.val)));
-  const loan=t.includes('takeover')?'takeover':(t.includes('renewal')||t.includes('top-up')||t.includes('continuation'))?'continuation':t.includes('attached')?'attached':t.includes('additional')?'additional':'fresh';
-  document.getElementById('f-loan').value=loan;
-  const ev=t.includes('convin')?'convincing':(t.includes('new customer')||t.includes('a2nu'))?'funnel-a2nu':(t.includes('repay')||t.includes('closure')||t.includes('collect'))?'closure-bucket':(t.includes('channel')||t.includes('conversion'))?'net-conversion':'self-source';
-  document.getElementById('f-event').value=ev;
-  const flash=t.includes('flash')||t.includes('bonus')||t.includes('push')||t.includes('limited');
-  setRuleType(flash?'flash':'standard');
-  applyAutofill();
-  const m=t.match(/(\d+(?:\.\d+)?)\s*%/);
-  if(m){ const r=document.querySelector('#role-rates .role-rate'); if(r){ r.value=m[1]; ratePreview(); } }
-  if(t.includes('slab')||t.includes('level')) setRateMode('slab');
-  const sch=document.getElementById('f-sched');
-  if(t.includes('same month')) sch.value='Same month';
-  else if(t.includes('quarter')) sch.value='Every 3 months';
-  else if(t.includes('half')) sch.value='Half next month + half the month after';
-  else if(t.includes('next month')) sch.value='Full amount next month';
-  const CITIES=['chennai','madurai','coimbatore','trichy','salem','hyderabad','bengaluru'];
-  const foundC=CITIES.filter(c=>t.includes(c));
-  document.querySelectorAll('#f-city .pchip').forEach(b=>b.classList.toggle('on', foundC.length? foundC.includes(b.dataset.val.toLowerCase()) : b.dataset.val==='all'));
-  const nm=document.getElementById('f-name');
-  if(!nm.value.trim()) nm.value=(ROLE_NAMES[roles[0]]||roles[0])+' · '+loan.charAt(0).toUpperCase()+loan.slice(1)+(m?' · '+m[1]+'%':'')+(flash?' · flash':'');
-  updatePreview();
-  const rd=document.getElementById('agent-read');
-  rd.innerHTML='<span class="i">✦</span> Understood: <b>'+roles.map(r=>ROLE_NAMES[r]).join(', ')+'</b> · '+loan+' · '+(EVENT_CAT[ev]||ev)+(m?' · <b>'+m[1]+'%</b>':'')+(flash?' · <b>flash</b>':'')+' — check the slots below, then simulate. The agent proposes; it never publishes.';
-  rd.style.display='block';
-  toast('Draft filled — you are still the checker');
 }
 
 /* ---- admin dispute resolution (D16): every outcome is an append ---- */
