@@ -1367,7 +1367,7 @@ function basisChanged(){
     if(help) help.dataset.tip='The monthly total decides which slab row applies — set the rows below.';
   } else {
     wrap.classList.remove('money'); suf.textContent='%';
-    if(help) help.textContent="The partner gets a % of each loan's amount.";
+    if(help) help.dataset.tip="The partner gets a % of each loan's amount.";
   }
   updatePreview();
 }
