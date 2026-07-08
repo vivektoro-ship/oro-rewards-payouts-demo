@@ -656,6 +656,16 @@ textarea{resize:vertical;min-height:88px}
 .rtl-dot.amber{background:#F5A623}.rtl-dot.green{background:#22A857}.rtl-dot.grey{background:#C2CBD8}
 .rtl-t{font-size:13px;font-weight:700;color:#0B1220}
 .rtl-m{font-size:11.5px;font-weight:500;color:#5B6472;margin-top:1px}
+/* take-back safety bar (one loan) */
+.safebar{height:9px;border-radius:99px;background:#E4EAF4;overflow:hidden;margin-top:4px}
+.safebar .sb-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#F5A623,#4FBF7A,#22A857)}
+/* correction line (closed month) */
+.px-row.corr{border-left:3px solid #2563EB;background:#F4F8FF;border-radius:0 8px 8px 0;margin:2px -6px 0;padding:11px 10px}
+.px-row.corr .amt{color:#2563EB}
+/* ledger signed amounts + taken-back row (see the working) */
+.px-row .amt.pos{color:#15803D}
+.px-row.back{border-left:3px solid #C0392B;background:#FEF5F4;border-radius:0 8px 8px 0;margin:0 -6px;padding:13px 10px}
+.px-showall{display:block;width:100%;text-align:center;font-family:inherit;font-size:12.5px;font-weight:700;color:#1D4ED8;background:#fff;border:1px solid #D5DEEC;border-radius:10px;padding:10px;margin-top:12px;cursor:pointer}
 .px-kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #F0F3F8;font-size:13px}
 .px-kv:last-child{border-bottom:none}
 .px-kv .k{color:#64748B;font-weight:600}
@@ -1300,7 +1310,13 @@ textarea{resize:vertical;min-height:88px}
             <div class="px-kv"><span class="k">Why you earned it</span><span class="v">You found the customer</span></div>
             <div class="px-kv"><span class="k">Rate band</span><span class="v">Full rate (high-value loan)</span></div>
             <div class="px-kv"><span class="k">Paid as</span><span class="v">Half next month + half after</span></div>
-            <div class="px-kv"><span class="k">Take-back window</span><span class="v">60 days from loan date</span></div>
+          </div>
+          <div class="px-card">
+            <div class="px-label">Take-back window</div>
+            <hr class="px-div">
+            <div class="safebar"><div class="sb-fill" style="width:47%"></div></div>
+            <div class="tb-caps"><span><b>Safe in 32 days</b></span><span>closes 27 Aug</span></div>
+            <div class="px-note12" style="margin-top:10px">If the loan closes before then, part of this pay is taken back — always shown as a line, never removed silently.</div>
           </div>
           <div class="px-note12" style="padding:0 4px">Locked on the loan date — later rate changes never touch this loan.</div>
         </div>
@@ -1333,7 +1349,7 @@ textarea{resize:vertical;min-height:88px}
             <hr class="px-div">
             <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Finding customers · 44 fresh loans</div><div class="m">0.35% of loan</div></div><div class="amt">₹41,300</div></div>
             <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Convincing customers · 12 loans</div><div class="m">0.20% of loan · pays along with finding</div></div><div class="amt">₹14,200</div></div>
-            <div class="px-row" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Added later — issue accepted</div><div class="m">added to next month · 06 Jul</div><span class="px-chip amber">correction · shown</span></div><div class="amt" style="color:#d98a00">+₹3,400</div></div>
+            <div class="px-row corr" data-goto="b-explain" style="cursor:pointer"><div class="main"><div class="t">Added later — issue accepted</div><div class="m">added to next month · 06 Jul</div><span class="px-chip blue">correction</span></div><div class="amt">+₹3,400</div></div>
                       </div>
         </div>
         <div class="px-foot"><button class="px-cta2" style="margin:0" data-goto="b-dispute">Report an issue</button></div>
@@ -1355,12 +1371,12 @@ textarea{resize:vertical;min-height:88px}
           <div class="px-card">
             <div class="px-label">July · line by line</div>
             <hr class="px-div">
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000482</div><div class="m">+0.35% of loan · found the customer</div><span class="px-chip green">locked</span></div><div class="amt">₹1,750</div></div>
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000471</div><div class="m">+0.45% of loan · with July bonus</div><span class="px-chip amber">+ bonus</span></div><div class="amt">₹2,240</div></div>
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000448</div><div class="m">+0.20% of loan · convinced the customer</div><span class="px-chip green">locked</span></div><div class="amt">₹980</div></div>
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000459</div><div class="m">customer repaid early — bonus returned</div><span class="px-chip red">taken back</span></div><div class="amt red">−₹1,120</div></div>
-            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000455</div><div class="m">+0.175% · half rate, low-value loan</div><span class="px-chip green">locked</span></div><div class="amt">₹1,410</div></div>
-            <div class="px-more">+ 37 more lines · your total is the sum of your lines</div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000482</div><div class="m">+0.35% of loan · found the customer</div><span class="px-chip green">locked</span></div><div class="amt pos">+₹1,750</div></div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000471</div><div class="m">+0.45% of loan · with July bonus</div><span class="px-chip amber">+ bonus</span></div><div class="amt pos">+₹2,240</div></div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000448</div><div class="m">+0.20% of loan · convinced the customer</div><span class="px-chip green">locked</span></div><div class="amt pos">+₹980</div></div>
+            <div class="px-row back" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000459</div><div class="m">customer repaid early — bonus returned</div><span class="px-chip red">taken back</span></div><div class="amt red">−₹1,120</div></div>
+            <div class="px-row" data-goto="b-dispute" style="cursor:pointer"><div class="main"><div class="t">OML000455</div><div class="m">+0.175% · half rate, low-value loan</div><span class="px-chip green">locked</span></div><div class="amt pos">+₹1,410</div></div>
+            <button class="px-showall" onclick="toast('All 42 lines — the full July ledger')">Show all 42 lines →</button>
           </div>
           <div class="px-note12" style="padding:0 4px">Corrections are <b>new lines</b> — nothing is erased.</div>
         </div>
