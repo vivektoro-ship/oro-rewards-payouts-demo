@@ -1372,13 +1372,17 @@ function setRuleType(rt){ if(document.querySelector('#f-ruletype')){document.que
 function setUnitMode(u){
   document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on',b.dataset.u===u));
   const bs=document.getElementById('f-basis');
-  if(u==='amt'){ if(!bs.value.toLowerCase().includes('count')) bs.value='Loan count — this month'; }
-  else { if(bs.value.toLowerCase().includes('count')) bs.value='The loan amount'; }
+  const v=bs.value.toLowerCase();
+  if(u==='pct' && v.includes('count')) bs.value='The loan amount';           // % of a count is meaningless
+  if(u==='amt' && (v.includes('a2nu')||v.includes('conversions'))) bs.value='The loan amount';
   basisChanged();
 }
 function syncUnitSeg(){
-  const isAmt=isMoney();
-  document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on',(b.dataset.u==='amt')===isAmt));
+  const v=document.getElementById('f-basis').value.toLowerCase();
+  let u=null;
+  if(v.includes('count')) u='amt';
+  else if(v.includes('a2nu')||v.includes('conversions')) u='pct';
+  if(u) document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on',b.dataset.u===u));
 }
 function basisChanged(){
   syncUnitSeg();
@@ -1396,7 +1400,7 @@ function setRateMode(m){}
 const DEFAULT_BANDS=[{from:1,to:'',pay:''}];
 let slabState=[];  // [{from,to,pay,pays:{roleKey:val}}]
 
-function isMoney(){ return document.getElementById('f-basis').value.toLowerCase().includes('count'); }
+function isMoney(){ const b=document.querySelector('#unit-mode .on'); return !!b && b.dataset.u==='amt'; }
 function firstPay(){ const i=document.querySelector('#slab-body .s-pay'); return i?i.value:''; }
 function slabCount(){ return document.querySelectorAll('#slab-body .slab-r').length; }
 function fmtIN(el){ const d=(el.value||'').replace(/[^0-9]/g,''); el.value = d? Number(d).toLocaleString('en-IN') : ''; }
@@ -1535,7 +1539,7 @@ function payText(){
     return 'a slab rate '+on;
   }
   if(!v) return 'a rate you\'ll set';
-  if(isMoney()) return '₹'+v+' for every '+(basis.toLowerCase().includes('customer')?'new customer':'loan')+' this month';
+  if(isMoney()) return '₹'+v+' for every '+(basis.toLowerCase().includes('customer')?'new customer':'loan')+(basis.toLowerCase().includes('count')?' this month':'');
   return v+'% '+on;
 }
 function buildSummary(){
@@ -1576,11 +1580,11 @@ function buildSummary(){
 /* ---- live preview panel on the create screen ---- */
 function setFact(id,v){ const el=document.getElementById(id); if(el) el.textContent=v; }
 function payShort(){
-  const b=document.getElementById('f-basis').value;
+  const b=document.getElementById('f-basis').value.toLowerCase();
   const v=firstPay(), n=slabCount();
-  if(n>1) return 'Slab · '+n+' levels';
+  if(n>1) return (isMoney()?'₹ slab':'Slab')+' · '+n+' levels';
   if(!v) return '—';
-  if(isMoney()) return '₹'+v+' per '+(b.toLowerCase().includes('customer')?'customer':'loan');
+  if(isMoney()) return '₹'+v+' per '+(b.includes('customer')?'customer':'loan');
   return v+'% of loan';
 }
 function updatePreview(){
@@ -1848,6 +1852,7 @@ function resetForm(){
   basisChanged();
   document.getElementById('f-sched').selectedIndex=0;
   document.getElementById('flash-date').value='';
+  document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on',b.dataset.u==='pct'));
   document.querySelectorAll('#f-city .cty').forEach(b=>b.checked = b.dataset.val==='all');
   document.getElementById('city-btn-label').textContent='All cities';
   document.getElementById('mods').innerHTML='';
