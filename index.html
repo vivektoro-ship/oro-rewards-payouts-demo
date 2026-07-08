@@ -1448,6 +1448,14 @@ function renderSlabs(){
   }).join('');
 }
 function refreshSlabs(){ captureSlabs(); renderSlabs(); }   // keep edits when roles change
+function setUnitMode(u){
+  document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on',b.dataset.u===u));
+  const bs=document.getElementById('f-basis');
+  const v=bs.value.toLowerCase();
+  if(u==='pct' && v.includes('count')) bs.value='The loan amount';
+  if(u==='amt' && (v.includes('a2nu')||v.includes('conversions'))) bs.value='The loan amount';
+  basisChanged();
+}
 function setRuleType(rt){}
 function syncFroms(){
   const rows=[...document.querySelectorAll('#slab-body .slab-r')];
