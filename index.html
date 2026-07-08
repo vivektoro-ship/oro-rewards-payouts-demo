@@ -209,6 +209,17 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--indigo);
 .rp-status.warn{color:#8a6400;background:#fbf6ee;border-color:#d98a0033}
 .rp-actions{display:flex;flex-direction:column;gap:9px}
 @media(max-width:980px){.create-grid{grid-template-columns:1fr}.rule-preview{position:static;order:-1}}
+.journey{display:flex;align-items:center;gap:4px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:18px;max-width:1120px;box-shadow:var(--shadow-card)}
+.j-step{display:flex;align-items:center;gap:9px;min-width:0}
+.j-n{width:22px;height:22px;border-radius:50%;background:var(--card-2);border:1px solid var(--line-2);color:var(--muted);font-weight:800;font-size:11px;display:grid;place-items:center;flex:none}
+.j-t{font-size:12.5px;font-weight:600;color:var(--muted)}
+.j-t small{display:block;font-size:10.5px;font-weight:500;color:var(--muted-2);margin-top:1px}
+.j-step.on .j-n{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.j-step.on .j-t{color:var(--ink)}
+.j-step.done .j-n{background:#16880415;border-color:#16880440;color:var(--ok)}
+.j-arr{color:var(--line-2);margin:0 12px;font-size:14px;flex:none}
+@media(max-width:900px){.j-arr{display:none}.journey{gap:12px}}
+
 .spec-list{margin-top:16px;background:var(--card-2);border:1px solid var(--line);border-radius:16px;padding:4px 20px}
 .sl-row{display:flex;gap:20px;padding:14px 0;border-bottom:1px solid var(--line-2);align-items:baseline}
 .sl-row .fl{flex:0 0 100px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
@@ -617,17 +628,19 @@ textarea{resize:vertical;min-height:88px}
     <!-- ===== OFFICE 2 · CREATE A RULE ===== -->
     <section class="screen" id="a-form">
       <div class="breadcrumb"><b>Create an incentive</b><span class="sep">›</span> Who<span class="sep">›</span> On what<span class="sep">›</span> How much<span class="sep">›</span> Conditions<span class="sep">›</span> When paid</div>
-      <div class="screen-head"><span class="id">Office · 2</span><div><h2>Create an incentive — fill five blanks</h2><div class="sub">Open a step to change it — the sentence on the right updates live.</div></div></div>
+      <div class="screen-head"><span class="id">Office · 2</span><div><h2>Create an incentive — fill five blanks</h2><div class="sub">Answer five simple questions. Nothing is paid until it's approved.</div></div></div>
+
+      <div class="journey"><div class="j-step on"><span class="j-n">1</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">2</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
 
       <div class="create-grid">
       <div class="wizard">
         <!-- Config agent · D13 -->
         <div class="fsection" style="border-color:var(--indigo-line);background:linear-gradient(150deg,#f4f7ff,#fff)">
-          <div class="fsec-head"><span class="fsec-tag" style="background:var(--indigo)">✦</span><div><h4>Describe it in plain words <span style="color:var(--muted-2);font-weight:400;font-size:12px">· agent drafts, a human approves</span></h4><div class="hint">e.g. “flash 0.1% bonus for APs on takeover loans, same month”</div></div></div>
+          <div class="fsec-head"><span class="fsec-tag" style="background:var(--indigo)">✦</span><div><h4>In a hurry? Describe it in plain words <span style="color:var(--muted-2);font-weight:400;font-size:12px">· we fill the blanks, you check them</span></h4><div class="hint">e.g. “flash 0.1% bonus for APs on takeover loans, same month”</div></div></div>
           <div class="fsec-body">
             <div style="display:flex;gap:10px">
               <input type="text" id="agent-text" placeholder="Type the incentive in one sentence…" style="flex:1">
-              <button class="btn primary" style="flex:none" onclick="agentDraft()">Draft it</button>
+              <button class="btn primary" style="flex:none" onclick="agentDraft()">Fill it for me</button>
             </div>
             <div class="note" id="agent-read" style="display:none;margin-top:10px"></div>
           </div>
@@ -776,7 +789,7 @@ textarea{resize:vertical;min-height:88px}
       </div><!-- /.wizard -->
 
       <aside class="rule-preview">
-        <div class="rp-head"><span class="rp-dot"></span> The one sentence · live</div>
+        <div class="rp-head"><span class="rp-dot"></span> Your incentive so far — updates as you fill</div>
         <div class="rp-sentence" id="preview-sentence"></div>
         <div class="rp-facts">
           <div class="rp-fact"><span>Payee type</span><b id="pv-who">—</b></div>
@@ -802,6 +815,7 @@ textarea{resize:vertical;min-height:88px}
     <section class="screen" id="a-review">
       <div class="breadcrumb"><span data-goto="a-form" style="cursor:pointer">Create an incentive</span><span class="sep">›</span><b>Check the cost</b></div>
       <div class="screen-head"><span class="id">Office · 3</span><div><h2>Check the cost — before it goes anywhere</h2><div class="sub">Replayed over the last 3 months of real loans, projected for next month. Nothing goes live from here.</div></div></div>
+      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">2</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="panel">
           <div class="p-sub" style="margin-bottom:12px">The incentive, in one sentence:</div>
@@ -849,6 +863,7 @@ textarea{resize:vertical;min-height:88px}
     <!-- ===== OFFICE 4 · SENT FOR APPROVAL ===== -->
     <section class="screen" id="a-staged">
       <div class="screen-head"><span class="id">Office · 4</span><div><h2>Sent for approval</h2><div class="sub">One person drafts, another approves. Nothing is paid until then.</div></div></div>
+      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="confirm">
           <div class="seal stage">◔</div>
@@ -873,6 +888,7 @@ textarea{resize:vertical;min-height:88px}
     <!-- ===== OFFICE 5 · APPROVE A RULE ===== -->
     <section class="screen" id="a-checker">
       <div class="screen-head"><span class="id">Office · 5</span><div><h2>Approve or reject</h2><div class="sub">Approve → it goes live. Reject → needs a reason, on the record.</div></div></div>
+      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="panel">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span class="pill staged">waiting</span><span class="readonly-flag">👁 View only — what the drafter sent</span></div>
@@ -920,6 +936,7 @@ textarea{resize:vertical;min-height:88px}
     <!-- ===== OFFICE 6 · LIVE ===== -->
     <section class="screen" id="a-published">
       <div class="screen-head"><span class="id">Office · 6</span><div><h2>The incentive is live</h2><div class="sub">Live from its start date. Every loan keeps the rate that was live on its own date.</div></div></div>
+      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="confirm">
           <div class="seal ok">✓</div>
