@@ -766,21 +766,22 @@ textarea{resize:vertical;min-height:88px}
           </div>
           </div>
 <div class="fcard"><div class="fsect">The pay</div>
-          <div class="field"><label>On what amount</label>
+          <div class="field"><label>Pay is calculated on <span class="desc">— what the pay is a share of</span></label>
             <select id="f-basis" onchange="basisChanged()">
-              <option>the loan amount</option>
-              <option>loan count this month</option>
-              <option>customer count this month</option>
-              <option>A2NU % (period)</option>
-              <option>net conversions (period)</option>
-              <option disabled>company profit (after v1)</option>
+              <option>The loan amount</option>
+              <option>Loan count — this month</option>
+              <option>Customer count — this month</option>
+              <option>A2NU % — monthly</option>
+              <option>Net conversions — monthly</option>
+              <option disabled>Company profit (after v1)</option>
             </select>
+            <div class="minihint" id="basis-help" style="margin-top:7px">The partner gets a % of each loan's amount.</div>
           </div>
-          <div class="field"><label>How much</label>
+          <div class="field"><label>How much <span class="desc">— same rate for all, or higher rate at higher levels</span></label>
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
               <div class="seg seg-sm" id="rate-mode">
-                <button class="on" data-m="flat" onclick="setRateMode('flat')">Flat</button>
-                <button data-m="slab" onclick="setRateMode('slab')">Slab</button>
+                <button class="on" data-m="flat" onclick="setRateMode('flat')">Same rate</button>
+                <button data-m="slab" onclick="setRateMode('slab')">Slabs — rate grows</button>
               </div>
               <span id="s-rate-wrap" style="display:inline-flex;align-items:center;gap:6px"><b id="unit-pre" style="display:none">₹</b><input type="number" id="s-rate" step="0.01" min="0" placeholder="0.00" style="width:110px;text-align:right"><b id="unit-suf">%</b></span>
               <span id="s-slab-word" style="display:none;font-size:13px;color:var(--muted)">set the slab table below</span>
@@ -791,7 +792,7 @@ textarea{resize:vertical;min-height:88px}
             <div style="overflow-x:auto"><table class="slab-table" id="slab-table"><thead id="slab-head"></thead><tbody id="slab-body"></tbody></table></div>
             <button class="add-row" onclick="addSlab()" style="margin-top:10px;width:auto">+ Add a slab row</button>
           </div>
-          <div class="field"><label>Given as</label>
+          <div class="field"><label>Paid out as <span class="desc">— in how many parts</span></label>
             <select id="f-sched">
               <option>Half next month + half the month after</option>
               <option>Full amount next month</option>
@@ -1351,9 +1352,15 @@ function setRuleType(rt){
 function basisChanged(){
   const b=document.getElementById('f-basis').value;
   const pre=document.getElementById('unit-pre'), suf=document.getElementById('unit-suf');
-  if(b.includes('count')){ pre.style.display='inline'; suf.textContent='each'; setRateMode('flat'); }
-  else { pre.style.display='none'; suf.textContent='%'; }
-  if(b.includes('A2NU')||b.includes('conversions')) setRateMode('slab');
+  const help=document.getElementById('basis-help');
+  if(b.includes('count')){ pre.style.display='inline'; suf.textContent='each'; setRateMode('flat');
+    if(help) help.textContent='The partner gets a fixed ₹ amount for each one.'; }
+  else if(b.includes('A2NU')||b.includes('conversions')){ setRateMode('slab');
+    if(help) help.textContent='The monthly total decides which slab row applies — set the rows below.'; }
+  else { pre.style.display='none'; suf.textContent='%';
+    if(help) help.textContent="The partner gets a % of each loan's amount."; }
+  if(b.includes('count')) return updatePreview();
+  if(!(b.includes('A2NU')||b.includes('conversions'))){ pre.style.display='none'; suf.textContent='%'; }
   updatePreview();
 }
 function setRateMode(m){
@@ -1452,7 +1459,7 @@ function ratePreview(){
   const basis=document.getElementById('f-basis').value;
   const r=parseFloat((document.getElementById('s-rate')||{}).value);
   const slabOn=document.querySelector('#rate-mode button.on').dataset.m==='slab';
-  if(slabOn||basis!=='the loan amount'||!(r>0)){ el.textContent=''; return; }
+  if(slabOn||!basis.startsWith('The loan amount')||!(r>0)){ el.textContent=''; return; }
   el.textContent='≈ ₹'+Math.round(500000*r/100).toLocaleString('en-IN')+' on a ₹5,00,000 loan';
 }
 function setAuto(fieldWrap, tagId, isAuto){
@@ -1481,7 +1488,7 @@ function payText(){
   const inputs=[...document.querySelectorAll('#role-rates .role-rate')];
   const slabOn=document.querySelector('#rate-mode button.on').dataset.m==='slab';
   const basis=document.getElementById('f-basis').value;
-  const on = basis.includes('A2NU') ? 'by A2NU% slab' : (basis.includes('count')||basis.includes('conversions')) ? 'on '+basis : basis.includes('profit') ? 'on the profit metric' : 'of the loan amount';
+  const on = basis.includes('A2NU') ? 'by A2NU% slab' : (basis.includes('count')||basis.includes('conversions')) ? 'on '+basis.toLowerCase().replace(' — ',' ') : basis.includes('profit') ? 'on the profit metric' : 'of the loan amount';
   if(slabOn){
     if(selectedActors().length>1) return 'a slab rate '+on+', set per payee type';
     const pays=[...document.querySelectorAll('#slab-body .s-pay')].map(i=>parseFloat(i.value||0)).filter(n=>!isNaN(n));
@@ -1508,8 +1515,8 @@ function buildSummary(){
   const slabOn2=document.querySelector('#rate-mode button.on').dataset.m==='slab';
   const r0=parseFloat((document.getElementById('s-rate')||{}).value);
   const ps=payShort();
-  let gets = ps==='—' ? '—' : ps + (basisShort==='the loan amount' ? '' : ' · on '+basisShort);
-  if(!slabOn2 && basisShort==='the loan amount' && r0>0){
+  let gets = ps==='—' ? '—' : ps + (basisShort==='The loan amount' ? '' : ' · on '+basisShort.toLowerCase());
+  if(!slabOn2 && basisShort==='The loan amount' && r0>0){
     gets+='<span class="sub">e.g. ₹'+Math.round(500000*r0/100).toLocaleString('en-IN')+' on a ₹5,00,000 loan'+(flash?' — on top of the normal incentive':'')+'</span>';
   }
   const cl2=cityList();
