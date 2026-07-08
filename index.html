@@ -413,6 +413,20 @@ textarea{resize:vertical;min-height:88px}
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;font-size:13.5px;box-shadow:var(--shadow-pop);opacity:0;pointer-events:none;transition:.3s;z-index:100;max-width:340px;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+/* flat single-card form (accordion removed) */
+.wizard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:8px 26px 14px;box-shadow:var(--shadow-card);gap:0}
+.wizard .fsection,.wizard .fsection.collapsed{background:none;border:none;box-shadow:none;border-radius:0;overflow:visible}
+.wizard .fsection{border-top:1px solid var(--line)}
+.wizard .fsection:first-child{border-top:none}
+.wizard .fsection:focus-within{border-color:var(--line);box-shadow:none}
+.wizard .fsec-head{padding:18px 0 0;cursor:default;user-select:text}
+.wizard .fsec-tag,.wizard .fsec-chev,.wizard .fsec-head .hint,.wizard .fsec-head h4 span{display:none}
+.wizard .fsec-sum{display:none!important}
+.wizard .fsec-head h4{font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2)}
+.wizard .fsection.collapsed .fsec-body{display:block}
+.wizard .fsec-body{padding:12px 0 18px}
+
+
 /* ---- shared-link mobile pass: the demo itself must work on a phone ---- */
 @media(max-width:900px){
   .layout{grid-template-columns:1fr}
@@ -649,8 +663,6 @@ textarea{resize:vertical;min-height:88px}
       <div class="breadcrumb"><b>Create an incentive</b><span class="sep">›</span> Who<span class="sep">›</span> On what<span class="sep">›</span> How much<span class="sep">›</span> Conditions<span class="sep">›</span> When paid</div>
       <div class="screen-head"><span class="id">Office · 2</span><div><h2>Create an incentive — fill five blanks</h2><div class="sub">Answer five simple questions. Nothing is paid until it's approved.</div></div></div>
 
-      <div class="journey"><div class="j-step on"><span class="j-n">1</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">2</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
-
       <div class="create-grid">
       <div class="wizard">
         
@@ -838,7 +850,6 @@ textarea{resize:vertical;min-height:88px}
     <section class="screen" id="a-review">
       <div class="breadcrumb"><span data-goto="a-form" style="cursor:pointer">Create an incentive</span><span class="sep">›</span><b>Check the cost</b></div>
       <div class="screen-head"><span class="id">Office · 3</span><div><h2>Check the cost — before it goes anywhere</h2><div class="sub">Replayed over the last 3 months of real loans, projected for next month. Nothing goes live from here.</div></div></div>
-      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">2</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="panel">
           <div class="p-sub" style="margin-bottom:12px">The incentive, in one sentence:</div>
@@ -886,7 +897,6 @@ textarea{resize:vertical;min-height:88px}
     <!-- ===== OFFICE 4 · SENT FOR APPROVAL ===== -->
     <section class="screen" id="a-staged">
       <div class="screen-head"><span class="id">Office · 4</span><div><h2>Sent for approval</h2><div class="sub">One person drafts, another approves. Nothing is paid until then.</div></div></div>
-      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="confirm">
           <div class="seal stage">◔</div>
@@ -911,7 +921,6 @@ textarea{resize:vertical;min-height:88px}
     <!-- ===== OFFICE 5 · APPROVE A RULE ===== -->
     <section class="screen" id="a-checker">
       <div class="screen-head"><span class="id">Office · 5</span><div><h2>Approve or reject</h2><div class="sub">Approve → it goes live. Reject → needs a reason, on the record.</div></div></div>
-      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">3</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step "><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="panel">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span class="pill staged">waiting</span><span class="readonly-flag">👁 View only — what the drafter sent</span></div>
@@ -959,7 +968,6 @@ textarea{resize:vertical;min-height:88px}
     <!-- ===== OFFICE 6 · LIVE ===== -->
     <section class="screen" id="a-published">
       <div class="screen-head"><span class="id">Office · 6</span><div><h2>The incentive is live</h2><div class="sub">Live from its start date. Every loan keeps the rate that was live on its own date.</div></div></div>
-      <div class="journey"><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Fill the five blanks<small>who · what · how much · when</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Check the cost<small>see it before anyone pays</small></span></div><span class="j-arr">→</span><div class="j-step done"><span class="j-n">✓</span><span class="j-t">Send for approval<small>another person says yes</small></span></div><span class="j-arr">→</span><div class="j-step on"><span class="j-n">4</span><span class="j-t">It goes live<small>from its start date</small></span></div></div>
       <div class="console">
         <div class="confirm">
           <div class="seal ok">✓</div>
@@ -1352,12 +1360,7 @@ let toastT;
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2600);}
 
 function unlock(){ ['secB','secC','secD','secE'].forEach(id=>document.getElementById(id).classList.remove('locked')); }
-function accOpen(id){
-  ['secA','secB','secC','secD','secE'].forEach(x=>{
-    const el=document.getElementById(x); if(!el) return;
-    if(x===id) el.classList.toggle('collapsed'); else el.classList.add('collapsed');
-  });
-}
+function accOpen(id){}
 function updateSums(){
   const roles=selectedActors().map(r=>ROLE_NAMES[r]);
   const lo=document.querySelector('#f-loan option:checked');
