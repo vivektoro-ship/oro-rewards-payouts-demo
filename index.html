@@ -1025,7 +1025,10 @@ textarea{resize:vertical;min-height:88px}
             <div class="kv"><span class="k mono">row 7 · OML000512 · duplicate of row 2</span><span class="v" style="color:var(--red)">reject · duplicate</span></div>
             <div style="margin-top:12px"><button class="btn primary" onclick="toast('Set resolved: 40 upheld as adjusting accruals, 2 rejected with reason — each outcome its own append'); toggleBulk()">Resolve the set — 40 uphold · 2 reject</button></div>
           </div>
-          <div id="disp-list"></div>
+          <table class="rule-table" style="min-width:720px">
+            <thead><tr><th style="width:19%">Issue</th><th style="width:27%">Raised by</th><th style="width:16%">Loan</th><th style="width:14%">Filed</th><th style="width:24%">Status</th></tr></thead>
+            <tbody id="disp-body"></tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -1038,9 +1041,9 @@ textarea{resize:vertical;min-height:88px}
         <div class="panel">
           <div class="toolbar">
             <div class="filters">
-              <select class="fsel" onchange="toast('Filters the list by role')"><option>Role · all</option><option>Sales Partner</option><option>Appraisal Partner</option><option>Caller</option><option>Collection Partner</option></select>
-              <select class="fsel" onchange="toast('Filters the list by city')"><option>City · all</option><option>Chennai</option><option>Madurai</option><option>Coimbatore</option><option>Trichy</option><option>Salem</option></select>
-              <select class="fsel" onchange="toast('Filters by a single incentive')"><option>Incentive · all</option><option>Fresh loan sourcing</option><option>New customers · slab</option><option>Convincing customers</option><option>A2NU push</option></select>
+              <select class="fsel" id="earn-role" onchange="renderEarnersTable()"><option value="all">Role · all</option><option>Sales Partner</option><option>Appraisal Partner</option><option>Caller</option></select>
+              <select class="fsel" id="earn-city" onchange="renderEarnersTable()"><option value="all">City · all</option><option>Chennai</option><option>Madurai</option><option>Coimbatore</option><option>Trichy</option><option>Salem</option></select>
+              <select class="fsel" id="earn-inc" onchange="renderEarnersTable()"><option value="all">Incentive · all</option><option>Fresh loan sourcing</option><option>New customers</option><option>Convincing customers</option><option>A2NU push</option></select>
             </div>
           </div>
           <table class="rule-table">
@@ -1048,19 +1051,49 @@ textarea{resize:vertical;min-height:88px}
               <th style="width:17%">Person</th><th style="width:21%">Role · city</th><th style="width:23%">On incentives</th>
               <th style="width:13%">This month</th><th style="width:13%">Pending</th><th style="width:13%">Paid this month</th>
             </tr></thead>
-            <tbody>
-              <tr class="rule-row" data-goto="b-home"><td class="rule-name">Ravi Krishnan</td><td>Sales Partner · Chennai</td><td style="color:var(--muted-2)">Fresh loan sourcing · New customers</td><td><b>₹42,300</b></td><td>₹32,075</td><td style="color:var(--ok);font-weight:700">₹29,450</td></tr>
-              <tr class="rule-row" onclick="toast('Opens their earnings — same view Ravi has')"><td class="rule-name">Suresh M</td><td>Sales Partner · Madurai</td><td style="color:var(--muted-2)">Fresh loan sourcing · New customers</td><td><b>₹31,850</b></td><td>₹22,100</td><td style="color:var(--ok);font-weight:700">₹19,900</td></tr>
-              <tr class="rule-row" onclick="toast('Opens their earnings — same view Ravi has')"><td class="rule-name">Priya V</td><td>Sales Partner · Coimbatore</td><td style="color:var(--muted-2)">Fresh loan sourcing</td><td><b>₹24,600</b></td><td>₹18,400</td><td style="color:var(--ok);font-weight:700">₹12,750</td></tr>
-              <tr class="rule-row" onclick="toast('Opens their earnings — same view Ravi has')"><td class="rule-name">Deepa L</td><td>Caller · Chennai</td><td style="color:var(--muted-2)">A2NU push</td><td><b>₹16,700</b></td><td>₹12,100</td><td style="color:var(--ok);font-weight:700">₹10,400</td></tr>
-              <tr class="rule-row" onclick="toast('Opens their earnings — same view Ravi has')"><td class="rule-name">Arun D</td><td>Sales Partner · Chennai</td><td style="color:var(--muted-2)">Fresh loan sourcing</td><td><b>₹14,900</b></td><td>₹9,800</td><td style="color:var(--ok);font-weight:700">₹8,300</td></tr>
-              <tr class="rule-row" onclick="toast('Opens their earnings — same view Ravi has')"><td class="rule-name">Vignesh P</td><td>Caller · Madurai</td><td style="color:var(--muted-2)">A2NU push</td><td><b>₹13,900</b></td><td>₹10,300</td><td style="color:var(--ok);font-weight:700">₹9,000</td></tr>
-              <tr class="rule-row" onclick="toast('Opens their earnings — same view Ravi has')"><td class="rule-name">Kavitha R</td><td>Appraisal Partner · Trichy</td><td style="color:var(--muted-2)">Convincing customers</td><td><b>₹11,400</b></td><td>₹8,100</td><td style="color:var(--ok);font-weight:700">₹7,200</td></tr>
-              <tr class="rule-row" onclick="toast('Opens their earnings — same view Ravi has')"><td class="rule-name">Manoj S</td><td>Appraisal Partner · Salem</td><td style="color:var(--muted-2)">Convincing customers</td><td><b>₹9,100</b></td><td>₹6,400</td><td style="color:var(--ok);font-weight:700">₹5,600</td></tr>
-            </tbody>
+            <tbody id="earn-body"></tbody>
           </table>
-          <div class="p-sub" style="margin-top:12px">8 people earning · <b>₹1,64,750</b> building up this month · updates the moment a loan books</div>
+          <div class="p-sub" style="margin-top:12px" id="earn-foot"></div>
         </div>
+      </div>
+    </section>
+
+    <!-- ===== OFFICE · PERSON DETAIL ===== -->
+    <section class="screen" id="a-person">
+      <div class="screen-head"><span class="id">Person</span><div><h2 id="person-title">Person</h2><div class="sub" id="person-sub"></div></div></div>
+      <div class="console" style="max-width:640px">
+        <div class="panel">
+          <h3>Earning right now</h3>
+          <div class="bill">
+            <div class="bill-row big money"><span class="k">This month — building up</span><span class="v" id="person-month">₹—</span></div>
+            <div class="bill-row money"><span class="k">Payment pending</span><span class="v" id="person-pend">₹—</span></div>
+            <div class="bill-row money"><span class="k">Paid this month</span><span class="v" id="person-paid" style="color:var(--ok)">₹—</span></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>What they earned it for</h3>
+          <div id="person-lines"></div>
+          <div class="p-sub" style="margin-top:10px">Updates the moment a loan books · the total is the sum of these lines.</div>
+        </div>
+        <div class="sticky-foot">
+          <button class="btn ghost" data-goto="a-earners">← Back to everyone</button>
+          <div class="spacer"></div>
+          <button class="btn ghost" id="person-appbtn" style="display:none" data-goto="b-home">See it as they do →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OFFICE · ISSUE DETAIL ===== -->
+    <section class="screen" id="a-issue">
+      <div class="screen-head"><span class="id">Issue</span><div><h2 id="issue-title">Issue</h2><div class="sub">Raised by a partner — uphold and it corrects forward, or reject with a reason.</div></div></div>
+      <div class="console" style="max-width:640px">
+        <div class="panel">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px" id="issue-statusrow"></div>
+          <div class="bill" id="issue-facts"></div>
+          <div style="margin-top:16px" id="issue-quote"></div>
+        </div>
+        <div class="panel" id="issue-action"></div>
+        <div class="sticky-foot"><button class="btn ghost" data-goto="a-disputes">← Back to issues</button></div>
       </div>
     </section>
 
@@ -1366,6 +1399,7 @@ function show(id){
   if(id==='b-rates') renderRateCard();
   if(id==='b-inc') renderIncDetail();
   if(id==='a-disputes') renderDisputes();
+  if(id==='a-earners') renderEarnersTable();
   window.scrollTo({top:0,behavior:'smooth'});
   document.querySelector('.stage').scrollTop=0;
 }
@@ -2109,26 +2143,90 @@ let DISPUTES=[
   {id:'DSP-2026-0310',loan:'OML000391',by:'Ravi K · Sales Partner',filed:'18 Jun 2026',reason:'One loan missing from my June total',status:'upheld',adj:'+₹3,400'},
   {id:'DSP-2026-0287',loan:'OML000305',by:'Meena S · Caller',filed:'02 Jun 2026',reason:'Rate looks low on this loan',status:'rejected',why:'The pay matched the incentive live on the loan date.'}
 ];
+const inr=x=>'₹'+(x||0).toLocaleString('en-IN');
+const ISS_PILL={open:'<span class="pill staged">open</span>',upheld:'<span class="pill live">upheld</span>',rejected:'<span class="pill draft" style="color:var(--red);background:#94214310">rejected</span>'};
 function renderDisputes(){
-  const el=document.getElementById('disp-list'); if(!el) return;
-  el.innerHTML=DISPUTES.map((d,i)=>{
-    const pill=d.status==='open'?'<span class="pill staged">open</span>':d.status==='upheld'?'<span class="pill live">upheld · '+d.adj+' corrected forward</span>':'<span class="pill draft" style="color:var(--red);background:#94214310">rejected · with reason</span>';
-    let actions='';
-    if(d.status==='open'){
-      actions=d.rejecting
-        ? '<div style="margin-top:10px"><textarea id="drr-'+i+'" placeholder="Reason — it goes on the record" style="min-height:60px"></textarea><div style="display:flex;gap:8px;margin-top:8px"><button class="btn danger" onclick="rejectD('+i+')">Confirm rejection</button><button class="btn ghost" onclick="DISPUTES['+i+'].rejecting=false;renderDisputes()">Back</button></div></div>'
-        : '<div style="display:flex;gap:8px;margin-top:10px"><button class="btn primary" onclick="upholdD('+i+')">Uphold — append '+d.adj+' forward</button><button class="btn danger" onclick="DISPUTES['+i+'].rejecting=true;renderDisputes()">Reject</button></div>';
-    }
-    if(d.status==='rejected'&&d.why) actions='<div class="note" style="margin-top:8px"><span class="i">≡</span> '+d.why+' The reasoning is on the actor\'s record.</div>';
-    return '<div style="border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px">'+
-      '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><b class="mono" style="font-size:13px">'+d.id+'</b>'+pill+'<span style="margin-left:auto;font-size:12px;color:var(--muted)">'+d.filed+'</span></div>'+
-      '<div style="font-size:13px;color:var(--ink-2);margin-top:8px"><b>'+d.by+'</b> · about <span class="mono">'+d.loan+'</span></div>'+
-      '<div style="font-size:13.5px;color:var(--ink);margin-top:4px">“'+d.reason+'”</div>'+actions+'</div>';
-  }).join('');
+  const body=document.getElementById('disp-body'); if(!body) return;
+  body.innerHTML=DISPUTES.map((d,i)=>
+    '<tr class="rule-row" onclick="openIssue('+i+')"><td class="rule-name mono">'+d.id+'</td><td>'+d.by+'</td><td class="mono">'+d.loan+'</td><td class="mono">'+d.filed+'</td><td style="white-space:nowrap">'+ISS_PILL[d.status]+'</td></tr>'
+  ).join('');
 }
-function upholdD(i){ DISPUTES[i].status='upheld'; renderDisputes(); toast('Adjusting accrual '+DISPUTES[i].adj+' appended — corrects forward into the next period, tagged prior-period correction. The closed period is never reopened.'); }
-function rejectD(i){ const r=(document.getElementById('drr-'+i).value||'').trim(); if(!r){ toast('A rejection needs a reason — it goes on the record'); return; } DISPUTES[i].status='rejected'; DISPUTES[i].why=r; renderDisputes(); toast('Rejected with reason — the original line stands, the reasoning is on the record'); }
+function openIssue(i){ renderIssue(i); show('a-issue'); }
+function renderIssue(i){
+  const d=DISPUTES[i]; if(!d) return;
+  document.getElementById('issue-title').textContent=d.id;
+  document.getElementById('issue-statusrow').innerHTML=ISS_PILL[d.status];
+  const rows=[['Raised by',d.by],['About loan','<span class="mono">'+d.loan+'</span>'],['Filed','<span class="mono">'+d.filed+'</span>']];
+  if(d.adj) rows.push([d.status==='upheld'?'Corrected forward':'If upheld',d.adj]);
+  document.getElementById('issue-facts').innerHTML=rows.map(r=>'<div class="bill-row"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>').join('');
+  document.getElementById('issue-quote').innerHTML='<div style="background:var(--card-2);border-left:3px solid var(--indigo);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;color:var(--ink)">“'+d.reason+'”</div>';
+  const act=document.getElementById('issue-action');
+  if(d.status==='open'){
+    act.innerHTML=d.rejecting
+      ? '<h3>Reject — say why</h3><div class="p-sub">Required. It goes on the record; the partner sees the reason.</div><textarea id="issue-rr" style="margin-top:10px" placeholder="e.g. the pay matched the incentive live on the loan date"></textarea><div class="actions" style="margin-top:12px;justify-content:flex-start"><button class="btn danger" onclick="rejectD('+i+')">Confirm rejection</button><button class="btn ghost" onclick="DISPUTES['+i+'].rejecting=false;renderIssue('+i+')">Back</button></div>'
+      : '<h3>Decide</h3><div class="p-sub">Uphold appends an adjusting accrual that corrects forward — the closed period is never reopened.</div><div class="actions" style="margin-top:14px;justify-content:flex-start"><button class="btn primary" onclick="upholdD('+i+')">Uphold — append '+d.adj+' forward</button><button class="btn danger" onclick="DISPUTES['+i+'].rejecting=true;renderIssue('+i+')">Reject</button></div>';
+  } else if(d.status==='upheld'){
+    act.innerHTML='<h3>Upheld</h3><div class="note" style="margin-top:8px"><span class="i">✓</span> '+d.adj+' appended as an adjusting accrual — corrects forward into the next period, tagged prior-period correction.</div>';
+  } else {
+    act.innerHTML='<h3>Rejected — with reason</h3><div class="note" style="margin-top:8px"><span class="i">≡</span> '+(d.why||'')+' The original line stands; the reasoning is on the partner’s record.</div>';
+  }
+}
+function upholdD(i){ DISPUTES[i].status='upheld'; renderDisputes(); renderIssue(i); toast('Adjusting accrual '+DISPUTES[i].adj+' appended — corrects forward into the next period, tagged prior-period correction. The closed period is never reopened.'); }
+function rejectD(i){ const r=(document.getElementById('issue-rr').value||'').trim(); if(!r){ toast('A rejection needs a reason — it goes on the record'); return; } DISPUTES[i].status='rejected'; DISPUTES[i].why=r; DISPUTES[i].rejecting=false; renderDisputes(); renderIssue(i); toast('Rejected with reason — the original line stands, the reasoning is on the record'); }
 function toggleBulk(){ const b=document.getElementById('bulk-panel'); b.style.display=b.style.display==='none'?'block':'none'; }
+
+/* ---- Getting incentives: people table + per-person detail ---- */
+const PEOPLE=[
+  {id:'ravi',name:'Ravi Krishnan',role:'Sales Partner',city:'Chennai',lines:[
+    {inc:'Fresh loan sourcing',detail:'18 loans · 0.35% of each',m:28400,p:21300,pd:20000},
+    {inc:'New customers · slab',detail:'41 customers · ₹125 each',m:13900,p:10775,pd:9450}]},
+  {id:'suresh',name:'Suresh M',role:'Sales Partner',city:'Madurai',lines:[
+    {inc:'Fresh loan sourcing',detail:'14 loans · 0.40% (Madurai push)',m:21850,p:15100,pd:13900},
+    {inc:'New customers · slab',detail:'30 customers · ₹125 each',m:10000,p:7000,pd:6000}]},
+  {id:'priya',name:'Priya V',role:'Sales Partner',city:'Coimbatore',lines:[
+    {inc:'Fresh loan sourcing',detail:'16 loans · 0.35% of each',m:24600,p:18400,pd:12750}]},
+  {id:'deepa',name:'Deepa L',role:'Caller',city:'Chennai',lines:[
+    {inc:'A2NU push',detail:'new-customer slab · this month',m:16700,p:12100,pd:10400}]},
+  {id:'arun',name:'Arun D',role:'Sales Partner',city:'Chennai',lines:[
+    {inc:'Fresh loan sourcing',detail:'10 loans · 0.35% of each',m:14900,p:9800,pd:8300}]},
+  {id:'vignesh',name:'Vignesh P',role:'Caller',city:'Madurai',lines:[
+    {inc:'A2NU push',detail:'new-customer slab · this month',m:13900,p:10300,pd:9000}]},
+  {id:'kavitha',name:'Kavitha R',role:'Appraisal Partner',city:'Trichy',lines:[
+    {inc:'Convincing customers',detail:'8 loans · 0.20% of each',m:11400,p:8100,pd:7200}]},
+  {id:'manoj',name:'Manoj S',role:'Appraisal Partner',city:'Salem',lines:[
+    {inc:'Convincing customers',detail:'6 loans · 0.20% of each',m:9100,p:6400,pd:5600}]}
+];
+function pTot(p,k){ return p.lines.reduce((s,l)=>s+l[k],0); }
+function renderEarnersTable(){
+  const body=document.getElementById('earn-body'); if(!body) return;
+  const rf=(document.getElementById('earn-role')||{}).value||'all';
+  const cf=(document.getElementById('earn-city')||{}).value||'all';
+  const nf=(document.getElementById('earn-inc')||{}).value||'all';
+  const rows=PEOPLE.filter(p=>(rf==='all'||p.role===rf)&&(cf==='all'||p.city===cf)&&(nf==='all'||p.lines.some(l=>l.inc.toLowerCase().includes(nf.toLowerCase()))));
+  body.innerHTML=rows.length?rows.map(p=>
+    '<tr class="rule-row" onclick="openPerson(\''+p.id+'\')"><td class="rule-name">'+p.name+'</td><td>'+p.role+' · '+p.city+'</td>'+
+    '<td style="color:var(--muted-2)">'+p.lines.map(l=>l.inc).join(' · ')+'</td>'+
+    '<td><b>'+inr(pTot(p,'m'))+'</b></td><td>'+inr(pTot(p,'p'))+'</td><td style="color:var(--ok);font-weight:700">'+inr(pTot(p,'pd'))+'</td></tr>'
+  ).join(''):'<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:28px">No one matches these filters.</td></tr>';
+  const tot=rows.reduce((s,p)=>s+pTot(p,'m'),0);
+  document.getElementById('earn-foot').innerHTML=rows.length+' '+(rows.length===1?'person':'people')+' earning · <b>'+inr(tot)+'</b> building up this month · updates the moment a loan books';
+}
+function openPerson(id){ const p=PEOPLE.find(x=>x.id===id); if(!p) return; renderPerson(p); show('a-person'); }
+function renderPerson(p){
+  document.getElementById('person-title').textContent=p.name;
+  document.getElementById('person-sub').textContent=p.role+' · '+p.city;
+  document.getElementById('person-month').textContent=inr(pTot(p,'m'));
+  document.getElementById('person-pend').textContent=inr(pTot(p,'p'));
+  document.getElementById('person-paid').textContent=inr(pTot(p,'pd'));
+  const sub='color:var(--muted);font-size:12px;font-weight:500';
+  document.getElementById('person-lines').innerHTML='<div class="bill">'+p.lines.map(l=>
+    '<div class="bill-row" style="align-items:flex-start"><span class="k" style="max-width:62%"><b style="color:var(--ink);font-weight:700">'+l.inc+'</b>'+
+    '<span style="display:block;margin-top:2px;'+sub+'">'+l.detail+'</span>'+
+    '<span style="display:block;'+sub+'">pending '+inr(l.p)+' · paid '+inr(l.pd)+'</span></span>'+
+    '<span class="v">'+inr(l.m)+'</span></div>'
+  ).join('')+'</div>';
+  document.getElementById('person-appbtn').style.display=(p.id==='ravi')?'inline-flex':'none';
+}
 
 /* ---- partner rate card: a live, role-scoped read of the rulebook ---- */
 const RC_TODAY='2026-07-15', RC_ROLE='SP', RC_CITY='Chennai';
