@@ -203,7 +203,11 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--indigo);
 .fsec-tag{border-radius:50%;width:26px;height:26px;font-size:12px;flex:none;margin-top:1px}
 .fsec-head h4{font-size:16px}
 .fsec-body{padding-top:12px}
-#f-name{max-width:380px;padding:9px 12px;font-size:13.5px}
+#f-name{padding:9px 12px;font-size:13.5px}
+.modrow .mtype{width:44px;flex:none}
+.chipselect{gap:7px}
+#rate-flat .role-rate-row{max-width:calc(50% - 10px)}
+@media(max-width:900px){#rate-flat .role-rate-row{max-width:100%}}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
 @media(max-width:900px){.fgrid{grid-template-columns:1fr}}
 .pchip{padding:7px 13px;font-size:12.5px}
@@ -654,8 +658,10 @@ textarea{resize:vertical;min-height:88px}
         <div class="fsection done" id="secA">
           <div class="fsec-head" onclick="accOpen('secA')"><span class="fsec-tag">1</span><div style="flex:1;display:flex;align-items:flex-start"><div style="flex:1"><h4>Who gets paid, and for what <span style="color:var(--muted-2);font-weight:400;font-size:12px">· Condition</span></h4><div class="hint">The people, the loan type, and what they must do.</div></div><span class="fsec-sum" id="sum-A"></span><span class="fsec-chev">▾</span></div></div>
           <div class="fsec-body">
+            <div class="fgrid">
             <div class="field"><label>Incentive name</label>
               <input type="text" id="f-name" placeholder="e.g. SP self-source · Fresh · 0.35%" maxlength="60">
+            </div>
             </div>
             <div class="field"><label>Who gets paid <span class="desc">— one role per incentive</span></label>
               <div class="chipselect" id="f-actor">
@@ -689,7 +695,7 @@ textarea{resize:vertical;min-height:88px}
               </select>
             </div>
             </div><!-- /.fgrid -->
-            <div class="field"><label>Cities <span class="desc">— pick one or more; “All cities” means everywhere</span></label>
+            <div class="field"><label>Cities <span class="desc">— “All cities” = everywhere</span></label>
               <div class="chipselect" id="f-city">
                 <button type="button" class="pchip on" data-val="all" onclick="toggleCity(this)">All cities</button>
                 <button type="button" class="pchip" data-val="Chennai" onclick="toggleCity(this)">Chennai</button>
@@ -723,6 +729,7 @@ textarea{resize:vertical;min-height:88px}
         <div class="fsection collapsed" id="secB">
           <div class="fsec-head" onclick="accOpen('secB')"><span class="fsec-tag">2</span><div style="flex:1;display:flex;align-items:flex-start"><div style="flex:1"><h4>On what amount <span style="color:var(--muted-2);font-weight:400;font-size:12px">· Basis</span></h4><div class="hint">The amount the percentage is taken on.</div></div><span class="fsec-sum" id="sum-B"></span><span class="fsec-chev">▾</span></div></div>
           <div class="fsec-body">
+            <div class="fgrid">
             <div class="field" id="fw-basis"><label>Basis</label>
               <select id="f-basis">
                 <option>The loan amount (net disbursal)</option>
@@ -734,6 +741,7 @@ textarea{resize:vertical;min-height:88px}
               </select>
               <div class="note" id="basis-note" style="display:none"><span class="i">⚠</span> Pay based on company profit (City Lead's PAT / EBITDA parts) comes a little later — it is not in the first version.</div>
             </div>
+            </div><!-- /.fgrid -->
           </div>
         </div>
 
@@ -779,6 +787,7 @@ textarea{resize:vertical;min-height:88px}
         <div class="fsection collapsed" id="secE">
           <div class="fsec-head" onclick="accOpen('secE')"><span class="fsec-tag">5</span><div style="flex:1;display:flex;align-items:flex-start"><div style="flex:1"><h4>When they get the money <span style="color:var(--muted-2);font-weight:400;font-size:12px">· Schedule</span></h4><div class="hint">In how many parts, and when.</div></div><span class="fsec-sum" id="sum-E"></span><span class="fsec-chev">▾</span></div></div>
           <div class="fsec-body">
+            <div class="fgrid">
             <div class="field" id="fw-sched"><label>Release plan</label>
               <select id="f-sched">
                 <option>Half next month + half the month after</option>
@@ -796,6 +805,7 @@ textarea{resize:vertical;min-height:88px}
                 <option>Never take back</option>
               </select>
             </div>
+            </div><!-- /.fgrid -->
           </div>
         </div>
       </div><!-- /.wizard -->
@@ -1531,7 +1541,8 @@ function payText(){
     if(pays.length) return 'a slab rate '+on+' ('+Math.min(...pays)+'% up to '+Math.max(...pays)+'%)';
     return 'a slab rate '+on;
   }
-  if(inputs.length<=1) return (inputs[0]?inputs[0].value:'0')+'% '+on;
+  const v0=inputs[0]?inputs[0].value:'';
+  if(inputs.length<=1) return v0? v0+'% '+on : 'a rate you\'ll set';
   return 'a rate per payee type — '+inputs.map(i=>ROLE_NAMES[i.dataset.role]+' '+i.value+'%').join(', ')+' '+on;
 }
 function buildSummary(){
@@ -1569,7 +1580,8 @@ function payShort(){
   const roles=selectedActors();
   if(slabOn) return roles.length>1?'Slab table, per payee':'Slab table';
   const inputs=[...document.querySelectorAll('#role-rates .role-rate')];
-  if(inputs.length<=1) return (inputs[0]?inputs[0].value:'0')+'% of loan';
+  const v0=inputs[0]?inputs[0].value:'';
+  if(inputs.length<=1) return v0? v0+'% of loan' : '—';
   return 'Per payee: '+inputs.map(i=>i.value+'%').join(' / ');
 }
 function updatePreview(){
