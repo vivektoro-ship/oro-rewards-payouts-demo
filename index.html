@@ -736,7 +736,7 @@ textarea{resize:vertical;min-height:88px}
 
     <div class="grp">Partner</div>
     <button class="navitem" data-goto="b-home"><span class="no">1</span> My incentives</button>
-    <button class="navitem" data-goto="b-inc"><span class="no">1b</span> One incentive, opened</button>
+    <button class="navitem" data-goto="b-inc"><span class="no">1b</span> Incentive details</button>
     <button class="navitem" data-goto="b-firm"><span class="no">2</span> Loan details</button>
     <button class="navitem" data-goto="b-final"><span class="no">3</span> A closed month</button>
     <button class="navitem" data-goto="b-explain"><span class="no">4</span> See the working</button>
@@ -982,7 +982,7 @@ textarea{resize:vertical;min-height:88px}
           </div>
         </div>
 
-        <div class="fcard"><div class="fsect">Set payment logic</div>
+        <div class="fcard"><div class="fsect">How much to pay</div>
           <div class="field"><label>Pay is calculated on <span class="tip" id="basis-tip" data-tip="The partner gets a % of each loan&#39;s amount. The loan value comes from each real loan automatically — you never enter it here.">?</span></label>
             <select id="f-basis" onchange="basisChanged()">
               <option>The loan amount</option>
@@ -1157,11 +1157,11 @@ textarea{resize:vertical;min-height:88px}
           </div>
           <div id="bulk-panel" style="display:none;border:1px dashed var(--indigo-line);border-radius:12px;padding:14px;margin-bottom:14px;background:var(--indigo-soft)">
             <b style="font-size:13.5px">migration-recon-july.csv — 42 rows parsed</b>
-            <div class="p-sub" style="margin:4px 0 10px">Each row lands as its own issue; the checker reviews them as a set — never one blind approval.</div>
+            <div class="p-sub" style="margin:4px 0 10px">Each row becomes its own issue; the approver reviews them together — never one blind bulk approval.</div>
             <div class="kv" style="border-bottom:1px solid var(--line)"><span class="k mono">row 1 · OML000391 · rate should be 0.35%</span><span class="v" style="color:var(--ok)">looks right</span></div>
             <div class="kv" style="border-bottom:1px solid var(--line)"><span class="k mono">row 2 · OML000305 · loan counted twice</span><span class="v" style="color:var(--ok)">looks right</span></div>
             <div class="kv"><span class="k mono">row 7 · OML000512 · duplicate of row 2</span><span class="v" style="color:var(--red)">reject · duplicate</span></div>
-            <div style="margin-top:12px"><button class="btn primary" onclick="toast('Set resolved: 40 upheld as adjusting accruals, 2 rejected with reason — each outcome its own append'); toggleBulk()">Resolve the set — 40 uphold · 2 reject</button></div>
+            <div style="margin-top:12px"><button class="btn primary" onclick="toast('Resolved — 40 accepted (added to next month), 2 rejected with a reason'); toggleBulk()">Resolve all — 40 accepted · 2 rejected</button></div>
           </div>
           <table class="rule-table" style="min-width:720px">
             <thead><tr><th style="width:19%">Issue</th><th style="width:27%">Raised by</th><th style="width:16%">Loan</th><th style="width:14%">Filed</th><th style="width:24%">Status</th></tr></thead>
@@ -1306,7 +1306,7 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== APP 1b · ONE INCENTIVE, OPENED UP ===== -->
     <section class="screen" id="b-inc">
-      <div class="screen-head"><span class="id">App · 1b</span><div><h2>One incentive, opened up</h2><div class="sub">Every loan that earned it, the slab you're in, and every rate change — dated, with its reason.</div></div></div>
+      <div class="screen-head"><span class="id">App · 1b</span><div><h2>Incentive details</h2><div class="sub">Every loan that earned it, your level, and every rate change — with the reason.</div></div></div>
       <div class="phone-stage">
         <div class="phone"><div class="notch"></div><div class="screenview">
           <div class="px-head">
@@ -1328,7 +1328,7 @@ textarea{resize:vertical;min-height:88px}
 
     <!-- ===== APP 2 · CONFIRMED LOAN ===== -->
     <section class="screen" id="b-firm">
-      <div class="screen-head"><span class="id">App · 2</span><div><h2>Loan details</h2><div class="sub">Fixed the moment the loan was given. Reaches Ravi in two parts.</div></div></div>
+      <div class="screen-head"><span class="id">App · 2</span><div><h2>Loan details</h2><div class="sub">Fixed when the loan was given. Paid to you in two parts.</div></div></div>
       <div class="phone"><div class="notch"></div><div class="screenview">
         <div class="px-head">
           <div class="statusbar"><span>9:41</span><span>5G ▪ 100%</span></div>
@@ -2255,7 +2255,7 @@ function toggleReject(){
   } else {
     const r=document.getElementById('reject-reason').value.trim();
     if(!r){ toast('A rejection needs a reason — it goes on the record'); return; }
-    toast('Rejected with reason — the maker can amend and restage'); show('a-list');
+    toast('Sent back with your reason — the drafter can fix it and resend'); show('a-list');
     box.style.display='none'; btn.textContent='Reject'; document.getElementById('reject-reason').value='';
   }
 }
@@ -2272,7 +2272,7 @@ let DISPUTES=[
   {id:'DSP-2026-0287',loan:'OML000305',by:'Meena S · Caller',filed:'02 Jun 2026',reason:'Rate looks low on this loan',status:'rejected',why:'The pay matched the incentive live on the loan date.'}
 ];
 const inr=x=>'₹'+(x||0).toLocaleString('en-IN');
-const ISS_PILL={open:'<span class="pill staged">open</span>',upheld:'<span class="pill live">upheld</span>',rejected:'<span class="pill draft" style="color:var(--red);background:#94214310">rejected</span>'};
+const ISS_PILL={open:'<span class="pill staged">open</span>',upheld:'<span class="pill live">accepted</span>',rejected:'<span class="pill draft" style="color:var(--red);background:#94214310">rejected</span>'};
 function renderDisputes(){
   const body=document.getElementById('disp-body'); if(!body) return;
   body.innerHTML=DISPUTES.map((d,i)=>
@@ -2285,21 +2285,21 @@ function renderIssue(i){
   document.getElementById('issue-title').textContent=d.id;
   document.getElementById('issue-statusrow').innerHTML=ISS_PILL[d.status];
   const rows=[['Raised by',d.by],['About loan','<span class="mono">'+d.loan+'</span>'],['Filed','<span class="mono">'+d.filed+'</span>']];
-  if(d.adj) rows.push([d.status==='upheld'?'Corrected forward':'If upheld',d.adj]);
+  if(d.adj) rows.push([d.status==='upheld'?'Added to next month':'If accepted',d.adj]);
   document.getElementById('issue-facts').innerHTML=rows.map(r=>'<div class="bill-row"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>').join('');
   document.getElementById('issue-quote').innerHTML='<div style="background:var(--card-2);border-left:3px solid var(--indigo);border-radius:0 12px 12px 0;padding:14px 16px;font-size:14px;color:var(--ink)">“'+d.reason+'”</div>';
   const act=document.getElementById('issue-action');
   if(d.status==='open'){
     act.innerHTML=d.rejecting
       ? '<h3>Reject — say why</h3><div class="p-sub">Required. It goes on the record; the partner sees the reason.</div><textarea id="issue-rr" style="margin-top:10px" placeholder="e.g. the pay matched the incentive live on the loan date"></textarea><div class="actions" style="margin-top:12px;justify-content:flex-start"><button class="btn danger" onclick="rejectD('+i+')">Confirm rejection</button><button class="btn ghost" onclick="DISPUTES['+i+'].rejecting=false;renderIssue('+i+')">Back</button></div>'
-      : '<h3>Decide</h3><div class="p-sub">Uphold appends an adjusting accrual that corrects forward — the closed period is never reopened.</div><div class="actions" style="margin-top:14px;justify-content:flex-start"><button class="btn primary" onclick="upholdD('+i+')">Uphold — append '+d.adj+' forward</button><button class="btn danger" onclick="DISPUTES['+i+'].rejecting=true;renderIssue('+i+')">Reject</button></div>';
+      : '<h3>Decide</h3><div class="p-sub">Accepting adds a correction to next month — the closed month is never changed.</div><div class="actions" style="margin-top:14px;justify-content:flex-start"><button class="btn primary" onclick="upholdD('+i+')">Accept — add '+d.adj+' to next month</button><button class="btn danger" onclick="DISPUTES['+i+'].rejecting=true;renderIssue('+i+')">Reject</button></div>';
   } else if(d.status==='upheld'){
-    act.innerHTML='<h3>Upheld</h3><div class="note" style="margin-top:8px"><span class="i">✓</span> '+d.adj+' appended as an adjusting accrual — corrects forward into the next period, tagged prior-period correction.</div>';
+    act.innerHTML='<h3>Accepted</h3><div class="note" style="margin-top:8px"><span class="i">✓</span> '+d.adj+' added to their next month as a correction. The closed month stays exactly as it was.</div>';
   } else {
     act.innerHTML='<h3>Rejected — with reason</h3><div class="note" style="margin-top:8px"><span class="i">≡</span> '+(d.why||'')+' The original line stands; the reasoning is on the partner’s record.</div>';
   }
 }
-function upholdD(i){ DISPUTES[i].status='upheld'; renderDisputes(); renderIssue(i); toast('Adjusting accrual '+DISPUTES[i].adj+' appended — corrects forward into the next period, tagged prior-period correction. The closed period is never reopened.'); }
+function upholdD(i){ DISPUTES[i].status='upheld'; renderDisputes(); renderIssue(i); toast('Accepted — '+DISPUTES[i].adj+' added to their next month. The closed month is never reopened.'); }
 function rejectD(i){ const r=(document.getElementById('issue-rr').value||'').trim(); if(!r){ toast('A rejection needs a reason — it goes on the record'); return; } DISPUTES[i].status='rejected'; DISPUTES[i].why=r; DISPUTES[i].rejecting=false; renderDisputes(); renderIssue(i); toast('Rejected with reason — the original line stands, the reasoning is on the record'); }
 function toggleBulk(){ const b=document.getElementById('bulk-panel'); b.style.display=b.style.display==='none'?'block':'none'; }
 
