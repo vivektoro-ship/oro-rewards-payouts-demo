@@ -789,13 +789,7 @@ textarea{resize:vertical;min-height:88px}
             </select>
           </div>
           <div class="field"><label>How much <span class="tip" data-tip="One row = the same rate for everyone. Add rows to pay a higher rate at higher levels.">?</span></label>
-            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px">
-              <div class="seg seg-sm" id="unit-mode">
-                <button class="on" data-u="pct" onclick="setUnitMode('pct')">% of loan</button>
-                <button data-u="amt" onclick="setUnitMode('amt')">₹ fixed</button>
-              </div>
-              <span class="eg" id="rate-eg" style="font-size:12.5px;color:var(--muted)"></span>
-            </div>
+            <div style="margin-bottom:10px"><span class="eg" id="rate-eg" style="font-size:12.5px;color:var(--muted)"></span></div>
             <div style="overflow-x:auto"><table class="slab-table" id="slab-table"><thead id="slab-head"></thead><tbody id="slab-body"></tbody></table></div>
             <button class="add-row" onclick="addSlab()" style="margin-top:10px;width:auto">+ Add a slab — higher level, higher rate</button>
           </div>
@@ -1351,19 +1345,7 @@ function updateSums(){
   set('sum-E',document.getElementById('f-sched').value);
 }
 function setRuleType(rt){ if(document.querySelector('#f-ruletype')){document.querySelectorAll('#f-ruletype button').forEach(b=>b.classList.toggle('on',b.dataset.rt===rt));} updatePreview(); }
-function setUnitMode(u){
-  document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on',b.dataset.u===u));
-  const bs=document.getElementById('f-basis');
-  if(u==='amt'){ if(!bs.value.toLowerCase().includes('count')) bs.value='Loan count — this month'; }
-  else { if(bs.value.toLowerCase().includes('count')) bs.value='The loan amount'; }
-  basisChanged();
-}
-function syncUnitSeg(){
-  const isAmt=document.getElementById('f-basis').value.toLowerCase().includes('count');
-  document.querySelectorAll('#unit-mode button').forEach(b=>b.classList.toggle('on', (b.dataset.u==='amt')===isAmt));
-}
 function basisChanged(){
-  syncUnitSeg();
   const help=document.getElementById('basis-tip');
   const b=document.getElementById('f-basis').value;
   if(b.includes('count')){ if(help) help.dataset.tip='The partner gets a fixed ₹ amount for each one.'; }
