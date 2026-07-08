@@ -798,7 +798,7 @@ textarea{resize:vertical;min-height:88px}
               <option disabled>Company profit (after v1)</option>
             </select>
           </div>
-          <div class="field"><label>How much <span class="tip" data-tip="One row = the same rate for everyone. Add rows to pay a higher rate at higher levels.">?</span></label>
+          <div class="field"><label>How much <span class="tip" data-tip="One row = the same rate for everyone. Add rows to pay by level — e.g. loans of ₹1L–₹2L at one rate, above ₹2L at another.">?</span></label>
             <div style="margin-bottom:10px"><span class="eg" id="rate-eg" style="font-size:12.5px;color:var(--muted)"></span></div>
             <div style="overflow-x:auto"><table class="slab-table" id="slab-table"><thead id="slab-head"></thead><tbody id="slab-body"></tbody></table></div>
             <button class="add-row" onclick="addSlab()" style="margin-top:10px;width:auto">+ Add a slab — higher level, higher rate</button>
@@ -1392,7 +1392,7 @@ function renderSlabs(){
   const single=roles.length<=1;
   const cols=single?['ALL']:roles;
   const b=document.getElementById('f-basis').value.toLowerCase();
-  const lvl = b.includes('a2nu') ? 'A2NU %' : b.includes('customer') ? 'new customers' : b.includes('conversions') ? 'conversions' : 'loans in the month';
+  const lvl = b.includes('a2nu') ? 'A2NU %' : b.includes('customer') ? 'new customers' : b.includes('conversions') ? 'conversions' : b.includes('count') ? 'loans in the month' : 'loan value ₹';
   const payLab = isMoney() ? 'Pays ₹ each' : 'Pays % of loan';
   const ph = isMoney() ? '50' : '0.35';
   let head='<tr><th>From ('+lvl+')</th><th>Up to</th>';
@@ -1493,7 +1493,8 @@ function payText(){
   if(n>1){
     const pays=[...document.querySelectorAll('#slab-body .s-pay')].map(i=>parseFloat(i.value||0)).filter(x=>x>0);
     const u=isMoney()?'₹':'%';
-    if(pays.length) return 'a slab rate '+on+' ('+(isMoney()?'₹':'')+Math.min(...pays)+(isMoney()?'':'%')+' up to '+(isMoney()?'₹':'')+Math.max(...pays)+(isMoney()?'':'%')+')';
+    const onSlab = basis.startsWith('The loan amount') ? 'by loan size' : on;
+    if(pays.length) return 'a slab rate '+onSlab+' ('+(isMoney()?'₹':'')+Math.min(...pays)+(isMoney()?'':'%')+' up to '+(isMoney()?'₹':'')+Math.max(...pays)+(isMoney()?'':'%')+')';
     return 'a slab rate '+on;
   }
   if(!v) return 'a rate you\'ll set';
