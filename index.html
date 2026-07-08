@@ -606,8 +606,9 @@ textarea{resize:vertical;min-height:88px}
 .mchip{flex:none;padding:7px 15px;border-radius:99px;font-size:12px;font-weight:700;font-family:inherit;background:rgba(255,255,255,.1);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.16);cursor:pointer;white-space:nowrap}
 .mchip.on{background:#fff;color:#0B1220;border-color:#fff}
 /* multi-colour incentive banners */
-.bnr-row{display:flex;flex-direction:column;gap:10px}
-.px-bnr{border-radius:16px;padding:14px 16px;color:#fff;cursor:pointer;box-shadow:0 8px 22px rgba(13,26,64,.16)}
+.bnr-row{display:flex;flex:none;gap:10px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory}
+.bnr-row::-webkit-scrollbar{display:none}
+.px-bnr{flex:none;width:83%;box-sizing:border-box;scroll-snap-align:start;border-radius:16px;padding:14px 16px;color:#fff;cursor:pointer;box-shadow:0 8px 22px rgba(13,26,64,.16)}
 .px-bnr.gold{background:linear-gradient(135deg,#B45309,#F59E0B)}
 .px-bnr.blue{background:linear-gradient(135deg,#1D3A8A,#2563EB)}
 .px-bnr.green{background:linear-gradient(135deg,#15803D,#22A857)}
