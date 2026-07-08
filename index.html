@@ -223,6 +223,13 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--indigo);
 .msdd-menu label{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;margin:0;text-transform:none;letter-spacing:0}
 .msdd-menu label:hover{background:var(--card-2)}
 .msdd-menu input[type=checkbox]{width:auto;accent-color:var(--indigo)}
+.mm-t{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);padding:8px 10px 4px}
+.mm-i{display:block;width:100%;text-align:left;padding:8px 10px;border:none;background:none;border-radius:8px;font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+.mm-i:hover{background:var(--card-2)}
+.modrow{background:var(--card-2);border:none;border-radius:10px;padding:10px 12px}
+.mtag{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border-radius:99px;padding:3px 9px;flex:none}
+.mtag.gate{background:#E8F0FF;color:#1D4ED8}
+.mtag.scale{background:#FFF4E0;color:#B45309}
 .pchip{padding:7px 13px;font-size:12.5px}
 .field{margin-bottom:15px}
 .dates{display:flex;gap:10px}
@@ -810,19 +817,28 @@ textarea{resize:vertical;min-height:88px}
             </div>
           </div>
           <div class="field"><label>Starts from</label>
-            <div style="display:flex;gap:10px;align-items:center">
-              <input type="date" id="f-start" value="2026-08-01">
-              <span id="s-ends" style="display:none"><span style="font-size:12px;color:var(--muted);margin-right:6px">ends</span><input type="date" id="flash-date" value="2026-07-31" style="width:auto"></span>
-            </div>
+            <input type="date" id="f-start" value="2026-08-01">
+          </div>
+          <div class="field"><label>Ends on <span class="desc">— optional for normal · a flash switches off on this date</span></label>
+            <input type="date" id="flash-date">
           </div>
           </div>
 <div class="fcard"><div class="fsect">Extra conditions <span style="text-transform:none;font-weight:500">· optional</span></div>
           <div class="field">
             <div id="mods"></div>
             <div class="note empty" id="mods-empty" style="margin-top:0">None — everyone who matches gets the full incentive.</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-              <button class="add-row" style="width:auto" onclick="addMod('gate')">+ gate — a condition they must meet</button>
-              <button class="add-row" style="width:auto" onclick="addMod('scaler')">+ scaler — pay more or less</button>
+            <div class="msdd" id="mod-add" style="margin-top:10px;max-width:340px">
+              <button type="button" class="msdd-btn" onclick="this.parentElement.classList.toggle('open')"><span>＋ Add a condition</span><span style="color:var(--muted-2)">▾</span></button>
+              <div class="msdd-menu">
+                <div class="mm-t">Gates — they must meet this</div>
+                <button type="button" class="mm-i" onclick="addModPick('gate','At least 10 new customers in the month')">At least 10 new customers in the month</button>
+                <button type="button" class="mm-i" onclick="addModPick('gate','At least 5 loans in the month')">At least 5 loans in the month</button>
+                <button type="button" class="mm-i" onclick="addModPick('gate','More than 90% of the month\'s customers are new')">More than 90% of the month's customers are new</button>
+                <button type="button" class="mm-i" onclick="addModPick('gate','Fraud check — loan not in a family member\'s name')">Fraud check — loan not in a family member's name</button>
+                <div class="mm-t">Scalers — pay more or less</div>
+                <button type="button" class="mm-i" onclick="addModPick('scale','Pay by loan value band — full / 70% / half (LTV)')">Pay by loan value band — full / 70% / half (LTV)</button>
+                <button type="button" class="mm-i" onclick="addModPick('scale','Adjust by loan tenure')">Adjust by loan tenure</button>
+              </div>
             </div>
           </div>
           </div>
@@ -1328,7 +1344,8 @@ function updateSums(){
 }
 function setRuleType(rt){
   document.querySelectorAll('#f-ruletype button').forEach(b=>b.classList.toggle('on',b.dataset.rt===rt));
-  document.getElementById('s-ends').style.display = rt==='flash'?'inline-flex':'none';
+  const e=document.getElementById('flash-date');
+  if(rt==='flash' && !e.value) e.value='2026-08-31';
   updatePreview();
 }
 function basisChanged(){
@@ -1502,11 +1519,13 @@ function buildSummary(){
     ['Does what', (ev?ev.textContent:'—')+' · '+(lo?lo.textContent:'')+' loan', ''],
     ['Given as', document.getElementById('f-sched').value, ''],
     ['Kind of pay', EVENT_CAT[event]||'—', ''],
-    ['Type', flash?'Flash — ends '+fmtDate(document.getElementById('flash-date').value):'Normal', ''],
+    ['Type', flash?'Flash':'Normal', ''],
     ['Extra conditions', mods? mods+' added':'None', ''],
     ['Cities', cl2.length? cl2.join(', ') : 'All cities', ''],
     ['Starts', fmtDate(document.getElementById('f-start').value), '']
   ];
+  const endv2=document.getElementById('flash-date').value;
+  if(endv2) rows.push(['Ends', fmtDate(endv2), '']);
   const fhtml='<div class="bill">'+rows.map(t=>'<div class="bill-row '+t[2]+'"><span class="k">'+t[0]+'</span><span class="v">'+t[1]+'</span></div>').join('')+'</div>';
   ['rv-facts','ck-facts'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=fhtml; });
 }
@@ -1536,7 +1555,9 @@ function updatePreview(){
     let s='For <em>'+roleList(true)+'</em>, when they <em>'+(EVENT_TEXT[event]||'work')+' '+(LOAN_TEXT[loan]||'a loan')+cityText()+'</em>, pay <em>'+payText()+'</em>';
     if(mods) s+=', adjusted by <em>'+mods+' modifier'+(mods>1?'s':'')+'</em>';
     s+=', given as <em>'+sched.toLowerCase()+'</em>';
-    if(flash){ const d=document.getElementById('flash-date'); s+=' <em>(flash — additive over the base'+(d&&d.value?', expires '+d.value:'')+')</em>'; }
+    const endv=document.getElementById('flash-date').value;
+    if(endv) s+=', until <em>'+fmtDate(endv)+'</em>';
+    if(flash) s+=' <em>(flash — extra on top of normal pay)</em>';
     s+='.';
     sent.innerHTML=s;
   }
@@ -1581,9 +1602,11 @@ function validate(){
     if(!(v>0)) errs.push('The rate must be more than 0%');
     else if(v>2 && !document.getElementById('f-basis').value.includes('count')) warns.push('A rate above 2% is far outside the Incentive Structure — double-check it');
   }
-  if(document.querySelector('#f-ruletype button.on').dataset.rt==='flash'){
-    const s=document.getElementById('f-start').value, e=document.getElementById('flash-date').value;
-    if(s&&e&&e<=s) errs.push('A flash expiry must be after the effective-from date');
+  {
+    const st=document.getElementById('f-start').value, en=document.getElementById('flash-date').value;
+    const isFlash=document.querySelector('#f-ruletype button.on').dataset.rt==='flash';
+    if(isFlash && !en) errs.push('A flash needs an end date');
+    if(en && st && en<=st) errs.push('The end date must be after the start date');
   }
   return {errs:[...new Set(errs)], warns:[...new Set(warns)]};
 }
@@ -1621,8 +1644,8 @@ function loadRule(o){
   if(o.start) document.getElementById('f-start').value=o.start;
   document.querySelectorAll('#f-city .cty').forEach(b=>b.checked = (o.cities&&o.cities.length)? o.cities.includes(b.dataset.val) : b.dataset.val==='all');
   const _c=cityList(); document.getElementById('city-btn-label').textContent=_c.length?(_c.length>3?_c.length+' cities':_c.join(', ')):'All cities';
+  document.getElementById('flash-date').value=o.end||'';
   setRuleType(o.flash?'flash':'standard');
-  if(o.flash && o.end) document.getElementById('flash-date').value=o.end;
   applyAutofill();
   if(o.mode) setRateMode(o.mode);
   if(o.sched) document.getElementById('f-sched').value=o.sched;
@@ -1762,6 +1785,14 @@ function addMod(kind,silent,auto){
   if(!silent) toast(kind==='gate'?'Gate added — it switches the incentive on or off, never the amount':'Scaler added — it multiplies the computed payout');
   updatePreview();
 }
+function addModPick(kind,label){
+  document.getElementById('mods-empty').style.display='none';
+  const row=document.createElement('div'); row.className='modrow';
+  row.innerHTML='<span class="mtag '+kind+'">'+(kind==='gate'?'Gate':'Scale')+'</span><span style="flex:1;font-size:13px;font-weight:600">'+label+'</span><button class="x" onclick="rmMod(this)" title="Remove">✕</button>';
+  document.getElementById('mods').appendChild(row);
+  document.getElementById('mod-add').classList.remove('open');
+  updatePreview();
+}
 function rmMod(btn){ btn.closest('.modrow').remove(); if(!document.querySelector('#mods .modrow')) document.getElementById('mods-empty').style.display='flex'; updatePreview(); }
 
 function resetForm(){
@@ -1774,6 +1805,7 @@ function resetForm(){
   basisChanged();
   document.getElementById('f-sched').selectedIndex=0;
   document.getElementById('s-rate').value='';
+  document.getElementById('flash-date').value='';
   document.querySelectorAll('#f-city .cty').forEach(b=>b.checked = b.dataset.val==='all');
   document.getElementById('city-btn-label').textContent='All cities';
   document.getElementById('mods').innerHTML='';
