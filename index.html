@@ -234,6 +234,9 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--indigo);
 .amt-wrap .rupee{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--muted);display:none;pointer-events:none}
 .amt-wrap.money .rupee{display:block}
 .amt-wrap.money input{padding-left:26px}
+.tip{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;background:var(--card-2);border:1px solid var(--line-2);color:var(--muted);font-size:9.5px;font-weight:800;cursor:help;position:relative;text-transform:none}
+.tip:hover{border-color:var(--indigo);color:var(--indigo-2)}
+.tip:hover::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 8px);background:var(--ink);color:#fff;font-size:11.5px;font-weight:500;letter-spacing:0;padding:8px 11px;border-radius:9px;width:max-content;max-width:250px;white-space:normal;line-height:1.45;z-index:80;text-align:left;box-shadow:var(--shadow-pop)}
 .pchip{padding:7px 13px;font-size:12.5px}
 .field{margin-bottom:15px}
 .dates{display:flex;gap:10px}
@@ -721,7 +724,7 @@ textarea{resize:vertical;min-height:88px}
           <div class="field"><label>Incentive name</label>
             <input type="text" id="f-name" placeholder="e.g. SP self-source · Fresh · 0.35%" maxlength="60">
           </div>
-          <div class="field"><label>Who gets paid <span class="desc">— one role per incentive</span></label>
+          <div class="field"><label>Who gets paid <span class="tip" data-tip="One role per incentive — if two people earn on a loan, that is two incentives firing.">?</span></label>
             <select id="f-role">
               <option value="SP">Sales Partner (SP)</option>
               <option value="AP">Appraisal Partner (AP)</option>
@@ -753,7 +756,7 @@ textarea{resize:vertical;min-height:88px}
               <option value="attached">Attached</option>
             </select>
           </div>
-          <div class="field"><label>Cities <span class="desc">— pick one or more</span></label>
+          <div class="field"><label>Cities <span class="tip" data-tip="Pick one or more. All cities means everywhere.">?</span></label>
             <div class="msdd" id="f-city">
               <button type="button" class="msdd-btn" onclick="this.parentElement.classList.toggle('open')"><span id="city-btn-label">All cities</span><span style="color:var(--muted-2)">▾</span></button>
               <div class="msdd-menu">
@@ -770,7 +773,7 @@ textarea{resize:vertical;min-height:88px}
           </div>
           </div>
 <div class="fcard"><div class="fsect">The pay</div>
-          <div class="field"><label>Pay is calculated on <span class="desc">— what the pay is a share of</span></label>
+          <div class="field"><label>Pay is calculated on <span class="tip" id="basis-tip" data-tip="The partner gets a % of each loan amount.">?</span></label>
             <select id="f-basis" onchange="basisChanged()">
               <option>The loan amount</option>
               <option>Loan count — this month</option>
@@ -779,9 +782,8 @@ textarea{resize:vertical;min-height:88px}
               <option>Net conversions — monthly</option>
               <option disabled>Company profit (after v1)</option>
             </select>
-            <div class="minihint" id="basis-help" style="margin-top:7px">The partner gets a % of each loan's amount.</div>
           </div>
-          <div class="field"><label>How much <span class="desc">— same rate for all, or higher rate at higher levels</span></label>
+          <div class="field"><label>How much <span class="tip" data-tip="Same rate for everyone — or slabs, where doing more earns a higher rate.">?</span></label>
             <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
               <div class="seg seg-sm" id="rate-mode">
                 <button class="on" data-m="flat" onclick="setRateMode('flat')">Same rate</button>
@@ -796,7 +798,7 @@ textarea{resize:vertical;min-height:88px}
             <div style="overflow-x:auto"><table class="slab-table" id="slab-table"><thead id="slab-head"></thead><tbody id="slab-body"></tbody></table></div>
             <button class="add-row" onclick="addSlab()" style="margin-top:10px;width:auto">+ Add a slab row</button>
           </div>
-          <div class="field"><label>Paid out as <span class="desc">— in how many parts</span></label>
+          <div class="field"><label>Paid out as <span class="tip" data-tip="In how many parts the money reaches them.">?</span></label>
             <select id="f-sched">
               <option>Half next month + half the month after</option>
               <option>Full amount next month</option>
@@ -805,7 +807,7 @@ textarea{resize:vertical;min-height:88px}
               <option>Every 3 months</option>
             </select>
           </div>
-          <div class="field"><label>Take-back <span class="desc">— if the loan closes very early</span></label>
+          <div class="field"><label>Take-back <span class="tip" data-tip="If the customer closes the loan very early, the pay (bonus included) is taken back.">?</span></label>
             <select id="f-claw">
               <option>Closed within 60 days → all of it</option>
               <option>Closed within 60 days → part of it</option>
@@ -815,7 +817,7 @@ textarea{resize:vertical;min-height:88px}
           </div>
           </div>
 <div class="fcard"><div class="fsect">When</div>
-          <div class="field"><label>Type <span class="desc">— flash = short extra on top, ends on its own</span></label>
+          <div class="field"><label>Type <span class="tip" data-tip="Flash = a short-time extra on top of normal pay; it switches off on its end date.">?</span></label>
             <div class="seg seg-sm" id="f-ruletype">
               <button class="on" data-rt="standard" onclick="setRuleType('standard')">Normal</button>
               <button data-rt="flash" onclick="setRuleType('flash')">Flash</button>
@@ -824,7 +826,7 @@ textarea{resize:vertical;min-height:88px}
           <div class="field"><label>Starts from</label>
             <input type="date" id="f-start" value="2026-08-01">
           </div>
-          <div class="field"><label>Ends on <span class="desc">— optional for normal · a flash switches off on this date</span></label>
+          <div class="field"><label>Ends on <span class="tip" data-tip="Optional for a normal incentive (a retirement date). A flash switches off on this date.">?</span></label>
             <input type="date" id="flash-date">
           </div>
           </div>
@@ -1356,13 +1358,13 @@ function setRuleType(rt){
 function basisChanged(){
   const b=document.getElementById('f-basis').value;
   const wrap=document.getElementById('amt-wrap'), suf=document.getElementById('unit-suf');
-  const help=document.getElementById('basis-help');
+  const help=document.getElementById('basis-tip');
   if(b.includes('count')){
     wrap.classList.add('money'); suf.textContent='each'; setRateMode('flat');
-    if(help) help.textContent='The partner gets a fixed ₹ amount for each one.';
+    if(help) help.dataset.tip='The partner gets a fixed ₹ amount for each one.';
   } else if(b.includes('A2NU')||b.includes('conversions')){
     wrap.classList.remove('money'); suf.textContent='%'; setRateMode('slab');
-    if(help) help.textContent='The monthly total decides which slab row applies — set the rows below.';
+    if(help) help.dataset.tip='The monthly total decides which slab row applies — set the rows below.';
   } else {
     wrap.classList.remove('money'); suf.textContent='%';
     if(help) help.textContent="The partner gets a % of each loan's amount.";
