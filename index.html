@@ -616,6 +616,25 @@ textarea{resize:vertical;min-height:88px}
 .bnr-amt{font-size:15px;font-weight:800;background:rgba(255,255,255,.18);border-radius:99px;padding:5px 11px;white-space:nowrap}
 .bnr-title{font-size:16px;font-weight:800;margin-top:5px;line-height:1.15}
 .bnr-sub{font-size:12px;font-weight:500;opacity:.9;margin-top:4px;line-height:1.45}
+/* slab level ladder */
+.ladder{display:flex;align-items:flex-start;justify-content:space-between}
+.lad-step{display:flex;flex-direction:column;align-items:center;gap:3px;flex:none;width:62px;text-align:center}
+.lad-dot{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;background:#E4EAF4;color:#8A94A6}
+.lad-step.done .lad-dot{background:linear-gradient(135deg,#FFD68A,#F5A623);color:#7A4A00}
+.lad-step.here .lad-dot{background:linear-gradient(135deg,#2F6BFF,#1D4FD7);color:#fff;box-shadow:0 0 0 4px rgba(47,107,255,.18)}
+.lad-lv{font-size:10px;font-weight:800;color:#334155}
+.lad-rate{font-size:12.5px;font-weight:800;color:#0B1220}
+.lad-step.locked .lad-lv,.lad-step.locked .lad-rate{color:#9AA4B2}
+.lad-bar{flex:1;height:4px;border-radius:99px;background:#E4EAF4;margin-top:16px}
+.lad-bar.done{background:linear-gradient(90deg,#FFD68A,#F5A623)}
+.lad-detail{margin-top:16px;border-top:1px solid #F0F3F8}
+.lad-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #F0F3F8;font-size:12px}
+.lad-row:last-child{border-bottom:none}
+.lad-row .lr-lv{font-weight:800;color:#0B1220;width:52px;flex:none}
+.lad-row .lr-mid{flex:1;color:#5B6472;font-weight:500}
+.lad-row .lr-amt{font-weight:800;color:#0B1220;white-space:nowrap}
+.lad-row.here{background:rgba(47,107,255,.06);border-radius:8px;margin:0 -8px;padding:9px 8px}
+.lad-row.locked .lr-lv,.lad-row.locked .lr-mid,.lad-row.locked .lr-amt{color:#9AA4B2}
 .px-kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #F0F3F8;font-size:13px}
 .px-kv:last-child{border-bottom:none}
 .px-kv .k{color:#64748B;font-weight:600}
@@ -2333,13 +2352,13 @@ const PX_CATS={
  funnel:{
   title:'New customers · slab', sub:'July 2026 · 41 new customers',
   amt:'4,125', note:'Counted every time you bring a brand-new customer — the slab you\'re in decides what each one pays',
-  prog:{pct:67,left:'<b>41 done</b> · in slab 2',right:'next slab at 61 → ₹150 each'},
+  prog:{pct:67,left:'<b>Level 2</b> · 41 customers',right:'19 more → Level 3 · ₹150 each'},
   pay:{how:'Paid in full the next month — new-customer counts settle at month close',sched:[{t:'Coming to you · 05 Aug',a:'₹4,125'}]},
-  slabs:[
-   {t:'Slab 1 · customers 1–40',m:'₹100 each · 40 done',c:['green','filled'],a:'₹4,000'},
-   {t:'Slab 2 · customers 41–60',m:'₹125 each · 1 so far',c:['blue','you are here'],a:'₹125'},
-   {t:'Slab 3 · 61 and above',m:'₹150 each · 20 more to reach it',c:['grey','next'],a:'—'}
-  ],
+  ladder:{note:'The more new customers you bring in a month, the higher each one pays.',steps:[
+   {lv:1,rate:'₹100',range:'customers 1–40',state:'done',sub:'40 done',a:'₹4,000'},
+   {lv:2,rate:'₹125',range:'customers 41–60',state:'here',sub:'1 so far · 19 more to Level 3',a:'₹125'},
+   {lv:3,rate:'₹150',range:'61 and above',state:'locked',sub:'higher rate',a:'—'}
+  ]},
   rows:[
    {t:'Customer · R. Meena',m:'today · your 41st — first at the ₹125 rate',c:['blue','slab 2 · ₹125'],a:'₹125'},
    {t:'Customer · S. Kumar',m:'11 Jul · your 40th — filled slab 1',c:['green','slab 1 · ₹100'],a:'₹100'},
@@ -2366,6 +2385,17 @@ const PX_CATS={
 };
 let CUR_CAT='sourcing';
 function openInc(k){ if(PX_CATS[k]) CUR_CAT=k; show('b-inc'); }
+function slabLadder(steps){
+  const dot=s=>s.state==='done'?'✓':s.lv;
+  let html='<div class="ladder">';
+  steps.forEach((s,i)=>{
+    if(i>0) html+='<div class="lad-bar '+(steps[i-1].state==='done'?'done':'')+'"></div>';
+    html+='<div class="lad-step '+s.state+'"><div class="lad-dot">'+dot(s)+'</div><div class="lad-lv">Level '+s.lv+'</div><div class="lad-rate">'+s.rate+'</div></div>';
+  });
+  html+='</div>';
+  html+='<div class="lad-detail">'+steps.map(s=>'<div class="lad-row '+s.state+'"><span class="lr-lv">Level '+s.lv+'</span><span class="lr-mid">'+s.range+' · '+s.sub+'</span><span class="lr-amt">'+s.a+'</span></div>').join('')+'</div>';
+  return html;
+}
 function renderIncDetail(){
   const c=PX_CATS[CUR_CAT]; if(!c) return;
   document.getElementById('inc-title').textContent=c.title;
@@ -2377,9 +2407,9 @@ function renderIncDetail(){
    +(c.prog?'<div class="px-track"><div class="px-fill" style="width:'+c.prog.pct+'%"></div></div><div class="px-caps"><span>'+c.prog.left+'</span><span>'+c.prog.right+'</span></div>':'')
    +'</div>';
   if(c.pay) h+='<div class="px-card"><div class="px-label">How &amp; when you get paid</div><hr class="px-div"><div class="px-note12" style="margin:2px 0 8px">'+c.pay.how+'</div>'+c.pay.sched.map(x=>'<div class="px-row"><div class="main"><div class="t">'+x.t+'</div></div><div class="amt">'+x.a+'</div></div>').join('')+'</div>';
-  if(c.slabs) h+='<div class="px-card"><div class="px-label">Slab by slab — where you are</div><hr class="px-div">'+c.slabs.map(row).join('')+'</div>';
+  if(c.ladder) h+='<div class="px-card"><div class="px-label">Your level — higher levels pay more</div><hr class="px-div"><div class="px-note12" style="margin:2px 0 14px">'+c.ladder.note+'</div>'+slabLadder(c.ladder.steps)+'</div>';
   if(c.gatenote) h+='<div class="px-card" style="background:linear-gradient(150deg,#FFF7E8,#fff)"><div class="px-label" style="color:#B45309">Waiting to unlock</div><hr class="px-div"><div class="px-note12" style="padding:4px 0">'+c.gatenote+'</div></div>';
-  h+='<div class="px-card"><div class="px-label">'+(c.slabs?'Counted this month':'Loans in this incentive · July')+'</div><hr class="px-div">'+c.rows.map(row).join('')+(c.more?'<div class="px-more">'+c.more+'</div>':'')+'</div>';
+  h+='<div class="px-card"><div class="px-label">'+(c.ladder?'Counted this month':'Loans in this incentive · July')+'</div><hr class="px-div">'+c.rows.map(row).join('')+(c.more?'<div class="px-more">'+c.more+'</div>':'')+'</div>';
   h+='<div class="px-card"><div class="px-label">Your rate — every change, dated, with the reason</div><hr class="px-div">'+c.hist.map(x=>'<div class="px-row"><div class="main"><div class="t">'+x.t+'</div><div class="m">'+x.d+' · '+x.m+'</div><span class="px-chip '+x.c[0]+'">'+x.c[1]+'</span></div></div>').join('')+'</div>';
   h+='<div class="px-note12" style="padding:0 4px">A change never touches a loan you already earned — <b>every loan keeps the rate that was live on its own date</b>.</div>';
   document.getElementById('inc-body').innerHTML=h;
