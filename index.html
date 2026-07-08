@@ -607,7 +607,7 @@ textarea{resize:vertical;min-height:88px}
             <button class="btn primary" data-goto="a-form" data-fresh="1">+ Create an incentive</button>
           </div>
           <table class="rule-table">
-            <thead><tr><th>Incentive</th><th>Category</th><th>Payee</th><th>Status</th><th>Ver</th><th>Effective</th><th>Pays</th><th></th></tr></thead>
+            <thead><tr><th>Incentive</th><th>Category</th><th>Payee</th><th>Status</th><th>Effective</th><th>Pays</th><th></th></tr></thead>
             <tbody id="rules-body"></tbody>
           </table>
         </div>
@@ -1692,11 +1692,10 @@ function renderRulesTable(){
     return '<tr class="rule-row" data-open="'+r.id+'"><td class="rule-name">'+r.name+'</td>'+
       '<td class="rule-cat">'+r.cat+flash+'</td><td>'+rolesText(r.roles)+'</td>'+
       '<td><span class="pill '+sp[0]+'">'+sp[1]+'</span></td>'+
-      '<td class="mono">'+(r.ver||'v1')+'</td>'+
       '<td class="mono">'+(r.start?fmtDate(r.start):'—')+'</td>'+
       '<td class="rate-sum">'+r.pay+'</td>'+
       '<td><button class="row-edit" data-open="'+r.id+'" data-stop>'+label+'</button></td></tr>';
-  }).join('') : '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:28px">No rules match these filters.</td></tr>';
+  }).join('') : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:28px">No rules match these filters.</td></tr>';
 }
 function openRule(id,btn){
   const r=RULES.find(x=>x.id===id); if(!r) return;
