@@ -804,6 +804,71 @@ textarea{resize:vertical;min-height:88px}
       <div class="create-grid">
       <div class="fstack">
 
+        <div class="fcard sent-card"><div class="fsect">✨ Configure as a sentence</div>
+          <div class="sent-build">
+            Pay
+            <select class="sent-pick" id="s-role" onchange="sentSet('role')">
+              <optgroup label="A team — each earns their own">
+                <option value="SP">Sales Partners</option>
+                <option value="AP">Appraisal Partners</option>
+                <option value="Caller">Callers</option>
+                <option value="Collection Partner">Collection Partners</option>
+                <option value="Internal DB">the Internal DB team</option>
+                <option value="Business Partner">Business Partners</option>
+                <option value="TPF">TPF partners</option>
+              </optgroup>
+              <optgroup label="A manager — combined team">
+                <option value="mgr:City Lead">a City Lead's team</option>
+                <option value="mgr:Digital Manager">a Digital Manager's team</option>
+                <option value="mgr:Area Territory Manager">an Area Manager's team</option>
+                <option value="mgr:Cluster Head">a Cluster Head's team</option>
+              </optgroup>
+            </select>
+            <input class="sent-num" id="s-rate" type="number" step="0.01" min="0" value="0.35" oninput="sentSet('rate')"><select class="sent-pick" id="s-unit" onchange="sentSet('unit')"><option value="pct">%</option><option value="amt">₹</option></select>
+            for
+            <select class="sent-pick" id="s-metric" onchange="sentSet('metric')">
+              <option value="loan-count">loan count</option>
+              <option value="loan-value">loan value</option>
+              <option value="appt-count">appointment count</option>
+              <option value="a2nu">A2NU %</option>
+              <option value="new-cust">new customer count</option>
+              <option value="offer">offer creation</option>
+              <option value="attendance">attendance</option>
+              <option value="renewal">renewal count</option>
+            </select>
+            in
+            <select class="sent-pick" id="s-city" onchange="sentSet('city')">
+              <option value="all">all cities</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Madurai">Madurai</option>
+              <option value="Coimbatore">Coimbatore</option>
+              <option value="Trichy">Trichy</option>
+              <option value="Salem">Salem</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Bengaluru">Bengaluru</option>
+            </select>,
+            measured
+            <select class="sent-pick" id="s-dur" onchange="sentSet('dur')">
+              <option value="Weekly">weekly</option>
+              <option value="Monthly" selected>monthly</option>
+              <option value="Once every 2 months">every 2 months</option>
+              <option value="Once every 3 months">every 3 months</option>
+              <option value="Once every 6 months">every 6 months</option>
+              <option value="Yearly">yearly</option>
+            </select>,
+            paid
+            <select class="sent-pick" id="s-sched" onchange="sentSet('sched')">
+              <option value="Same month">same month</option>
+              <option value="50% now + 50% next month" selected>50% now + 50% next month</option>
+              <option value="Every 2 months">every 2 months</option>
+              <option value="Every 3 months">every 3 months</option>
+              <option value="Every 6 months">every 6 months</option>
+            </select>.
+          </div>
+          <div class="agent-hint">Tap any highlighted word to set it — the form below fills in to match. Team roles, territories, dates, take-back and conditions live in the form.</div>
+        </div>
+
+
         <div class="fcard"><div class="fsect">Incentive details</div>
           <div class="field"><label>Incentive name</label>
             <input type="text" id="f-name" placeholder="Incentive 1" maxlength="60">
@@ -2614,7 +2679,7 @@ function whoText(){
 }
 function scopeText(){ const cl=cityList(), tl=terrList(); let s=cl.length?cl.join(', '):'all cities'; if(tl.length) s+=' · '+tl.join(', '); return s; }
 function previewSentence(){ const m=metricVal(); return 'Pay <em>'+whoText()+'</em> in <em>'+scopeText()+'</em> <em>'+payText()+'</em> for <em>'+(METRIC_LABEL[m]||'work')+'</em>, measured <em>'+durationVal().toLowerCase()+'</em>, paid <em>'+schedVal().toLowerCase()+'</em>.'; }
-function updatePreview(){ const sent=document.getElementById('preview-sentence'); if(sent) sent.innerHTML=previewSentence(); ratePreview(); runValidation(); }
+function updatePreview(){ const sent=document.getElementById('preview-sentence'); if(sent) sent.innerHTML=previewSentence(); ratePreview(); runValidation(); if(!document.activeElement||!document.activeElement.closest('.sent-build')) syncSentence(); }
 function validate(){
   const errs=[];
   if(!document.getElementById('f-name').value.trim()) errs.push('Give the incentive a name');
@@ -2719,7 +2784,32 @@ function resetForm(){
   const en=document.getElementById('f-end'); if(en) en.value='';
   initSlabs(); updatePreview();
 }
-function sentSet(){} function syncSentence(){} function renderRoleMode(){}
+function sentSet(f){
+  const g=id=>document.getElementById(id);
+  if(f==='role'){ const v=g('s-role').value;
+    if(v.indexOf('mgr:')===0){ setIncTo('manager'); g('f-mgr').value=v.slice(4); }
+    else { setIncTo('team'); document.querySelectorAll('#f-roles .rl').forEach(b=>b.checked=(b.dataset.val===v)); rolesChange(); }
+  }
+  else if(f==='rate'){ const inp=document.querySelector('#slab-body .s-pay'); if(inp) inp.value=g('s-rate').value; }
+  else if(f==='unit'){ setUnitMode(g('s-unit').value); }
+  else if(f==='metric'){ g('f-metric').value=g('s-metric').value; metricChanged(); }
+  else if(f==='city'){ const v=g('s-city').value; document.querySelectorAll('#f-city .cty').forEach(c=>c.checked=(v==='all'?c.dataset.val==='all':c.dataset.val===v)); const _c=cityList(); g('city-btn-label').textContent=_c.length?(_c.length>3?_c.length+' cities':_c.join(', ')):'All cities'; renderTerritories(); }
+  else if(f==='dur'){ g('f-duration').value=g('s-dur').value; }
+  else if(f==='sched'){ g('f-sched').value=g('s-sched').value; }
+  updatePreview();
+}
+function syncSentence(){
+  const g=id=>document.getElementById(id); if(!g('s-role')) return;
+  const ae=document.activeElement, put=(id,v)=>{ const el=g(id); if(el&&el!==ae) el.value=v; };
+  put('s-role', incToVal()==='manager' ? 'mgr:'+mgrRole() : (teamRoles()[0]||'SP'));
+  const inp=document.querySelector('#slab-body .s-pay'); if(inp&&inp.value!=='') put('s-rate',inp.value);
+  put('s-unit', isMoney()?'amt':'pct');
+  put('s-metric', metricVal());
+  const cl=cityList(); put('s-city', cl.length===1?cl[0]:'all');
+  put('s-dur', durationVal());
+  put('s-sched', schedVal());
+}
+function renderRoleMode(){}
 /* ================================================================================= */
 
 ['change','input'].forEach(ev=>document.getElementById('a-form').addEventListener(ev, updatePreview));
