@@ -958,12 +958,12 @@ textarea{resize:vertical;min-height:88px}
           <div class="field fld-block"><div style="width:100%">
             <span class="inlbl">Take back <span class="tip" data-tip="If the loan closes within this many days, some or all of the pay is taken back.">?</span></span>
             <div style="display:flex;align-items:center;gap:9px;margin-top:6px;flex-wrap:wrap;font-size:15px;font-weight:600">
-              <span>If the loan closes within <input type="number" id="claw-days" value="60" min="1" class="mod-n" style="width:64px"> days →</span>
-              <select id="f-claw" onchange="updatePreview()" style="width:auto;border:none;background:transparent;padding:4px 0;font-size:15px;font-weight:700;color:var(--indigo-2)">
+              <span style="white-space:nowrap">If the loan closes within <input type="number" id="claw-days" value="60" min="1" class="mod-n" style="width:64px"> days</span>
+              <span style="display:inline-flex;align-items:center;gap:9px;white-space:nowrap">→ <select id="f-claw" onchange="updatePreview()" style="width:auto;border:none;background:transparent;padding:4px 0;font-size:15px;font-weight:700;color:var(--indigo-2)">
                 <option>never take back</option>
                 <option>take back the full pay</option>
                 <option>take back 50% of the pay</option>
-              </select>
+              </select></span>
             </div>
           </div></div>
         </div>
