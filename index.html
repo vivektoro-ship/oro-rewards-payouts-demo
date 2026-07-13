@@ -2894,10 +2894,21 @@ function validate(){
 function buildSummary(){
   const html='For <em>'+whoText()+'</em> in <em>'+scopeText()+'</em>, pay <em>'+payText()+'</em> for <em>'+(METRIC_LABEL[metricVal()]||'work')+'</em>, paid <em>'+schedVal().toLowerCase()+'</em>'+extraHTML()+'.';
   document.querySelectorAll('#a-review .summary-sentence,#a-checker .summary-sentence').forEach(el=>el.innerHTML=html);
-  const tb=document.getElementById('f-claw'), tbd=document.getElementById('claw-days');
-  const mods=document.querySelectorAll('#mods .modrow').length;
-  const rows=[['Eligible to',whoText()],['Metric',METRIC_LABEL[metricVal()]||'—'],['Payout',payShort()],['City',scopeText()],['Frequency',durationVal()],['Schedule',schedVal()],['Clawback',(tb&&tb.value.startsWith('never'))?'Never':((tb?tb.value:'')+' · within '+((tbd&&tbd.value)||60)+' days')],['Conditions',mods?mods+' added':'None']];
-  const fhtml='<div class="bill">'+rows.map(t=>'<div class="bill-row"><span class="k">'+t[0]+'</span><span class="v">'+t[1]+'</span></div>').join('')+'</div>';
+  const g=id=>document.getElementById(id);
+  const tb=g('f-claw'), tbd=g('claw-days');
+  const conds=condPhrases(); const condV=conds.length?conds.map(c=>c.charAt(0).toUpperCase()+c.slice(1)).join('; '):'None';
+  const startV=fmtDate((g('f-start')||{}).value);
+  const endV=(g('f-end')&&g('f-end').value)?fmtDate(g('f-end').value):'No expiry';
+  const rows=[['Incentive',(g('f-name').value.trim()||'Untitled incentive')],['Eligible to',whoText()],['Metric',METRIC_LABEL[metricVal()]||'—'],['Payout',payShort()]];
+  if(slabCount()>1){
+    [...document.querySelectorAll('#slab-body .slab-r')].forEach((r,i)=>{
+      const from=(r.querySelector('.s-from')||{}).value||'?', toRaw=((r.querySelector('.s-to')||{}).value||'').trim(), pay=(r.querySelector('.s-pay')||{}).value||'?';
+      const band=toRaw?from+'–'+toRaw:from+'+';
+      rows.push(['  Level '+(i+1)+' · '+band, isMoney()?('₹'+pay+' each'):(pay+'% of loan value')]);
+    });
+  }
+  rows.push(['Scope',scopeText()],['Frequency',durationVal()],['Starts',startV],['Expires',endV],['Schedule',schedVal()],['Clawback',(tb&&tb.value.startsWith('never'))?'Never':((tb?tb.value:'')+' · within '+((tbd&&tbd.value)||60)+' days')],['Conditions',condV]);
+  const fhtml='<div class="bill">'+rows.map(t=>{ const sub=t[0].startsWith('  '); return '<div class="bill-row"'+(sub?' style="padding-left:14px"':'')+'><span class="k"'+(sub?' style="font-weight:500;color:var(--muted)"':'')+'>'+t[0].trim()+'</span><span class="v">'+t[1]+'</span></div>'; }).join('')+'</div>';
   ['rv-facts','ck-facts'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=fhtml; });
 }
 function currentRuleObj(){
